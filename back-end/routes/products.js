@@ -2,9 +2,9 @@ const express = require("express");
 const productsModel = require("../models/products");
 const router = express.Router();
 const { MongoClient } = require("mongodb");
-const { doc, setDoc } = require("firebase/firestore");
+// const { doc, setDoc } = require("firebase/firestore");
 const mongo = require("mongodb");
-const db = require("../firebase.setup");
+// const db = require("../firebase.setup");
 
 const client = new MongoClient(process.env.ATLAS_URI);
 
