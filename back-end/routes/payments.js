@@ -19,7 +19,7 @@ const data = {
   REFERENCE: "pgtest_123456789",
   AMOUNT: 1000,
   CURRENCY: "ZAR",
-  RETURN_URL: "https://my.return.url/page",
+  RETURN_URL: "http://localhost:5173",
   TRANSACTION_DATE: new Date().toISOString(),
   LOCALE: "en-za",
   COUNTRY: "ZAF",
