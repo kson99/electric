@@ -2,14 +2,12 @@ const express = require("express");
 const router = express.Router();
 const CryptoJS = require("crypto-js");
 const axios = require("axios");
+const { auth } = require("firebase-admin");
 
 const generateMD5 = (obj, secret = "secret") => {
-  let str = "";
-  for (let val in obj) {
-    str += obj[val];
-  }
+  let str = Object.values(obj).join("") + secret;
 
-  str += secret;
+  console.log(str);
 
   return CryptoJS.MD5(str).toString();
 };
@@ -17,21 +15,29 @@ const generateMD5 = (obj, secret = "secret") => {
 const data = {
   PAYGATE_ID: 10011072130,
   REFERENCE: "pgtest_123456789",
-  AMOUNT: 1000,
+  AMOUNT: 3299,
   CURRENCY: "ZAR",
-  RETURN_URL: "http://localhost:5173",
-  TRANSACTION_DATE: new Date().toISOString(),
+  RETURN_URL: "https://my.return.url/page",
+  TRANSACTION_DATE: new Date().toISOString().replace("T", " ").split(".")[0],
   LOCALE: "en-za",
   COUNTRY: "ZAF",
-  EMAIL: "redgekson@gmail.com",
+  EMAIL: "customer@paygate.co.za",
 };
 
 const CHECKSUM = generateMD5(data);
 data["CHECKSUM"] = CHECKSUM;
 
 router.post("/", async (req, res) => {
-  axios
-    .post("https://secure.paygate.co.za/payweb3/initiate.trans", data)
+  await axios
+    .post("https://secure.paygate.co.za/payweb3/initiate.trans", data, {
+      Headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      auth: {
+        username: 10011072130,
+        password: "secret",
+      },
+    })
     .then((response) => {
       //   console.log("success");
       console.log(data);
