@@ -19,10 +19,7 @@ dataForm.append("REFERENCE", "pgtest_123456789");
 dataForm.append("AMOUNT", 3299);
 dataForm.append("CURRENCY", "ZAR");
 dataForm.append("RETURN_URL", "https://my.return.url/page");
-dataForm.append(
-  "TRANSACTION_DATE",
-  new Date().toISOString().replace("T", " ").split(".")[0]
-);
+dataForm.append("TRANSACTION_DATE", new Date().toISOString());
 dataForm.append("LOCALE", "en-za");
 dataForm.append("COUNTRY", "ZAF");
 dataForm.append("EMAIL", "customer@paygate.co.za");
@@ -33,7 +30,7 @@ const data = {
   AMOUNT: 3299,
   CURRENCY: "ZAR",
   RETURN_URL: "https://my.return.url/page",
-  TRANSACTION_DATE: new Date().toISOString().replace("T", " ").split(".")[0],
+  TRANSACTION_DATE: new Date().toISOString(),
   LOCALE: "en-za",
   COUNTRY: "ZAF",
   EMAIL: "customer@paygate.co.za",
