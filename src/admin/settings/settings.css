@@ -1,0 +1,16 @@
+.settings .settings-list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    margin-top: 30px;
+}
+
+.settings .settings-list select {
+    padding: 10px;
+    width: 100%;
+    background-color: white;
+    color: #252525;
+    border: 1px solid lightgrey;
+    margin-top: 10px;
+    appearance: none;
+}

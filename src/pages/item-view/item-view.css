@@ -1,0 +1,225 @@
+.item-view .iv-cont {
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+}
+
+.item-view .basic-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.item-view .basic-details .images {
+    display: grid;
+    grid-template-columns: .2fr .8fr;
+    column-gap: 20px;
+}
+
+.item-view .basic-details .img-nav {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+
+.item-view .basic-details .img-nav img {
+    border: 1px solid #ddd;
+    height: 100px;
+    object-fit: contain;
+}
+
+.item-view .basic-details #disp-img {
+    height: 500px;
+    object-fit: contain;
+}
+
+
+.item-view .basic-details .details {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.item-view .basic-details .rating-rev {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+}
+
+.item-view .basic-details .category {
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+}
+
+.item-view .basic-details .price {
+    color: red;
+}
+
+.item-view .basic-details .property {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    align-items: center;
+    text-transform: capitalize;
+}
+
+.item-view .basic-details .quantity {
+    display: flex;
+    flex-direction: row;
+    column-gap: 15px;
+}
+
+.item-view .basic-details .quantity-cont {
+    width: 120px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid grey;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.item-view .basic-details .quantity-cont .icon {
+    padding: 10px 5px;
+    cursor: pointer;
+    background-color: #252525;
+    color: white;
+    height: 100%;
+}
+
+.item-view .basic-details .select {
+    width: 120px;
+    border: 1px solid grey;
+    height: 40px;
+    position: relative;
+}
+
+.item-view .basic-details select {
+    appearance: none;
+    outline: none;
+    border: none;
+    height: 100%;
+    width: 100%;
+    padding: 0 5px;
+    background-color: transparent;
+    color: #252525;
+    font-size: 12px;
+}
+
+.item-view .basic-details .select .icon {
+    font-weight: 100;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 11px 5px;
+    background-color: white;
+}
+
+
+
+.item-view .basic-details .buttons {
+    display: flex;
+    flex-direction: row;
+    column-gap: 60px;
+    margin-top: 10px;
+}
+
+.item-view #add-to-cart {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 7px;
+    font-size: 18px;
+    padding: 15px 20px;
+    border: 1px solid red;
+    color: red;
+}
+
+.item-view #add-to-cart:hover {
+    background-color: red;
+    color: white;
+}
+
+.item-view #add-to-cart p,
+#add-to-wishlist p {
+    font-weight: 200;
+    text-transform: uppercase;
+}
+
+.item-view #add-to-wishlist {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: none;
+    column-gap: 7px;
+    font-size: 18px;
+    padding: 10px 0;
+    color: red;
+}
+
+.item-view #add-to-wishlist:hover {
+    border-bottom: 1px solid red;
+    color: red;
+}
+
+.item-view .other-details .tabs {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 50px;
+}
+
+.item-view .tabs .tab {
+    font-weight: 600;
+    padding: 10px;
+    border: 2px solid transparent;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.item-view .tabs .tab:hover {
+    color: red;
+    border-bottom: 2px solid red;
+}
+
+.item-view .content-show {
+    border: 1px solid #ddd;
+    padding: 20px 30px;
+}
+
+.item-view .content-show p {
+    white-space: pre-line;
+    font-weight: 200;
+}
+
+.item-view .related-items {
+    text-align: center;
+}
+
+.item-view .related-items h2 {
+    position: relative;
+    padding: 10px 0;
+}
+
+.item-view .related-items h2:after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 100px;
+    background-color: #252525;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+}
+
+.item-view .related {
+    display: flex;
+    flex-direction: row;
+    padding: 40px 0;
+    column-gap: 50px;
+}

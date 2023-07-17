@@ -1,0 +1,71 @@
+.products-view {
+    min-height: 100vh;
+}
+
+.products-view .pv-cont {
+    padding: 20px;
+}
+
+.products-view .header {
+    font-size: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.products-view .filters {
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+    font-size: 20px;
+}
+
+.products-view .proparty {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 10px;
+    text-transform: capitalize;
+}
+
+.products-view .select {
+    position: relative;
+    display: inline-block;
+    border: 1px solid grey;
+}
+
+.products-view .select::after {
+    content: "\e902";
+    position: absolute;
+    font-family: "flex-icon" !important;
+    right: 7px;
+    font-size: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: -1;
+}
+
+.products-view .select select {
+    border: none;
+    background-color: transparent;
+    color: #252525;
+    outline: none;
+    appearance: none;
+    font-size: 18px;
+    padding: 5px 10px;
+    padding-right: 30px;
+    appearance: none;
+    width: 100%;
+    background-color: transparent;
+}
+
+.products-view .pv-products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 30px;
+    row-gap: 90px;
+    padding-top: 30px;
+    padding-bottom: 70px;
+}

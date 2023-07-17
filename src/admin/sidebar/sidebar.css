@@ -1,0 +1,86 @@
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 300px;
+    height: 100vh;
+    background-color: #252525;
+    color: white;
+    padding: 20px;
+}
+
+.sidebar .header {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 15px;
+    border-bottom: 1px solid grey;
+}
+
+.sidebar .header .icon {
+    font-size: 40px;
+    padding-right: 10px;
+}
+
+.sidebar .header div {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar .header p {
+    font-size: 12px;
+    color: lightgrey;
+}
+
+.sidebar .pages {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    margin-top: 30px;
+}
+
+.sidebar .pages a,
+#logout {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: inherit;
+    transition: .5s all;
+    border: 1px solid transparent;
+}
+
+.sidebar .pages a:hover,
+#logout:hover {
+    /* background-color: aqua !important;
+    color: #252525 !important; */
+    transform: scale(1.05);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.sidebar .pages a .icon,
+#logout .icon {
+    font-size: 20px;
+    margin-right: 7px;
+    margin-top: -5px;
+}
+
+.sidebar .pages a p,
+#logout p {
+    font-size: 19px;
+    font-weight: 400;
+}
+
+#logout {
+    justify-content: space-evenly;
+    width: 100%;
+    border: 1px solid grey;
+}
+
+.sidebar .footer {
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    padding: 15px;
+    width: calc(100% - 40px);
+}

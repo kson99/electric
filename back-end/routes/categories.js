@@ -1,0 +1,69 @@
+const express = require("express");
+const categoriesModel = require("../models/categories");
+const router = express.Router();
+const { MongoClient } = require("mongodb");
+const mongo = require("mongodb");
+
+const client = new MongoClient(process.env.ATLAS_URI);
+
+router.get("/", async (req, res) => {
+  try {
+    const data = await client
+      .db("Electric-E-commerse")
+      .collection("categories")
+      .find()
+      .toArray();
+
+    res.send(data);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.post("/upload", async (req, res) => {
+  const { name, parent, properties } = req.body;
+  const categories = new categoriesModel({ name, parent, properties });
+
+  try {
+    await categories.save();
+    res.send(200);
+  } catch (error) {
+    console.log(err);
+  }
+});
+
+router.put("/update", async (req, res) => {
+  const { name, parent, properties, id } = req.body;
+  const query = { _id: new mongo.ObjectId(id) };
+
+  try {
+    const result = await client
+      .db("Electric-E-commerse")
+      .collection("categories")
+      .updateOne(query, { $set: { name, parent, properties } });
+
+    console.log(result);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.delete("/delete", async (req, res) => {
+  const { id } = req.body;
+  const query = { _id: new mongo.ObjectId(id) };
+
+  try {
+    const result = await client
+      .db("Electric-E-commerse")
+      .collection("categories")
+      .deleteOne(query);
+
+    console.log(result);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+module.exports = router;

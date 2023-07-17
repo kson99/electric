@@ -1,0 +1,8 @@
+.search-results {
+    min-height: 100vh;
+}
+
+.search-results .sr-cont {
+    display: flex;
+    padding: 20px;
+}
