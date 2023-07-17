@@ -12,53 +12,26 @@ const generateMD5 = (obj, secret = "secret") => {
   return CryptoJS.MD5(str).toString();
 };
 
-const dataForm = new FormData();
-
-dataForm.append("PAYGATE_ID", 10011072130);
-dataForm.append("REFERENCE", "pgtest_123456789");
-dataForm.append("AMOUNT", 3299);
-dataForm.append("CURRENCY", "ZAR");
-dataForm.append("RETURN_URL", "https://my.return.url/page");
-dataForm.append("TRANSACTION_DATE", new Date().toISOString());
-dataForm.append("LOCALE", "en-za");
-dataForm.append("COUNTRY", "ZAF");
-dataForm.append("EMAIL", "customer@paygate.co.za");
-
-const data = {
-  PAYGATE_ID: 10011072130,
-  REFERENCE: "pgtest_123456789",
-  AMOUNT: 3299,
-  CURRENCY: "ZAR",
-  RETURN_URL: "https://my.return.url/page",
-  TRANSACTION_DATE: new Date().toISOString(),
-  LOCALE: "en-za",
-  COUNTRY: "ZAF",
-  EMAIL: "customer@paygate.co.za",
-};
-
-const CHECKSUM = generateMD5(data);
-// data["CHECKSUM"] = CHECKSUM;
-dataForm.append("CHECKSUM", CHECKSUM);
-
 router.post("/", async (req, res) => {
+  let data = {
+    PAYGATE_ID: 10011072130,
+    REFERENCE: "pgtest_",
+    AMOUNT: 1000,
+    CURRENCY: "ZAR",
+    RETURN_URL: "https://my.return.url/page",
+    TRANSACTION_DATE: "2020-01-01 12:00:00",
+    LOCALE: "en-za",
+    COUNTRY: "ZAF",
+    EMAIL: "customer@paygate.co.za",
+    CHECKSUM: "70d374e4b18222ba814e30c4661c16eb",
+  };
+
   await axios
-    .post(
-      "https://secure.paygate.co.za/payweb3/initiate.trans",
-      { data: dataForm },
-      {
-        Headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      }
-    )
-    .then((response) => {
-      //   console.log("success");
-      console.log(data);
-      res.send(response.data);
+    .post("https://secure.paygate.co.za/payweb3/initiate.trans", { ...data })
+    .then((resp) => {
+      res.send(resp.data);
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => console.log(err));
 });
 
 module.exports = router;

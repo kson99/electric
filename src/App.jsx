@@ -21,6 +21,7 @@ import Search from "./pages/search/search";
 export const appContext = createContext();
 
 function App() {
+  const url = "https://byzantium-scorpion-cap.cyclic.app";
   const [isAdmin, setIsAdmin] = useState(false);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -37,17 +38,13 @@ function App() {
   };
 
   const getData = async () => {
-    await axios
-      .get("https://byzantium-scorpion-cap.cyclic.app/products")
-      .then((res) => {
-        setProducts(res.data);
-      });
+    await axios.get(url + "/products").then((res) => {
+      setProducts(res.data);
+    });
 
-    await axios
-      .get("https://byzantium-scorpion-cap.cyclic.app/categories")
-      .then((res) => {
-        setCategories(res.data);
-      });
+    await axios.get(url + "/categories").then((res) => {
+      setCategories(res.data);
+    });
 
     setCartProducts((prev) => {
       const array = JSON.parse(localStorage.getItem("cart")) || [];
