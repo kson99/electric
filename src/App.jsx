@@ -37,13 +37,17 @@ function App() {
   };
 
   const getData = async () => {
-    await axios.get("http://localhost:3001/products").then((res) => {
-      setProducts(res.data);
-    });
+    await axios
+      .get("https://byzantium-scorpion-cap.cyclic.app/products")
+      .then((res) => {
+        setProducts(res.data);
+      });
 
-    await axios.get("http://localhost:3001/categories").then((res) => {
-      setCategories(res.data);
-    });
+    await axios
+      .get("https://byzantium-scorpion-cap.cyclic.app/categories")
+      .then((res) => {
+        setCategories(res.data);
+      });
 
     setCartProducts((prev) => {
       const array = JSON.parse(localStorage.getItem("cart")) || [];
