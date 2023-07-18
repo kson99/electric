@@ -3,6 +3,7 @@ import "./checkout.css";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useRef } from "react";
+import { url } from "../../App";
 
 function Checkout() {
   const { state } = useLocation();
@@ -16,7 +17,7 @@ function Checkout() {
 
     let fields = {};
     await axios
-      .post("http://localhost:3001/payments", {
+      .post(url + "/payments", {
         amount: state.total,
       })
       .then((res) => {
