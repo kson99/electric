@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/home/home";
 import { CartPopup, Footer, Navbar } from "./components";
 import ItemView from "./pages/item-view/item-view";
@@ -17,12 +17,17 @@ import CreateProduct from "./admin/products/create/create-product";
 import axios from "axios";
 import ProductsView from "./pages/products-view/products-view";
 import Search from "./pages/search/search";
+import Checkout from "./pages/checkout/checkout";
+import CheckedOut from "./pages/checked-out/checked-out";
 
 export const appContext = createContext();
+export const url = "https://byzantium-scorpion-cap.cyclic.app";
 
 function App() {
-  const url = "https://byzantium-scorpion-cap.cyclic.app";
+  const { pathname } = useLocation();
+
   const [isAdmin, setIsAdmin] = useState(false);
+  const [ischeckout, setIsCheckout] = useState(false);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [reflesh, setReflesh] = useState(0);
@@ -30,10 +35,16 @@ function App() {
   const [openCart, setOpenCart] = useState(false);
 
   const onHrefChange = () => {
-    if (window.location.href.includes("/admin")) {
+    if (pathname.includes("/admin")) {
       setIsAdmin(true);
     } else {
       setIsAdmin(false);
+    }
+
+    if (pathname.includes("/checkout")) {
+      setIsCheckout(true);
+    } else {
+      setIsCheckout(false);
     }
   };
 
@@ -54,7 +65,7 @@ function App() {
 
   useEffect(() => {
     onHrefChange();
-  }, [window.location.href]);
+  }, [pathname]);
 
   useEffect(() => {
     getData();
@@ -75,13 +86,15 @@ function App() {
           },
         }}
       >
-        {isAdmin ? <Sidebar /> : <Navbar />}
+        {ischeckout ? "" : isAdmin ? <Sidebar /> : <Navbar />}
 
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/:id" element={<ItemView />} />
           <Route path="/products" element={<ProductsView />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/checkout-status" element={<CheckedOut />} />
 
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/dashboard" element={<Dashboard />} />
@@ -93,7 +106,7 @@ function App() {
           <Route path="/admin/admins" element={<Admins />} />
           <Route path="/admin/orders" element={<Orders />} />
         </Routes>
-        {!isAdmin && <Footer />}
+        {!isAdmin && !ischeckout && <Footer />}
         <CartPopup />
       </appContext.Provider>
     </div>

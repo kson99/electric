@@ -3,10 +3,13 @@ import "./cart-popup.css";
 import { appContext } from "../../App";
 import IonIcon from "@reacticons/ionicons";
 import CartCard from "../cards/cart-card/cart-card";
+import { useNavigate } from "react-router-dom";
 
 function CartPopup() {
   const { cartCtx, products, cartOpen } = useContext(appContext);
   const { cartProducts, openCart, setOpenCart } = cartCtx;
+
+  const navigate = useNavigate();
   const [subtotal, setSubtotal] = useState({});
   const [closing, setClosing] = useState(false);
 
@@ -37,6 +40,11 @@ function CartPopup() {
     });
 
     return _subtotal;
+  };
+
+  const checkout = () => {
+    closeCart();
+    navigate("/checkout", { state: { total: getSubtotal() } });
   };
 
   return (
@@ -72,7 +80,7 @@ function CartPopup() {
                 </div>
                 <textarea placeholder="Order note"></textarea>
                 <p>Shipping and Taxes calculated at checkout</p>
-                <button className="submitBtn">
+                <button className="submitBtn" onClick={checkout}>
                   <IonIcon name="lock-closed" />
                   <p>Checkout</p>
                 </button>

@@ -1,37 +1,55 @@
 const express = require("express");
 const router = express.Router();
 const CryptoJS = require("crypto-js");
-const axios = require("axios");
-const { auth } = require("firebase-admin");
+// const { auth } = require("firebase-admin");
 
-const generateMD5 = (obj, secret = "secret") => {
-  let str = Object.values(obj).join("") + secret;
+const generateMD5 = (formData, secret = "secret") => {
+  //
 
-  console.log(str);
+  let array = [];
+  for (let [name, value] of formData.entries()) {
+    array.push(value);
+  }
 
+  array.push(secret);
+  const str = array.join("");
+
+  // console.log();
+
+  // console.log(CryptoJS.MD5(str).toString());
   return CryptoJS.MD5(str).toString();
 };
 
 router.post("/", async (req, res) => {
-  let data = {
-    PAYGATE_ID: 10011072130,
-    REFERENCE: "pgtest_",
-    AMOUNT: 1000,
-    CURRENCY: "ZAR",
-    RETURN_URL: "https://my.return.url/page",
-    TRANSACTION_DATE: "2020-01-01 12:00:00",
-    LOCALE: "en-za",
-    COUNTRY: "ZAF",
-    EMAIL: "customer@paygate.co.za",
-    CHECKSUM: "70d374e4b18222ba814e30c4661c16eb",
+  const { amount } = req.body;
+  console.log(req.body);
+  var formdata = new FormData();
+
+  formdata.append("PAYGATE_ID", "10011072130");
+  formdata.append("REFERENCE", "pgtest_");
+  formdata.append("AMOUNT", `${amount * 100}`);
+  formdata.append("CURRENCY", "ZAR");
+  formdata.append("RETURN_URL", "http://localhost:5173/checkout-status");
+  formdata.append("TRANSACTION_DATE", `${new Date().toISOString()}`);
+  formdata.append("LOCALE", "en-za");
+  formdata.append("COUNTRY", "ZAF");
+  formdata.append("EMAIL", "redgekson@gmail.com");
+  formdata.append("CHECKSUM", `${generateMD5(formdata)}`);
+
+  var requestOptions = {
+    method: "POST",
+    body: formdata,
+    redirect: "follow",
   };
 
-  await axios
-    .post("https://secure.paygate.co.za/payweb3/initiate.trans", { ...data })
-    .then((resp) => {
-      res.send(resp.data);
+  fetch("https://secure.paygate.co.za/payweb3/initiate.trans", requestOptions)
+    .then((response) => response.text())
+    .then((result) => {
+      console.log(result);
+
+      res.send(result);
     })
-    .catch((err) => console.log(err));
+    .catch((error) => console.log("error", error));
 });
 
 module.exports = router;
