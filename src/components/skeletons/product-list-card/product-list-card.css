@@ -1,0 +1,40 @@
+.product-list-skel {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: white;
+  column-gap: 20px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.product-list-skel .p-col {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 20px;
+  padding: 0;
+}
+
+.product-list-skel .p-col:first-child {
+  width: 100%;
+}
+
+.product-list-skel .image {
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+}
+
+.product-list-skel .title {
+  width: 70%;
+  overflow: hidden;
+}
+
+.product-list-skel .prod-crud div {
+  border-radius: 5px;
+  width: 90px;
+  height: 40px;
+  overflow: hidden;
+}

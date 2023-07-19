@@ -2,12 +2,12 @@ import React, { useContext } from "react";
 import "./home.css";
 import { data, promo_image } from "../../assets";
 import IonIcon from "@reacticons/ionicons";
-import { Featured, MiniNav, NewItemCard } from "../../components";
+import { Featured, ItemCardSkel, MiniNav, NewItemCard } from "../../components";
 import { Link } from "react-router-dom";
 import { appContext } from "../../App";
 
 function Home() {
-  const { products } = useContext(appContext);
+  const { products, dataLoading } = useContext(appContext);
 
   return (
     <div className="home">
@@ -23,6 +23,7 @@ function Home() {
           </div>
 
           <div className="new-i">
+            {dataLoading && <ItemCardSkel count={4} />}
             {products.slice(0, 4).map((item, i) => (
               <NewItemCard item={item} key={i} data={data} />
             ))}
@@ -57,6 +58,7 @@ function Home() {
           </div>
 
           <div className="more-items">
+            {dataLoading && <ItemCardSkel count={8} />}
             {products.slice(4, 12).map((item, i) => (
               <NewItemCard item={item} key={i} />
             ))}

@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import "./products.css";
-import { ProductListCard } from "../../components";
+import { ProductListCard, ProductListCardSkel } from "../../components";
 import { data } from "../../assets";
 import { useNavigate } from "react-router-dom";
 import { appContext } from "../../App";
 
 function Products() {
   const navigate = useNavigate();
-  const { products } = useContext(appContext);
+  const { products, dataLoading } = useContext(appContext);
 
   // console.log(products);
 
@@ -24,6 +24,7 @@ function Products() {
         </div>
 
         <div className="products-list">
+          {dataLoading && <ProductListCardSkel count={10} />}
           {products.map((item) => (
             <ProductListCard item={item} key={item._id} />
           ))}

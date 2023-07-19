@@ -19,6 +19,8 @@ import ProductsView from "./pages/products-view/products-view";
 import Search from "./pages/search/search";
 import Checkout from "./pages/checkout/checkout";
 import CheckedOut from "./pages/checked-out/checked-out";
+import { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export const appContext = createContext();
 export const url = "https://byzantium-scorpion-cap.cyclic.app";
@@ -33,6 +35,7 @@ function App() {
   const [reflesh, setReflesh] = useState(0);
   const [cartProducts, setCartProducts] = useState([]);
   const [openCart, setOpenCart] = useState(false);
+  const [dataLoading, setDataLoading] = useState(false)
 
   const onHrefChange = () => {
     if (pathname.includes("/admin")) {
@@ -49,8 +52,10 @@ function App() {
   };
 
   const getData = async () => {
+    setDataLoading(true);
     await axios.get(url + "/products").then((res) => {
       setProducts(res.data);
+      setDataLoading(false)
     });
 
     await axios.get(url + "/categories").then((res) => {
@@ -78,6 +83,7 @@ function App() {
           products,
           categories,
           refleshCtx: [reflesh, setReflesh],
+          dataLoading: dataLoading,
           cartCtx: {
             cartProducts,
             setCartProducts,
@@ -86,28 +92,36 @@ function App() {
           },
         }}
       >
-        {ischeckout ? "" : isAdmin ? <Sidebar /> : <Navbar />}
+        <SkeletonTheme
+          baseColor="#f1f1f1"
+          highlightColor="white"
+          direction="right"
+        >
+          {ischeckout ? "" : isAdmin ? <Sidebar /> : <Navbar />}
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/:id" element={<ItemView />} />
-          <Route path="/products" element={<ProductsView />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/checkout-status" element={<CheckedOut />} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/:id" element={<ItemView />} />
+            <Route path="/products" element={<ProductsView />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/checkout-status" element={<CheckedOut />} />
 
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/dashboard" element={<Dashboard />} />
-          <Route path="/admin/products" element={<Products />} />
-          <Route path="/admin/products/edit" element={<EditProduct />} />
-          <Route path="/admin/products/create" element={<CreateProduct />} />
-          <Route path="/admin/categories" element={<Categories />} />
-          <Route path="/admin/settings" element={<Settings />} />
-          <Route path="/admin/admins" element={<Admins />} />
-          <Route path="/admin/orders" element={<Orders />} />
-        </Routes>
-        {!isAdmin && !ischeckout && <Footer />}
-        <CartPopup />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/dashboard" element={<Dashboard />} />
+            <Route path="/admin/products" element={<Products />} />
+            <Route path="/admin/products/edit" element={<EditProduct />} />
+            <Route path="/admin/products/create" element={<CreateProduct />} />
+            <Route path="/admin/categories" element={<Categories />} />
+            <Route path="/admin/settings" element={<Settings />} />
+            <Route path="/admin/admins" element={<Admins />} />
+            <Route path="/admin/orders" element={<Orders />} />
+          </Routes>
+
+          {!isAdmin && !ischeckout && <Footer />}
+          <CartPopup />
+
+        </SkeletonTheme>
       </appContext.Provider>
     </div>
   );

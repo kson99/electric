@@ -1,0 +1,44 @@
+.item-card-skel {
+  height: 392px;
+  border: 1px solid lightgray;
+}
+
+.item-card-skel .image {
+  height: 200px;
+  width: 98%;
+  margin: auto;
+}
+
+.item-card-skel .item-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 13px;
+}
+
+.item-card-skel .category {
+  width: 30%;
+}
+
+.item-card-skel .title {
+  width: 94%;
+}
+
+.item-card-skel .price {
+  width: 40%;
+}
+
+.item-card-skel .item-buttons {
+  width: 100%;
+  border-top: 1px solid lightgray;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.item-card-skel .item-buttons div {
+  height: 30px;
+  width: 30px;
+  margin-top: 20px;
+}

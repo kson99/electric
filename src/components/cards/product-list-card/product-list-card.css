@@ -1,93 +1,92 @@
 .product-list-card {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    background-color: white;
-    column-gap: 20px;
-    padding: 10px 15px;
-    border-radius: 10px;
-    /* flex-wrap: wrap; */
-
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: white;
+  column-gap: 20px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  /* flex-wrap: wrap; */
 }
 
 .product-list-card .p-col {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    column-gap: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 20px;
 }
 
 .product-list-card img {
-    width: 70px;
-    height: 70px;
-    object-fit: contain;
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
 }
 
 .product-list-card .title {
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .product-list-card .prod-crud div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    column-gap: 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-weight: 600;
-    padding: 7px 10px;
-    cursor: pointer;
-    transition: .4s all;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-weight: 600;
+  padding: 7px 10px;
+  cursor: pointer;
+  transition: 0.4s all;
 }
 
 .product-list-card .prod-crud div:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 .product-list-card .prod-crud div:last-child {
-    background-color: rgba(255, 0, 0, 0.5);
-    color: white;
+  background-color: rgba(255, 0, 0, 0.5);
+  color: white;
 }
 
 .product-list-card .prod-crud .icon {
-    font-size: 25px;
-    margin-top: -7px;
+  font-size: 25px;
+  margin-top: -7px;
 }
 
 .product-list-card .confirmation {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .product-list-card .confirmation h3 {
-    color: red;
+  color: red;
 }
 
 .product-list-card .confirmation .choices {
-    display: flex;
-    flex-direction: row;
-    column-gap: 30px;
-    padding: 0 15px;
+  display: flex;
+  flex-direction: row;
+  column-gap: 30px;
+  padding: 0 15px;
 }
 
 .product-list-card .confirmation .choices button {
-    border-radius: 5px;
-    font-weight: 600;
-    border: 1px solid lightgray;
+  border-radius: 5px;
+  font-weight: 600;
+  border: 1px solid lightgray;
 }
 
 .product-list-card #delete {
-    background-color: rgba(255, 0, 0, 0.6);
-    color: white;
+  background-color: rgba(255, 0, 0, 0.6);
+  color: white;
 }
 
 .product-list-card #cancel {
-    background-color: #ddd;
+  background-color: #ddd;
 }

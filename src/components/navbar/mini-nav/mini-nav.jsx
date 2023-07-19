@@ -3,9 +3,10 @@ import "./mini-nav.css";
 import IonIcon from "@reacticons/ionicons";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { appContext } from "../../../App";
+import Skeleton from "react-loading-skeleton";
 
 function MiniNav() {
-  const { categories } = useContext(appContext);
+  const { categories, dataLoading } = useContext(appContext);
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -72,6 +73,11 @@ function MiniNav() {
 
             {isCatBrowse && (
               <div className="categories">
+                {dataLoading && (Array(8).fill(0).map((_, i) => (
+                  <div className="cat" key={i}>
+                    <Skeleton />
+                  </div>
+                )))}
                 {Object.values(getSortCategories()).map((cat) => (
                   <div
                     className="cat"

@@ -9,6 +9,8 @@ import Featured from "./featured/featured";
 import MiniNav from "./navbar/mini-nav/mini-nav";
 import CartPopup from "./cart/cart-popup";
 import Shipping from "./shipping/shipping";
+import ItemCardSkel from "./skeletons/item-card/item-card";
+import ProductListCardSkel from "./skeletons/product-list-card/product-list-card";
 
 export {
   Navbar,
@@ -22,4 +24,6 @@ export {
   MiniNav,
   CartPopup,
   Shipping,
+  ItemCardSkel,
+  ProductListCardSkel,
 };
