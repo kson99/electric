@@ -34,9 +34,16 @@ router.post("/", async (req, res) => {
 
   const formdata = new FormData();
 
-  Object.keys(data).map((key) => {
-    formdata.append(`${key}`, `${data[key]}`);
-  });
+  formdata.append("PAYGATE_ID", "10011072130");
+  formdata.append("REFERENCE", "pgtest_");
+  formdata.append("AMOUNT", `${amount * 100}`);
+  formdata.append("CURRENCY", "ZAR");
+  formdata.append("RETURN_URL", "http://localhost:5173/checkout-status");
+  formdata.append("TRANSACTION_DATE", `${new Date().toISOString()}`);
+  formdata.append("LOCALE", "en-za");
+  formdata.append("COUNTRY", "ZAF");
+  formdata.append("EMAIL", "redgekson@gmail.com");
+  formdata.append("CHECKSUM", `${generateMD5(formdata)}`);
 
   let config = {
     method: "post",
