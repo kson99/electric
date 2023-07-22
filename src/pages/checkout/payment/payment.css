@@ -1,0 +1,94 @@
+.payment {
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+}
+
+.payment .fields {
+  border: 1px solid grey;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.payment .fields .seperator {
+  width: 100%;
+  height: 1px;
+  background-color: grey;
+}
+
+.payment .fields label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.payment .fields input {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  padding: 0 10px;
+}
+
+.payment .payment-type {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.payment .paygate {
+  border: 1px solid grey;
+  border-radius: 5px;
+  background-color: rgba(128, 128, 128, 0.1);
+  overflow: hidden;
+}
+
+.payment .paygate .header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #252525;
+}
+
+.payment .paygate img {
+  height: 24px;
+  width: auto;
+}
+
+.payment .paygate .cards {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+}
+
+.payment .paygate .cards img {
+  border-radius: 5px;
+}
+
+.payment .paygate .cards-info {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  /* row-gap: 10px; */
+  font-size: 12px;
+}
+
+.payment .paygate .cards-info img {
+  height: 150px;
+  color: white;
+}
+
+.payment .buttons {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* padding: 0 10px; */
+}

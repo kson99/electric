@@ -12,7 +12,7 @@ function Home() {
   return (
     <div className="home">
       <MiniNav />
-      <Featured />
+      <Featured item={products[1]} />
 
       <section className="new-items">
         <div className="max-width">
@@ -31,7 +31,7 @@ function Home() {
         </div>
       </section>
 
-      <Featured />
+      <Featured item={products[4]} />
 
       <section className="all-items">
         <div className="max-width">

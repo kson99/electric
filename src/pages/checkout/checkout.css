@@ -1,50 +1,51 @@
 .check-out {
-    min-height: 100vh;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 55% 45%;
+  position: relative;
+}
+
+.check-out .c-left {
+  background-color: #252525;
+}
+
+.check-out .c-right {
+  background-color: white;
 }
 
 .check-out .check-out-cont {
-    padding: 20px;
-    display: grid;
-    grid-template-columns: .6fr .4fr;
-    column-gap: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.check-out .card-info {
-    display: flex;
-    flex-direction: column;
-    row-gap: 20px;
-    padding: 10px;
-    width: 70%;
+.check-out .c-o-c {
+  display: grid;
+  grid-template-columns: 55% 45%;
 }
 
-.check-out .card-info .field {
-    display: flex;
-    flex-direction: column;
-    row-gap: 5px;
+.check-out .check-out-info {
+  width: 100%;
+  padding: 30px 10px;
+  color: #f1f1f1;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
 }
 
-.check-out .card-info input,
-.check-out .card-info select {
-    padding: 10px;
-    background-color: transparent;
-    color: #252525;
-    border: 1px solid lightgrey;
-    border-radius: 5px;
-    width: 100%;
-    appearance: none;
+.check-out .check-out-info .tabs {
+  display: flex;
+  flex-direction: row;
+  column-gap: 5px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid grey;
 }
 
-.check-out .card-info .c-info {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-}
-
-.check-out .card-info .c-info input:first-child {
-    grid-column: span 2;
-}
-
-.check-out .card-info button {
-    width: 95%;
-    padding: 12px 0;
-    margin: auto;
+.check-out .check-out-cart {
+  padding: 30px 10px;
+  background-color: white;
+  min-height: 100vh;
 }

@@ -1,0 +1,53 @@
+.information {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+}
+
+.information .field {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+  padding: 0 10px;
+}
+
+.information .field span {
+  font-size: 12px;
+  color: aqua;
+}
+
+.information .field input,
+.information .field select {
+  border: 1px solid grey;
+  border-radius: 5px;
+  width: 100%;
+  background-color: rgba(128, 128, 128, 0.1);
+  outline: none;
+  padding: 10px;
+  appearance: none;
+}
+
+.information .c-o-contact {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.information .shipping-address {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.information .shipping-address .fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 10px;
+}
+
+.information .buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 10px;
+}

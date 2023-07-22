@@ -1,55 +1,72 @@
 const express = require("express");
 const router = express.Router();
 const CryptoJS = require("crypto-js");
-// const { auth } = require("firebase-admin");
+var FormData = require("form-data");
+const axios = require("axios");
 
-const generateMD5 = (formData, secret = "secret") => {
-  //
-
+const generateMD5 = (_data, secret = "secret") => {
   let array = [];
-  for (let [name, value] of formData.entries()) {
+  Object.values(_data).map((value) => {
     array.push(value);
-  }
+  });
 
   array.push(secret);
   const str = array.join("");
 
-  // console.log();
-
-  // console.log(CryptoJS.MD5(str).toString());
   return CryptoJS.MD5(str).toString();
 };
 
 router.post("/", async (req, res) => {
   const { amount } = req.body;
-  console.log(req.body);
-  var formdata = new FormData();
 
-  formdata.append("PAYGATE_ID", "10011072130");
-  formdata.append("REFERENCE", "pgtest_");
-  formdata.append("AMOUNT", `${amount * 100}`);
-  formdata.append("CURRENCY", "ZAR");
-  formdata.append("RETURN_URL", "http://localhost:5173/checkout-status");
-  formdata.append("TRANSACTION_DATE", `${new Date().toISOString()}`);
-  formdata.append("LOCALE", "en-za");
-  formdata.append("COUNTRY", "ZAF");
-  formdata.append("EMAIL", "redgekson@gmail.com");
-  formdata.append("CHECKSUM", `${generateMD5(formdata)}`);
+  const data = {
+    PAYGATE_ID: "10011072130",
+    REFERENCE: "pgtest_",
+    AMOUNT: `${10000}`,
+    CURRENCY: "ZAR",
+    RETURN_URL: "https://mushtechnam.com",
+    TRANSACTION_DATE: `${new Date().toISOString()}`,
+    LOCALE: "en-za",
+    COUNTRY: "ZAF",
+    EMAIL: "redgekson@gmail.com",
+  };
+  data["CHECKSUM"] = `${generateMD5(data)}`;
 
-  var requestOptions = {
-    method: "POST",
-    body: formdata,
-    redirect: "follow",
+  const formdata = new FormData();
+
+  Object.keys(data).map((key) => {
+    formdata.append(`${key}`, `${data[key]}`);
+  });
+
+  let config = {
+    method: "post",
+    maxBodyLength: Infinity,
+    url: "https://secure.paygate.co.za/payweb3/initiate.trans",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...formdata.getHeaders(),
+    },
+    data: formdata,
   };
 
-  fetch("https://secure.paygate.co.za/payweb3/initiate.trans", requestOptions)
-    .then((response) => response.text())
-    .then((result) => {
-      console.log(result);
+  axios
+    .request(config)
+    .then((response) => {
+      let fields = {};
+      let resArray = response.data.split("&");
 
-      res.send(result);
+      resArray.forEach((field) => {
+        let [key, value] = field.split("=");
+        fields[key] = value;
+      });
+
+      console.log(fields);
+
+      // res.send(response.data);
     })
-    .catch((error) => console.log("error", error));
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 module.exports = router;

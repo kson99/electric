@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import "./checkout.css";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useRef } from "react";
-import { url } from "../../App";
+import IonIcon from "@reacticons/ionicons";
+import Payment from "./payment/payment";
+import Information from "./information/information";
 
 function Checkout() {
   const { state } = useLocation();
@@ -11,6 +13,7 @@ function Checkout() {
   const [submit, setSubmit] = useState(false);
   const [checksum, setChecksum] = useState("");
   const [payId, setPayId] = useState("");
+  const [activeTab, setActiveTab] = useState("payment");
 
   const makePayment = async (ev) => {
     ev.preventDefault();
@@ -34,6 +37,25 @@ function Checkout() {
       });
   };
 
+  const switchTabs = () => {
+    switch (activeTab) {
+      case 'information':
+        return (
+          <Information />
+        )
+        break;
+
+      case "payment":
+        return (
+          <Payment />
+        )
+        break;
+
+      default:
+        break;
+    }
+  }
+
   const submitForm = () => {
     return (
       <form
@@ -50,61 +72,34 @@ function Checkout() {
   if (submit) {
     setTimeout(() => {
       formRef.current && formRef.current.submit();
-    }, 1000);
+    }, 500);
   }
 
   return (
     <div className="check-out">
-      <div className="max-width">
-        <div className="check-out-cont">
-          <div className="customer-info">
-            <h3>Pay with Card</h3>
+      <div className="c-left"></div>
+      <div className="c-right"></div>
 
-            <form onSubmit={makePayment} className="card-info">
-              <div className="field">
-                <label>email</label>
-                <input type="email" placeholder="johndoe@gmail.com" />
-              </div>
+      <div className="check-out-cont">
+        <div className="max-width c-o-c">
+          <div className="check-out-info">
+            <Link to="/" className="logo">
+              <h1>Electric</h1>
+              <IonIcon name="flash" className="icon" />
+            </Link>
 
-              <div className="field">
-                <label>Card information</label>
-                <div className="c-info">
-                  <input type="number" placeholder="1234 1234 1234 1234" />
-                  <input type="number" placeholder="MM / YY" />
-                  <input type="number" placeholder="CVC" />
-                </div>
-              </div>
+            <div className="tabs">
+              <div className="tab">Cart&nbsp;&nbsp;{">"}</div>
+              <div className="tab">Information&nbsp;&nbsp;{">"}</div>
+              <div className="tab">Payment</div>
+            </div>
 
-              <div className="field">
-                <label>Name on card</label>
-                <input type="text" placeholder="johndoe@gmail.com" />
-              </div>
+            {switchTabs()}
 
-              <div className="firld">
-                <label>Country or Region</label>
-                <div className="country">
-                  <select>
-                    <option value="Namibia">Namibia</option>
-                  </select>
-                  <input type="text" placeholder="ZIP" />
-                </div>
-              </div>
-
-              <button type="submit" className="submitBtn">
-                Pay N${" "}
-                {state.total.toLocaleString(undefined, {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}
-              </button>
-            </form>
-
-            {submit && submitForm()}
           </div>
-          <div className="your-order">
-            <h3>Your Order</h3>
 
-            <div className="order"></div>
+          <div className="check-out-cart">
+            <p>gdfkghkfdjhgkdh</p>
           </div>
         </div>
       </div>

@@ -1,31 +1,36 @@
 .promo-header {
-    /* margin-top: 50px; */
-    width: 100%;
-    height: 600px;
-    display: flex;
-    align-items: center;
+  /* margin-top: 50px; */
+  width: 100%;
+  height: 600px;
+  display: flex;
+  align-items: center;
 
-    background: rgba(241, 241, 241, 1.0);
-    background: conic-gradient(from 180deg, rgba(241, 241, 241, 1.0), rgba(221, 221, 221, 1.0));
+  background: rgba(241, 241, 241, 1);
+  background: conic-gradient(
+    from 180deg,
+    rgba(241, 241, 241, 1),
+    rgba(221, 221, 221, 1)
+  );
 }
 
 .promo-cont {
-    display: grid;
-    grid-template-columns: 50% 50%;
+  display: grid;
+  grid-template-columns: 50% 50%;
 }
 
 .promo-cont img {
-    width: 100%;
+  width: 100%;
+  mix-blend-mode: multiply;
 }
 
 .promo-cont .promo-text {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 20px;
 }
 
 .promo-cont .price {
-    color: red;
+  color: red;
 }
