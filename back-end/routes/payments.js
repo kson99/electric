@@ -85,7 +85,7 @@ router.post("/status", async (req, res) => {
   let config = {
     method: "post",
     maxBodyLength: Infinity,
-    url: "POST https://secure.paygate.co.za/payweb3/query.trans",
+    url: "https://secure.paygate.co.za/payweb3/query.trans",
     headers: {
       ...formdata.getHeaders(),
     },
