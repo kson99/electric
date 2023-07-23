@@ -6,6 +6,7 @@ import { useRef } from "react";
 import IonIcon from "@reacticons/ionicons";
 import Payment from "./payment/payment";
 import Information from "./information/information";
+import { url } from "../../App";
 
 function Checkout() {
   const { state } = useLocation();
@@ -31,6 +32,8 @@ function Checkout() {
           fields[key] = value;
         });
 
+        console.log(res);
+
         setChecksum(fields.CHECKSUM);
         setPayId(fields.PAY_REQUEST_ID);
         setSubmit(true);
@@ -39,22 +42,18 @@ function Checkout() {
 
   const switchTabs = () => {
     switch (activeTab) {
-      case 'information':
-        return (
-          <Information />
-        )
+      case "information":
+        return <Information />;
         break;
 
       case "payment":
-        return (
-          <Payment />
-        )
+        return <Payment />;
         break;
 
       default:
         break;
     }
-  }
+  };
 
   const submitForm = () => {
     return (
@@ -96,11 +95,16 @@ function Checkout() {
 
             {switchTabs()}
 
+            <button className="submitBtn" onClick={makePayment}>
+              Pay Up
+            </button>
           </div>
 
           <div className="check-out-cart">
             <p>gdfkghkfdjhgkdh</p>
           </div>
+
+          {submitForm()}
         </div>
       </div>
     </div>

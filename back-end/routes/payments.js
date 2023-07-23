@@ -38,7 +38,7 @@ router.post("/", async (req, res) => {
   formdata.append("REFERENCE", "pgtest_");
   formdata.append("AMOUNT", `${amount * 100}`);
   formdata.append("CURRENCY", "ZAR");
-  formdata.append("RETURN_URL", "http://localhost:5173/checkout-status");
+  formdata.append("RETURN_URL", "https://return-page.kson99.repl.co/");
   formdata.append("TRANSACTION_DATE", `${new Date().toISOString()}`);
   formdata.append("LOCALE", "en-za");
   formdata.append("COUNTRY", "ZAF");
@@ -69,7 +69,7 @@ router.post("/", async (req, res) => {
 
       console.log(fields);
 
-      // res.send(response.data);
+      res.send(response.data);
     })
     .catch((err) => {
       console.log(err);

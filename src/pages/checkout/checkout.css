@@ -39,7 +39,7 @@
 .check-out .check-out-info .tabs {
   display: flex;
   flex-direction: row;
-  column-gap: 5px;
+  column-gap: 7px;
   padding-bottom: 10px;
   border-bottom: 1px solid grey;
 }
