@@ -17,8 +17,6 @@ function Checkout() {
   const [activeTab, setActiveTab] = useState("payment");
 
   const makePayment = async () => {
-    // ev.preventDefault();
-
     let fields = {};
     await axios
       .post(url + "/payments", {

@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
     REFERENCE: "pgtest_",
     AMOUNT: `${10000}`,
     CURRENCY: "ZAR",
-    RETURN_URL: "https://return-page.kson99.repl.co",
+    RETURN_URL: "https://b538-197-233-170-67.ngrok-free.app/checkout-status",
     TRANSACTION_DATE: `${new Date().toISOString()}`,
     LOCALE: "en-za",
     COUNTRY: "ZAF",
@@ -37,18 +37,6 @@ router.post("/", async (req, res) => {
   Object.keys(data).forEach((key) => {
     formdata.append(`${key}`, `${data[key]}`);
   });
-
-  // formdata.append("PAYGATE_ID", "10011072130");
-  // formdata.append("REFERENCE", "pgtest_");
-  // // formdata.append("AMOUNT", `${amount * 100}`);
-  // formdata.append("AMOUNT", `${10000}`);
-  // formdata.append("CURRENCY", "ZAR");
-  // formdata.append("RETURN_URL", "https://return-page.kson99.repl.co/");
-  // formdata.append("TRANSACTION_DATE", `${new Date().toISOString()}`);
-  // formdata.append("LOCALE", "en-za");
-  // formdata.append("COUNTRY", "ZAF");
-  // formdata.append("EMAIL", "redgekson@gmail.com");
-  // formdata.append("CHECKSUM", `${generateMD5(formdata)}`);
 
   let config = {
     method: "post",
