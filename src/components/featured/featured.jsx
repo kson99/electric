@@ -9,7 +9,7 @@ function Featured({ item }) {
           <div className="promo-text">
             <h1 className="price">
               N${" "}
-              {(item?.price * 1).toLocaleString(undefined, {
+              {(item?.price * 1)?.toLocaleString(undefined, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}
