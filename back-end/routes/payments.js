@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
     REFERENCE: "pgtest_",
     AMOUNT: `${10000}`,
     CURRENCY: "ZAR",
-    RETURN_URL: "https://b538-197-233-170-67.ngrok-free.app/checkout-status",
+    RETURN_URL: "https://b538-197-233-170-67.ngrok-free.app/check-out-status",
     TRANSACTION_DATE: `${new Date().toISOString()}`,
     LOCALE: "en-za",
     COUNTRY: "ZAF",

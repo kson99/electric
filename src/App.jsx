@@ -35,7 +35,7 @@ function App() {
   const [reflesh, setReflesh] = useState(0);
   const [cartProducts, setCartProducts] = useState([]);
   const [openCart, setOpenCart] = useState(false);
-  const [dataLoading, setDataLoading] = useState(false)
+  const [dataLoading, setDataLoading] = useState(false);
 
   const onHrefChange = () => {
     if (pathname.includes("/admin")) {
@@ -55,7 +55,7 @@ function App() {
     setDataLoading(true);
     await axios.get(url + "/products").then((res) => {
       setProducts(res.data);
-      setDataLoading(false)
+      setDataLoading(false);
     });
 
     await axios.get(url + "/categories").then((res) => {
@@ -105,7 +105,7 @@ function App() {
             <Route path="/products" element={<ProductsView />} />
             <Route path="/search" element={<Search />} />
             <Route path="/checkout" element={<Checkout />} />
-            <Route path="/checkout-status" element={<CheckedOut />} />
+            <Route path="/check-out-status" element={<CheckedOut />} />
 
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/dashboard" element={<Dashboard />} />
@@ -120,7 +120,6 @@ function App() {
 
           {!isAdmin && !ischeckout && <Footer />}
           <CartPopup />
-
         </SkeletonTheme>
       </appContext.Provider>
     </div>
