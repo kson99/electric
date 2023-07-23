@@ -5,11 +5,14 @@ import { url } from "../../App";
 
 function CheckedOut() {
   const [response, setResponse] = useState();
+
+  console.log(JSON.parse(localStorage.getItem("query")));
+
   const getPaymentStatus = () => {
     const fields = JSON.parse(localStorage.getItem("query"));
     const resData = {};
 
-    axios.post("localhost:3001/payments/status", fields).then((res) => {
+    axios.post(url + "/payments/status", fields).then((res) => {
       console.log(res.data);
       setResponse(res.data);
     });

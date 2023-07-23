@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const CryptoJS = require("crypto-js");
 var FormData = require("form-data");
+const qs = require("qs");
 const axios = require("axios");
 
 const generateMD5 = (_data, secret = "secret") => {
@@ -74,10 +75,7 @@ router.post("/status", async (req, res) => {
   console.log(req.body);
   const data = req.body;
 
-  const formdata = new FormData();
-  Object.keys(data).forEach((key) => {
-    formdata.append(`${key}`, `${data[key]}`);
-  });
+  const formdata = qs.stringify(data);
 
   let config = {
     method: "post",
@@ -85,7 +83,6 @@ router.post("/status", async (req, res) => {
     url: "POST https://secure.paygate.co.za/payweb3/query.trans",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      ...formdata.getHeaders(),
     },
     data: formdata,
   };
@@ -93,7 +90,7 @@ router.post("/status", async (req, res) => {
   axios
     .request(config)
     .then((response) => {
-      console.log(fields);
+      console.log(response.data);
 
       res.send(response.data);
     })
