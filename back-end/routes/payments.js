@@ -66,7 +66,40 @@ router.post("/", async (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.send(err);
+      // res.send(err);
+    });
+});
+
+router.post("/status", async (req, res) => {
+  console.log(req.body);
+  const data = req.body;
+
+  const formdata = new FormData();
+  Object.keys(data).forEach((key) => {
+    formdata.append(`${key}`, `${data[key]}`);
+  });
+
+  let config = {
+    method: "post",
+    maxBodyLength: Infinity,
+    url: "POST https://secure.paygate.co.za/payweb3/query.trans",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      ...formdata.getHeaders(),
+    },
+    data: formdata,
+  };
+
+  axios
+    .request(config)
+    .then((response) => {
+      console.log(fields);
+
+      res.send(response.data);
+    })
+    .catch((err) => {
+      console.log(err);
+      // res.send(err);
     });
 });
 

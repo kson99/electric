@@ -30,7 +30,7 @@ function Checkout() {
           fields[key] = value;
         });
 
-        console.log(res);
+        localStorage.setItem("query", JSON.stringify(fields));
 
         setChecksum(fields.CHECKSUM);
         setPayId(fields.PAY_REQUEST_ID);
