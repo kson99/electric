@@ -36,7 +36,8 @@ router.post("/", async (req, res) => {
 
   formdata.append("PAYGATE_ID", "10011072130");
   formdata.append("REFERENCE", "pgtest_");
-  formdata.append("AMOUNT", `${amount * 100}`);
+  // formdata.append("AMOUNT", `${amount * 100}`);
+  formdata.append("AMOUNT", `${10000}`);
   formdata.append("CURRENCY", "ZAR");
   formdata.append("RETURN_URL", "https://return-page.kson99.repl.co/");
   formdata.append("TRANSACTION_DATE", `${new Date().toISOString()}`);
@@ -73,6 +74,7 @@ router.post("/", async (req, res) => {
     })
     .catch((err) => {
       console.log(err);
+      res.send(err);
     });
 });
 

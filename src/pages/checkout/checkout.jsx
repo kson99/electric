@@ -16,8 +16,8 @@ function Checkout() {
   const [payId, setPayId] = useState("");
   const [activeTab, setActiveTab] = useState("payment");
 
-  const makePayment = async (ev) => {
-    ev.preventDefault();
+  const makePayment = async () => {
+    // ev.preventDefault();
 
     let fields = {};
     await axios
@@ -95,7 +95,7 @@ function Checkout() {
 
             {switchTabs()}
 
-            <button className="submitBtn" onClick={makePayment}>
+            <button className="submitBtn" onClick={() => makePayment()}>
               Pay Up
             </button>
           </div>
