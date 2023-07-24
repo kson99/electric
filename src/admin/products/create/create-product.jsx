@@ -19,6 +19,15 @@ function CreateProduct() {
     setImages(images);
   };
 
+  const removeImage = (index) => {
+    //
+    setImages((prev) => {
+      return [...prev].filter((img, imgIndex) => {
+        return imgIndex !== index;
+      });
+    });
+  };
+
   const uploadProduct = async (ev) => {
     ev.preventDefault();
 
@@ -44,12 +53,10 @@ function CreateProduct() {
       images: [...images],
     };
 
-    await axios
-      .post("http://localhost:3001/products/upload", data)
-      .then((res) => {
-        setReflesh(reflesh + 1);
-        navigate(-1);
-      });
+    await axios.post(url + "/products/upload", data).then((res) => {
+      setReflesh(reflesh + 1);
+      navigate(-1);
+    });
   };
 
   const assignProdProperties = (pName, pValue) => {
@@ -157,6 +164,11 @@ function CreateProduct() {
                   images.map((image, i) => (
                     <div className="image" key={i}>
                       <img src={image} alt="" />
+                      <IonIcon
+                        name="close-circle"
+                        className="icon"
+                        onClick={() => removeImage(i)}
+                      />
                     </div>
                   ))}
               </ReactSortable>

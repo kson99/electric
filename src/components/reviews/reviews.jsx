@@ -15,15 +15,24 @@ function Reviews({ item }) {
     ev.preventDefault();
 
     await axios
-      .put(url + "/producst/review", {
+      .put(url + "/products/review", {
         id: item._id,
-        reviews: [
-          {
-            rating: rating,
-            name: ev.target.name.value,
-            review: ev.target.review.value,
-          },
-        ],
+        reviews: item.reviews
+          ? [
+              ...item.reviews,
+              {
+                rating: rating,
+                name: ev.target.name.value,
+                review: ev.target.review.value,
+              },
+            ]
+          : [
+              {
+                rating: rating,
+                name: ev.target.name.value,
+                review: ev.target.review.value,
+              },
+            ],
       })
       .then((res) => {
         console.log("complete");
@@ -33,12 +42,21 @@ function Reviews({ item }) {
   return (
     <div className="reviews">
       <div className="reviews-list">
-        <h3>Reviews ({0})</h3>
+        <h3>Reviews ({item.reviews ? item?.reviews.length : 0})</h3>
+        <div className="revws">
+          {item.reviews &&
+            item.reviews.map((review, i) => (
+              <div className="review" key={i}>
+                <p>{review.name}</p>
+                <p>{review.review}</p>
+              </div>
+            ))}
+        </div>
       </div>
 
       <form onSubmit={submitReview} className="leave-review">
         <h3>Leave a Review</h3>
-        <Rating onClick={handleRating} />
+        <Rating onClick={handleRating} allowFraction={true} />
         <input type="text" name="name" placeholder="name" required />
         <textarea
           name="review"

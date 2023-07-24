@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import IonIcon from "@reacticons/ionicons";
 import { ReactSortable } from "react-sortablejs";
 import axios from "axios";
-import { appContext } from "../../../App";
+import { appContext, url } from "../../../App";
 
 function EditProduct() {
   const { refleshCtx, categories } = useContext(appContext);
@@ -30,7 +30,7 @@ function EditProduct() {
     };
 
     await axios
-      .put("http://localhost:3001/products/update", {
+      .put(url + "/products/update", {
         ...data,
         id: state._id,
       })
@@ -38,6 +38,15 @@ function EditProduct() {
         setReflesh(reflesh + 1);
         navigate("/admin/products");
       });
+  };
+
+  const removeImage = (index) => {
+    //
+    setImages((prev) => {
+      return [...prev].filter((img, imgIndex) => {
+        return imgIndex !== index;
+      });
+    });
   };
 
   const imagesUpdateOrder = (images) => {
@@ -150,6 +159,11 @@ function EditProduct() {
                 {images?.map((image, i) => (
                   <div className="image" key={i}>
                     <img src={image} alt="" />
+                    <IonIcon
+                      name="close-circle"
+                      className="icon"
+                      onClick={() => removeImage(i)}
+                    />
                   </div>
                 ))}
               </ReactSortable>

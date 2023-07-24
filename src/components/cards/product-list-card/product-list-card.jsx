@@ -17,11 +17,9 @@ function ProductListCard({ item }) {
   };
 
   const deleteProduct = async (id) => {
-    await axios
-      .delete("http://localhost:3001/products/delete", { data: { id } })
-      .then(() => {
-        setReflesh(reflesh + 1);
-      });
+    await axios.delete(url + "/products/delete", { data: { id } }).then(() => {
+      setReflesh(reflesh + 1);
+    });
   };
 
   return (

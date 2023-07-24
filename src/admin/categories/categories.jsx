@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./categories.css";
 import IonIcon from "@reacticons/ionicons";
 import axios from "axios";
-import { appContext } from "../../App";
+import { appContext, url } from "../../App";
 
 function Categories() {
   const { categories, refleshCtx } = useContext(appContext);
@@ -64,12 +64,12 @@ function Categories() {
     };
 
     if (isEdit) {
-      await axios.put("http://localhost:3001/categories/update", {
+      await axios.put(url + "/categories/update", {
         ...data,
         id: catEditData._id,
       });
     } else {
-      await axios.post("http://localhost:3001/categories/upload", data);
+      await axios.post(url + "/categories/upload", data);
     }
 
     setCatNameEditData("");
@@ -82,7 +82,7 @@ function Categories() {
 
   const deleteCategory = async () => {
     await axios
-      .delete("http://localhost:3001/categories/delete", {
+      .delete(url + "/categories/delete", {
         data: { id: catDeleteData._id },
       })
       .then(() => {

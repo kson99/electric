@@ -116,6 +116,23 @@ function ItemView() {
     return catItem?.name;
   };
 
+  const getRating = () => {
+    let array = [];
+    let total = 0;
+    let rating = 0;
+
+    if (item.reviews) {
+      item?.reviews.forEach((review) => {
+        array.push(review.rating);
+        total += review.rating * 1;
+      });
+
+      rating = total / array.length;
+    }
+
+    return rating;
+  };
+
   useEffect(() => {
     handleImages();
   }, [image, activeImage]);
@@ -181,10 +198,12 @@ function ItemView() {
                 <Rating
                   fillColor="red"
                   size={17}
-                  initialValue={item.rating}
+                  allowFraction={true}
+                  allowHover={false}
+                  initialValue={getRating()}
                   className="stars"
                 />
-                <p>(0 reviews)</p>
+                <p>({item.reviews ? item.reviews.length : 0} reviews)</p>
               </div>
 
               <h1 className="price">

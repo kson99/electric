@@ -52,8 +52,6 @@ function MiniNav() {
 
     const active = document.getElementById(activeTab);
     if (active !== null) {
-      console.log("runs");
-
       active.classList.add("active");
     }
   };
@@ -73,11 +71,14 @@ function MiniNav() {
 
             {isCatBrowse && (
               <div className="categories">
-                {dataLoading && (Array(8).fill(0).map((_, i) => (
-                  <div className="cat" key={i}>
-                    <Skeleton />
-                  </div>
-                )))}
+                {dataLoading &&
+                  Array(8)
+                    .fill(0)
+                    .map((_, i) => (
+                      <div className="cat" key={i}>
+                        <Skeleton />
+                      </div>
+                    ))}
                 {Object.values(getSortCategories()).map((cat) => (
                   <div
                     className="cat"
