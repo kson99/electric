@@ -69,6 +69,7 @@
     position: absolute;
     background-color: white;
     border: 1px solid #ddd;
+    left: 0;
     bottom: 0;
     transform: translateY(100%);
     width: 100%;

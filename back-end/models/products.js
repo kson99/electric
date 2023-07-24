@@ -25,6 +25,12 @@ const ProductsSchema = new mongoose.Schema({
     type: Object,
   },
 
+  reviews: [
+    {
+      type: Object,
+    },
+  ],
+
   updatedAt: {
     type: Number,
   },

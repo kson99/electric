@@ -1,7 +1,6 @@
 .promo-header {
   width: 100%;
   height: 600px;
-  /* padding: 50px 0; */
   background: rgba(241, 241, 241, 1);
   background: conic-gradient(from 180deg,
       rgba(241, 241, 241, 1),
@@ -11,7 +10,10 @@
 .promo-cont {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  /* margin: 50px 0; */
+}
+
+.promo-cont .skeleton {
+  height: 100%;
 }
 
 .promo-cont img {
@@ -25,10 +27,16 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  /* align-items: center; */
   justify-content: center;
   row-gap: 30px;
 }
 
+.promo-cont h1 {
+  width: 100%;
+}
+
 .promo-cont .price {
+  /* width: 100%; */
   color: red;
 }

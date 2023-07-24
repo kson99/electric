@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./featured.css";
+import { appContext } from "../../App";
+import Skeleton from "react-loading-skeleton";
 
 function Featured({ item }) {
+  const { dataLoading } = useContext(appContext);
+
   return (
     <section className="promo-header">
       <div className="max-width">
@@ -19,7 +23,13 @@ function Featured({ item }) {
             <button>NOW AVAILABLE</button>
           </div>
           <div className="promo-img">
-            <img src={item?.images[0]} alt="promo image" />
+            {dataLoading ? (
+              <div className="skeleton">
+                <Skeleton height={"100%"} width={"100%"} />
+              </div>
+            ) : (
+              <img src={item?.images[0]} alt="promo image" />
+            )}
           </div>
         </div>
       </div>

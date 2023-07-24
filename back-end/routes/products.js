@@ -74,6 +74,28 @@ router.put("/update", async (req, res) => {
   }
 });
 
+router.put("/review", async (req, res) => {
+  const { id, reviews } = req.body;
+  const query = { _id: new mongo.ObjectId(id) };
+
+  try {
+    const result = await client
+      .db("Electric-E-commerse")
+      .collection("products")
+      .updateOne(query, {
+        $set: {
+          reviews: reviews,
+        },
+      });
+
+    res.sendStatus(200);
+
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 router.delete("/delete", async (req, res) => {
   const { id } = req.body;
   const query = { _id: new mongo.ObjectId(id) };

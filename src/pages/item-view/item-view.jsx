@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import "./item-view.css";
 import { Rating } from "react-simple-star-rating";
 import IonIcon from "@reacticons/ionicons";
-import { RelatedCard, Shipping } from "../../components";
+import { RelatedCard, Reviews, Shipping } from "../../components";
 import { appContext } from "../../App";
 
 function ItemView() {
@@ -78,6 +78,10 @@ function ItemView() {
 
       case "shipping & returns":
         return <Shipping />;
+        break;
+
+      case "reviews":
+        return <Reviews item={item} />;
         break;
 
       default:

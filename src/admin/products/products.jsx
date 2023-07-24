@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import "./products.css";
 import { ProductListCard, ProductListCardSkel } from "../../components";
-import { data } from "../../assets";
 import { useNavigate } from "react-router-dom";
 import { appContext } from "../../App";
 

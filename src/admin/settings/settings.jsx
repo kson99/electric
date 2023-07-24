@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import "./settings.css";
-import { data } from "../../assets";
 import { appContext } from "../../App";
 
 function Settings() {
