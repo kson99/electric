@@ -12,6 +12,7 @@ import Shipping from "./shipping/shipping";
 import ItemCardSkel from "./skeletons/item-card/item-card";
 import ProductListCardSkel from "./skeletons/product-list-card/product-list-card";
 import Reviews from "./reviews/reviews";
+import ErrorToast from "./errorToast/errorToast";
 
 export {
   Navbar,
@@ -28,4 +29,5 @@ export {
   ItemCardSkel,
   ProductListCardSkel,
   Reviews,
+  ErrorToast,
 };

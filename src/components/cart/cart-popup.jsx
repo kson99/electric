@@ -4,13 +4,15 @@ import { appContext } from "../../App";
 import IonIcon from "@reacticons/ionicons";
 import CartCard from "../cards/cart-card/cart-card";
 import { useNavigate } from "react-router-dom";
+import { toCurrency } from "../../utils";
 
 function CartPopup() {
-  const { cartCtx, products, cartOpen } = useContext(appContext);
+  const { cartCtx, products } = useContext(appContext);
   const { cartProducts, openCart, setOpenCart } = cartCtx;
 
   const navigate = useNavigate();
   const [subtotal, setSubtotal] = useState({});
+  const [checkoutProducts, setCheckoutProducts] = useState({});
   const [closing, setClosing] = useState(false);
 
   const getcartProducts = () => {
@@ -44,7 +46,9 @@ function CartPopup() {
 
   const checkout = () => {
     closeCart();
-    navigate("/checkout", { state: { total: getSubtotal() } });
+    navigate("/checkout", {
+      state: { total: getSubtotal(), cartData: checkoutProducts },
+    });
   };
 
   return (
@@ -61,7 +65,12 @@ function CartPopup() {
 
           <div className="body">
             {getcartProducts().map((item) => (
-              <CartCard item={item} key={item._id} setSubtotal={setSubtotal} />
+              <CartCard
+                item={item}
+                key={item._id}
+                setSubtotal={setSubtotal}
+                setProducts={setCheckoutProducts}
+              />
             ))}
           </div>
 
@@ -70,13 +79,7 @@ function CartPopup() {
               <div className="checkout">
                 <div className="sub-tot">
                   <p>Sub-Total</p>
-                  <p>
-                    N${" "}
-                    {getSubtotal().toLocaleString(undefined, {
-                      maximumFractionDigits: 2,
-                      minimumFractionDigits: 2,
-                    })}
-                  </p>
+                  <p>N$ {toCurrency(getSubtotal())}</p>
                 </div>
                 <textarea placeholder="Order note"></textarea>
                 <p>Shipping and Taxes calculated at checkout</p>

@@ -2,8 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import "./cart-card.css";
 import IonIcon from "@reacticons/ionicons";
 import { appContext } from "../../../App";
+import { toCurrency } from "../../../utils";
 
-function CartCard({ item, setSubtotal }) {
+function CartCard({ item, setSubtotal, setProducts }) {
   const { cartCtx } = useContext(appContext);
   const { setCartProducts } = cartCtx;
 
@@ -28,6 +29,16 @@ function CartCard({ item, setSubtotal }) {
       array[item._id] = item.price * qty;
       return array;
     });
+
+    setProducts((prev) => {
+      let array = { ...prev };
+      array[item._id] = {
+        id: item._id,
+        quantity: qty,
+      };
+
+      return array;
+    });
   };
 
   const removeFromCart = () => {
@@ -45,6 +56,13 @@ function CartCard({ item, setSubtotal }) {
 
       return obj;
     });
+
+    setProducts((prev) => {
+      let obj = { ...prev };
+      delete obj[item._id];
+
+      return obj;
+    });
   };
 
   useEffect(() => {
@@ -57,13 +75,7 @@ function CartCard({ item, setSubtotal }) {
 
       <div className="info">
         <p>{item.title}</p>
-        <p>
-          N${" "}
-          {(total * 1).toLocaleString(undefined, {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          })}
-        </p>
+        <p>N$ {toCurrency(total)}</p>
         <div className="qty-ctrl">
           <div
             className="minus"

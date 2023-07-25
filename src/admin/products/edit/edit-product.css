@@ -8,6 +8,7 @@
     flex-direction: column;
     row-gap: 30px;
     margin-top: 30px;
+    position: relative;
 }
 
 .edit-product .field input,

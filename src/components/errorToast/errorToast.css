@@ -1,0 +1,50 @@
+.error-toast {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.error-toast .popup {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+    transform: translateX(115%);
+    animation: slide-in .8s forwards;
+
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.error-toast .popup div {
+    font-weight: 600;
+    position: relative;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    column-gap: 5px;
+    /* align-items: center; */
+}
+
+.error-toast .popup .icon {
+    position: absolute;
+    top: 50%;
+    left: -30px;
+    color: red;
+    font-size: 25px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.error-toast .popup .bug {
+    font-size: 20px;
+}
+
+@keyframes slide-in {
+    100% {
+        transform: translateX(0);
+    }
+}

@@ -5,6 +5,8 @@ import IonIcon from "@reacticons/ionicons";
 import { ReactSortable } from "react-sortablejs";
 import axios from "axios";
 import { appContext, url } from "../../../App";
+import { ErrorToast } from "../../../components";
+import Loader from "../loader/loader";
 
 function EditProduct() {
   const { refleshCtx, categories } = useContext(appContext);
@@ -16,28 +18,46 @@ function EditProduct() {
   const [images, setImages] = useState([...state?.images] || []);
   const [category, setCategory] = useState(state?.category || "");
   const [properties, setProperties] = useState(state?.properties || {});
+  const [error, setError] = useState("");
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSave = async (ev) => {
     ev.preventDefault();
 
-    let data = {
-      title: ev.target.title.value,
-      description: ev.target.description.value,
-      price: ev.target.price.value,
-      category: ev.target.category.value,
-      properties,
-      images: [...images],
-    };
+    if (images.length > 0) {
+      setIsLoading(true);
 
-    await axios
-      .put(url + "/products/update", {
-        ...data,
-        id: state._id,
-      })
-      .then(() => {
-        setReflesh(reflesh + 1);
-        navigate("/admin/products");
-      });
+      let data = {
+        title: ev.target.title.value,
+        description: ev.target.description.value,
+        price: ev.target.price.value,
+        category: ev.target.category.value,
+        properties,
+        images: [...images],
+      };
+
+      try {
+        await axios
+          .put(url + "/products/update", {
+            ...data,
+            id: state._id,
+          })
+          .then(() => {
+            setReflesh(reflesh + 1);
+            navigate("/admin/products");
+          });
+      } catch (error) {
+        setIsLoading(false);
+        setIsError(true);
+        setError("Something went wrong!");
+      }
+
+      setIsLoading(false);
+    } else {
+      setIsError(true);
+      setError("Item image is required!");
+    }
   };
 
   const removeImage = (index) => {
@@ -101,9 +121,11 @@ function EditProduct() {
   return (
     <div className="edit-product a-page">
       <div className="ep-cont cont">
+        <ErrorToast trigger={isError} setTrigger={setIsError} error={error} />
         <h1>Edit Product</h1>
 
         <form onSubmit={onSave} className="prod-fields">
+          <Loader trigger={isLoading} />
           <div className="field">
             <p>Product Name</p>
             <input

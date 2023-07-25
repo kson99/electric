@@ -5,13 +5,15 @@ import { Rating } from "react-simple-star-rating";
 import IonIcon from "@reacticons/ionicons";
 import { RelatedCard, Reviews, Shipping } from "../../components";
 import { appContext } from "../../App";
+import { toCurrency } from "../../utils";
 
 function ItemView() {
   const { categories, products, cartCtx } = useContext(appContext);
   const { setCartProducts, setOpenCart } = cartCtx;
 
   const { state, pathname } = useLocation();
-  const item = state?.item;
+  const item = products.find(({ _id }) => _id === state.item._id) || state.item;
+  // state?.item;
 
   const [selectedTab, setselectedTab] = useState("description");
   const [quantity, setQuantity] = useState(1);
@@ -206,13 +208,7 @@ function ItemView() {
                 <p>({item.reviews ? item.reviews.length : 0} reviews)</p>
               </div>
 
-              <h1 className="price">
-                N${" "}
-                {(item.price * 1).toLocaleString(undefined, {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}
-              </h1>
+              <h1 className="price">N$ {toCurrency(item.price)}</h1>
 
               {catProperties.length > 0 && (
                 <div className="category">
@@ -280,9 +276,11 @@ function ItemView() {
           <div className="related-items">
             <h2>You may also like</h2>
             <div className="related">
-              {getRelatedItems().map((_item, i) => (
-                <RelatedCard item={_item} key={i} data={products} />
-              ))}
+              {getRelatedItems()
+                .slice(0, 4)
+                .map((_item, i) => (
+                  <RelatedCard item={_item} key={i} data={products} />
+                ))}
             </div>
           </div>
         </div>

@@ -29,7 +29,7 @@ function Home() {
         </div>
       </section>
 
-      <Featured item={products[4]} />
+      <Featured item={products[8]} />
 
       <section className="all-items">
         <div className="max-width">

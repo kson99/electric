@@ -5,6 +5,7 @@ import "./related-card.css";
 import { useNavigate } from "react-router-dom";
 import IconWithTooltip from "../../tooltip/tooltip";
 import { appContext } from "../../../App";
+import { toCurrency } from "../../../utils";
 
 function RelatedCard({ item }) {
   const { cartCtx } = useContext(appContext);
@@ -59,13 +60,7 @@ function RelatedCard({ item }) {
       <div className="item-details">
         <h3 className="title">{item.title}</h3>
 
-        <h3 className="price">
-          N${" "}
-          {item.price.toLocaleString(undefined, {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          })}
-        </h3>
+        <h3 className="price">N$ {toCurrency(item.price)}</h3>
 
         <div className="rating">
           <Rating

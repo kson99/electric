@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import "./featured.css";
 import { appContext } from "../../App";
 import Skeleton from "react-loading-skeleton";
+import { toCurrency } from "../../utils";
 
 function Featured({ item }) {
   const { dataLoading } = useContext(appContext);
@@ -11,14 +12,12 @@ function Featured({ item }) {
       <div className="max-width">
         <div className="promo-cont">
           <div className="promo-text">
-            <h1 className="price">
-              N${" "}
-              {(item?.price * 1)?.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
-            </h1>
-            <h1>{item?.title}</h1>
+            {dataLoading ? (
+              <Skeleton height={20} />
+            ) : (
+              <h1 className="price">N$ {toCurrency(item?.price)}</h1>
+            )}
+            <h1>{item?.title || <Skeleton />}</h1>
 
             <button>NOW AVAILABLE</button>
           </div>

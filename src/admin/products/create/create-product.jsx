@@ -4,7 +4,9 @@ import IonIcon from "@reacticons/ionicons";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ReactSortable } from "react-sortablejs";
-import { appContext } from "../../../App";
+import { appContext, url } from "../../../App";
+import { ErrorToast } from "../../../components";
+import Loader from "../loader/loader";
 
 function CreateProduct() {
   const { refleshCtx, categories } = useContext(appContext);
@@ -13,6 +15,9 @@ function CreateProduct() {
   const [reflesh, setReflesh] = refleshCtx;
 
   const [category, setCategory] = useState("");
+  const [error, setError] = useState("");
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [productProperties, setProductProperties] = useState({});
 
   const imagesUpdateOrder = (images) => {
@@ -35,28 +40,37 @@ function CreateProduct() {
       setProductProperties({});
     }
 
-    let _properties = {};
-    if (Object.keys(productProperties).length === 0) {
-      properties.map((p) => {
-        _properties[p.name] = p.values.split(",")[0].trim();
+    if (images.length > 0) {
+      setIsLoading(true);
+
+      let _properties = {};
+      if (Object.keys(productProperties).length === 0) {
+        properties.map((p) => {
+          _properties[p.name] = p.values.split(",")[0].trim();
+        });
+      } else {
+        _properties = productProperties;
+      }
+
+      let data = {
+        title: ev.target.title.value,
+        description: ev.target.description.value,
+        price: ev.target.price.value,
+        category: ev.target.category.value,
+        properties: _properties,
+        images: [...images],
+      };
+
+      await axios.post(url + "/products/upload", data).then((res) => {
+        setReflesh(reflesh + 1);
+        navigate("/admin/products");
       });
+
+      setIsLoading(false);
     } else {
-      _properties = productProperties;
+      setIsError(true);
+      setError("Item image is required!");
     }
-
-    let data = {
-      title: ev.target.title.value,
-      description: ev.target.description.value,
-      price: ev.target.price.value,
-      category: ev.target.category.value,
-      properties: _properties,
-      images: [...images],
-    };
-
-    await axios.post(url + "/products/upload", data).then((res) => {
-      setReflesh(reflesh + 1);
-      navigate(-1);
-    });
   };
 
   const assignProdProperties = (pName, pValue) => {
@@ -105,9 +119,12 @@ function CreateProduct() {
   return (
     <div className="create-product a-page">
       <div className="cp-cont cont">
+        <ErrorToast trigger={isError} setTrigger={setIsError} error={error} />
         <h1>Create Product</h1>
 
         <form onSubmit={uploadProduct} className="prod-fields">
+          <Loader trigger={isLoading} />
+
           <div className="field">
             <p>Product Name</p>
             <input

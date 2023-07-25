@@ -54,13 +54,14 @@ function App() {
   const getData = async () => {
     setDataLoading(true);
     await axios.get(url + "/products").then((res) => {
-      setProducts(res.data);
-      setDataLoading(false);
+      setProducts(res.data.reverse());
     });
 
     await axios.get(url + "/categories").then((res) => {
       setCategories(res.data);
     });
+
+    setDataLoading(false);
 
     setCartProducts((prev) => {
       const array = JSON.parse(localStorage.getItem("cart")) || [];

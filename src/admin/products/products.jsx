@@ -8,8 +8,6 @@ function Products() {
   const navigate = useNavigate();
   const { products, dataLoading } = useContext(appContext);
 
-  // console.log(products);
-
   const addNewProduct = () => {
     navigate("/admin/products/create");
   };

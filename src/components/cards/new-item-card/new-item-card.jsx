@@ -5,6 +5,7 @@ import "./new-item-card.css";
 import { useNavigate } from "react-router-dom";
 import IconWithTooltip from "../../tooltip/tooltip";
 import { appContext } from "../../../App";
+import { toCurrency } from "../../../utils";
 
 function NewItemCard({ item }) {
   const { categories, cartCtx } = useContext(appContext);
@@ -65,13 +66,7 @@ function NewItemCard({ item }) {
         <p className="category">{getCategoryName(item.category)}</p>
         <h3 className="title">{item.title}</h3>
 
-        <h3 className="price">
-          N${" "}
-          {(item.price * 1).toLocaleString(undefined, {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          })}
-        </h3>
+        <h3 className="price">N$ {toCurrency(item.price)}</h3>
 
         <div className="rating">
           <Rating
