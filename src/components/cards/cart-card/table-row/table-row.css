@@ -1,6 +1,5 @@
 .cart-table-row {
     border-top: 1.5px solid lightgray;
-    position: relative;
 }
 
 .cart-table-row td {
@@ -47,11 +46,9 @@
 }
 
 .cart-table-row .close {
-    position: absolute;
-    top: 20px;
-    right: 0;
     font-size: 25px;
     color: darkgrey;
+    padding: 0;
 }
 
 .cart-table-row .close .icon {

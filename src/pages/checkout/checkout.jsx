@@ -25,7 +25,7 @@ function Checkout() {
 
   const checkout = async () => {
     let info = JSON.parse(localStorage.getItem("information"));
-    info["amount"] = getSubtotal();
+    info["amount"] = getSubtotal() + 30;
     info["products"] = cartProducts();
 
     localStorage.setItem("information", JSON.stringify(info));
@@ -33,10 +33,12 @@ function Checkout() {
     await axios
       .post(url + "/payments", {
         ...cartData,
-        email: "mushishi",
+        email: info.contact.email,
       })
       .then((res) => {
         let fields = res.data;
+
+        console.log(res.data);
 
         localStorage.setItem("query", JSON.stringify(fields));
 
