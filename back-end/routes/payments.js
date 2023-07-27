@@ -35,6 +35,8 @@ const getAmount = async (data) => {
     .find()
     .toArray();
 
+  shipping = settings[0].shipping * 1;
+
   Object.keys(data).forEach((key) => {
     products.map((product) => {
       if (product._id.toString() === key) {
@@ -43,7 +45,7 @@ const getAmount = async (data) => {
     });
   });
 
-  amount += settings[0].shipping;
+  amount += shipping;
 
   return amount * 100;
 };
