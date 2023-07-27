@@ -10,6 +10,8 @@ function Settings() {
 
   const [loading, setLoading] = useState(false);
 
+  console.log(settings._id);
+
   const onSave = async (ev) => {
     ev.preventDefault();
 
@@ -19,6 +21,7 @@ function Settings() {
       featured1: ev.target.featured1.value,
       featured2: ev.target.featured2.value,
       shipping: ev.target.shipping.value,
+      id: settings._id,
     };
 
     await axios.put(url + "/settings/update", data).then((res) => {

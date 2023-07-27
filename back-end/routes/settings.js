@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { MongoClient } = require("mongodb");
+const mongo = require("mongodb");
 
 const client = new MongoClient(process.env.ATLAS_URI);
 
