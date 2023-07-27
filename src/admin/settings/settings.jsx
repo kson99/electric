@@ -21,7 +21,7 @@ function Settings() {
       shipping: ev.target.shipping.value,
     };
 
-    await axios.post(url + "/settings/upload", data).then((res) => {
+    await axios.put(url + "/settings/update", data).then((res) => {
       console.log("successfull");
       setReflesh(reflesh + 1);
     });
