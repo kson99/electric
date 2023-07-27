@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import "./settings.css";
-import { appContext } from "../../App";
+import { appContext, url } from "../../App";
+import axios from "axios";
 
 function Settings() {
   const { products } = useContext(appContext);
 
-  const onSave = (ev) => {
+  const onSave = async (ev) => {
     ev.preventDefault();
 
     let data = {
@@ -13,6 +14,10 @@ function Settings() {
       featured2: ev.target.featured2.value,
       shipping: ev.target.shipping.value,
     };
+
+    await axios.post(url + "/settings/upload", data).then((res) => {
+      console.log("successfull");
+    });
 
     console.log(data);
   };

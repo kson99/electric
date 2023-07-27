@@ -33,6 +33,7 @@ function App() {
   const [ischeckout, setIsCheckout] = useState(false);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [settings, setSettings] = useState({});
   const [orders, setOrders] = useState([]);
   const [reflesh, setReflesh] = useState(0);
   const [cartProducts, setCartProducts] = useState([]);
@@ -61,6 +62,11 @@ function App() {
 
     await axios.get(url + "/categories").then((res) => {
       setCategories(res.data);
+    });
+
+    await axios.get(url + "/settings").then((res) => {
+      setSettings(res.data[0]);
+      console.log(res.data);
     });
 
     setDataLoading(false);

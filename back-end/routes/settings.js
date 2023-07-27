@@ -8,7 +8,7 @@ const client = new MongoClient(process.env.ATLAS_URI);
 router.get("/", async (req, res) => {
   try {
     const data = await client
-      .db("Electric-E-Commerce")
+      .db("Electric-E-commerse")
       .collection("settings")
       .find()
       .toArray();
