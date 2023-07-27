@@ -5,12 +5,24 @@ import { Link } from "react-router-dom";
 import { appContext } from "../../App";
 
 function Home() {
-  const { products, dataLoading } = useContext(appContext);
+  const { products, dataLoading, settings } = useContext(appContext);
+
+  const getFeaturedItem = (pos) => {
+    let item = {};
+
+    if (pos === "1") {
+      item = products.find(({ _id }) => _id === settings.featured1);
+    } else if (pos === "2") {
+      item = products.find(({ _id }) => _id === settings.featured2);
+    }
+
+    return item;
+  };
 
   return (
     <div className="home">
       <MiniNav />
-      <Featured item={products[1]} />
+      <Featured item={getFeaturedItem("1")} />
 
       <section className="new-items">
         <div className="max-width">
@@ -29,7 +41,7 @@ function Home() {
         </div>
       </section>
 
-      <Featured item={products[8]} />
+      <Featured item={getFeaturedItem("2")} />
 
       <section className="all-items">
         <div className="max-width">

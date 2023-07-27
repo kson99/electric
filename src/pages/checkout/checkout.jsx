@@ -10,11 +10,11 @@ import { appContext, url } from "../../App";
 import { toCurrency } from "../../utils";
 
 function Checkout() {
-  const { products } = useContext(appContext);
+  const { products, settings } = useContext(appContext);
   const { state } = useLocation();
   const cartData = state.cartData;
   const navigate = useNavigate();
-  const shipping = 30;
+  const shipping = settings.shipping * 1;
 
   const formRef = useRef();
   const [submit, setSubmit] = useState(false);

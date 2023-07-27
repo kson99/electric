@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./payment.css";
+import { appContext } from "../../../App";
+import { toCurrency } from "../../../utils";
 
 function Payment() {
+  const { settings } = useContext(appContext);
   const info = JSON.parse(localStorage.getItem("information"));
 
   return (
@@ -31,7 +34,7 @@ function Payment() {
             <tr className="field">
               <td>Shipping fee</td>
               <td>:</td>
-              <td>N$ 30,00 </td>
+              <td>N$ {toCurrency(settings.shipping)} </td>
             </tr>
           </tbody>
         </table>

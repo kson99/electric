@@ -21,10 +21,17 @@ const generateMD5 = (_data, secret = "secret") => {
 
 const getAmount = async (data) => {
   let amount = 0;
+  let shipping = 0;
 
   const products = await client
     .db("Electric-E-commerse")
     .collection("products")
+    .find()
+    .toArray();
+
+  const settings = await client
+    .db("Electric-E-commerse")
+    .collection("settings")
     .find()
     .toArray();
 
@@ -36,7 +43,7 @@ const getAmount = async (data) => {
     });
   });
 
-  amount += 30;
+  amount += settings[0].shipping;
 
   return amount * 100;
 };

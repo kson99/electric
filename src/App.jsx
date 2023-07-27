@@ -66,7 +66,6 @@ function App() {
 
     await axios.get(url + "/settings").then((res) => {
       setSettings(res.data[0]);
-      console.log(res.data[0]);
     });
 
     setDataLoading(false);
