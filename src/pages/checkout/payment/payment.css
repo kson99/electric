@@ -5,39 +5,27 @@
 }
 
 .payment .fields {
-  border: 1px solid grey;
-  padding: 10px;
   display: flex;
   flex-direction: column;
   row-gap: 10px;
   border-radius: 5px;
   margin-top: 10px;
+  color: grey;
 }
 
-.payment .fields .seperator {
-  width: 100%;
-  height: 1px;
-  background-color: grey;
-}
-
-.payment .fields label {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.payment .fields input {
-  width: 100%;
-  border: none;
-  background-color: transparent;
-  outline: none;
-  padding: 0 10px;
+.payment .fields h3 {
+  color: white;
+  margin-bottom: 10px;
 }
 
 .payment .payment-type {
   display: flex;
   flex-direction: column;
   row-gap: 20px;
+}
+
+.payment .fields .field td:last-child {
+  color: lightgrey;
 }
 
 .payment .paygate {

@@ -2,28 +2,39 @@ import React from "react";
 import "./payment.css";
 
 function Payment() {
+  const info = JSON.parse(localStorage.getItem("information"));
+
   return (
     <div className="payment">
       <div className="fields">
-        <label>
-          Email:
-          <input type="email" placeholder="example@email.com" />
-        </label>
-        <div className="seperator"></div>
-        <label>
-          Phone:
-          <input type="number" placeholder="264 81 123 4567" />
-        </label>
-        <div className="seperator"></div>
-        <label>
-          Address:
-          <input type="number" placeholder="264 81 123 4567" />
-        </label>
-        <div className="seperator"></div>
-        <label>
-          Method:
-          <input type="number" placeholder="264 81 123 4567" />
-        </label>
+        <h3>Checkout Info</h3>
+        <table>
+          <tbody>
+            <tr className="field">
+              <td>Email</td>
+              <td>:</td>
+              <td>{info?.contact.email}</td>
+            </tr>
+
+            <tr className="field">
+              <td>Phone</td>
+              <td>:</td>
+              <td>{info?.contact.number}</td>
+            </tr>
+
+            <tr className="field">
+              <td>Address</td>
+              <td>:</td>
+              <td>{info?.address.address}</td>
+            </tr>
+
+            <tr className="field">
+              <td>Shipping fee</td>
+              <td>:</td>
+              <td>N$ 30,00 </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <div className="payment-type">
@@ -48,11 +59,6 @@ function Payment() {
               to complete your purchase securely.
             </p>
           </div>
-        </div>
-
-        <div className="buttons">
-          <button>return to information</button>
-          <button className="submitBtn">Complete order</button>
         </div>
       </div>
     </div>

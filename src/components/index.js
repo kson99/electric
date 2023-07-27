@@ -13,6 +13,7 @@ import ItemCardSkel from "./skeletons/item-card/item-card";
 import ProductListCardSkel from "./skeletons/product-list-card/product-list-card";
 import Reviews from "./reviews/reviews";
 import ErrorToast from "./errorToast/errorToast";
+import CartTableRow from "./cards/cart-card/table-row/table-row";
 
 export {
   Navbar,
@@ -30,4 +31,5 @@ export {
   ProductListCardSkel,
   Reviews,
   ErrorToast,
+  CartTableRow,
 };

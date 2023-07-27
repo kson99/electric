@@ -15,7 +15,8 @@ mongoose.connect(process.env.ATLAS_URI, {
 
 const productsRoute = require("./routes/products");
 const categoriesRoute = require("./routes/categories");
-const payments = require("./routes/payments");
+const paymentsRoute = require("./routes/payments");
+const ordersRoute = require("./routes/orders");
 
 const app = express();
 
@@ -25,7 +26,8 @@ app.use(bodyParser.json({ limit: "500kb" }));
 
 app.use("/products", productsRoute);
 app.use("/categories", categoriesRoute);
-app.use("/payments", payments);
+app.use("/payments", paymentsRoute);
+app.use("/orders", ordersRoute);
 
 app.listen(PORT, () => {
   console.log(`Express server listening on port: ${PORT}`);

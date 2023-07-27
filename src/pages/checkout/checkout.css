@@ -39,9 +39,13 @@
 .check-out .check-out-info .tabs {
   display: flex;
   flex-direction: row;
-  column-gap: 7px;
+  column-gap: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid grey;
+}
+
+.check-out .check-out-info .tab {
+  cursor: pointer;
 }
 
 .check-out .check-out-cart {
@@ -135,4 +139,11 @@
   font-size: 22px;
   border-bottom: 1px solid lightgray;
   padding-bottom: 15px;
+}
+
+.check-out .buttons {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

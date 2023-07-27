@@ -3,6 +3,9 @@ const router = express.Router();
 const CryptoJS = require("crypto-js");
 var FormData = require("form-data");
 const axios = require("axios");
+const { MongoClient } = require("mongodb");
+
+const client = new MongoClient(process.env.ATLAS_URI);
 
 const generateMD5 = (_data, secret = "secret") => {
   let array = [];
@@ -16,19 +19,44 @@ const generateMD5 = (_data, secret = "secret") => {
   return CryptoJS.MD5(str).toString();
 };
 
+const getAmount = async (data) => {
+  let amount = 0;
+
+  const products = await client
+    .db("Electric-E-commerse")
+    .collection("products")
+    .find()
+    .toArray();
+
+  Object.keys(data).forEach((key) => {
+    products.map((product) => {
+      if (product._id.toString() === key) {
+        amount += product.price * 1 * (data[key].quantity * 1);
+      }
+    });
+  });
+
+  amount += 30;
+
+  return amount * 100;
+};
+
 router.post("/", async (req, res) => {
-  const { amount } = req.body;
+  const payData = req.body;
+
+  console.log("amount: ", await getAmount(payData));
+  console.log(payData);
 
   const data = {
     PAYGATE_ID: "10011072130",
     REFERENCE: "pgtest_",
-    AMOUNT: `${10000}`,
+    AMOUNT: `${await getAmount(payData)}`,
     CURRENCY: "ZAR",
     RETURN_URL: "https://electric-nam.netlify.app/check-out-status",
     TRANSACTION_DATE: `${new Date().toISOString()}`,
     LOCALE: "en-za",
     COUNTRY: "ZAF",
-    EMAIL: "redgekson@gmail.com",
+    EMAIL: `${payData.email}`,
   };
   data["CHECKSUM"] = `${generateMD5(data)}`;
 
@@ -62,7 +90,7 @@ router.post("/", async (req, res) => {
 
       console.log(fields);
 
-      res.send(response.data);
+      res.send(fields);
     })
     .catch((err) => {
       console.log(err);

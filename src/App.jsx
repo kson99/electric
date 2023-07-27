@@ -21,6 +21,7 @@ import Checkout from "./pages/checkout/checkout";
 import CheckedOut from "./pages/checked-out/checked-out";
 import { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import Cart from "./pages/cart/cart";
 
 export const appContext = createContext();
 export const url = "https://byzantium-scorpion-cap.cyclic.app";
@@ -107,6 +108,7 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/check-out-status" element={<CheckedOut />} />
+            <Route path="/cart" element={<Cart />} />
 
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/dashboard" element={<Dashboard />} />

@@ -72,8 +72,22 @@ button {
   border-radius: 5px;
 }
 
+.returnBtn {
+  background-color: transparent;
+  font-weight: 600;
+  border: none;
+  color: grey;
+  border: 1px solid grey;
+  border-radius: 5px;
+}
+
 .submitBtn:hover {
   background-color: blue;
+}
+
+.returnBtn:hover {
+  border-color: lightgray;
+  color: lightgray;
 }
 
 button:hover {

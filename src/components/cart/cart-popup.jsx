@@ -15,7 +15,7 @@ function CartPopup() {
   const [checkoutProducts, setCheckoutProducts] = useState({});
   const [closing, setClosing] = useState(false);
 
-  const getcartProducts = () => {
+  const getCartProducts = () => {
     let _products = [];
 
     cartProducts.map((prod) => {
@@ -47,7 +47,10 @@ function CartPopup() {
   const checkout = () => {
     closeCart();
     navigate("/checkout", {
-      state: { total: getSubtotal(), cartData: checkoutProducts },
+      state: {
+        total: getSubtotal(),
+        cartData: checkoutProducts,
+      },
     });
   };
 
@@ -64,7 +67,7 @@ function CartPopup() {
           </div>
 
           <div className="body">
-            {getcartProducts().map((item) => (
+            {getCartProducts().map((item) => (
               <CartCard
                 item={item}
                 key={item._id}

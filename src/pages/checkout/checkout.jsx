@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./checkout.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useRef } from "react";
 import IonIcon from "@reacticons/ionicons";
@@ -13,30 +13,38 @@ function Checkout() {
   const { products } = useContext(appContext);
   const { state } = useLocation();
   const cartData = state.cartData;
+  const navigate = useNavigate();
   const shipping = 30;
 
   const formRef = useRef();
   const [submit, setSubmit] = useState(false);
   const [checksum, setChecksum] = useState("");
   const [payId, setPayId] = useState("");
-  const [activeTab, setActiveTab] = useState("payment");
+  const [completeOrder, setCompleteOrder] = useState(false);
+  const [activeTab, setActiveTab] = useState("information");
 
   const checkout = async () => {
-    let fields = {};
-    await axios.post(url + "/payments", cartData).then((res) => {
-      let resArray = res.data.split("&");
+    let info = JSON.parse(localStorage.getItem("information"));
+    info["amount"] = getSubtotal();
+    info["products"] = cartProducts();
 
-      resArray.forEach((field) => {
-        let [key, value] = field.split("=");
-        fields[key] = value;
+    localStorage.setItem("information", JSON.stringify(info));
+
+    await axios
+      .post(url + "/payments", {
+        ...cartData,
+        email: "mushishi",
+      })
+      .then((res) => {
+        let fields = res.data;
+
+        localStorage.setItem("query", JSON.stringify(fields));
+
+        setChecksum(fields.CHECKSUM);
+        setPayId(fields.PAY_REQUEST_ID);
+
+        setSubmit(true);
       });
-
-      localStorage.setItem("query", JSON.stringify(fields));
-
-      setChecksum(fields.CHECKSUM);
-      setPayId(fields.PAY_REQUEST_ID);
-      setSubmit(true);
-    });
   };
 
   const cartProducts = () => {
@@ -66,7 +74,7 @@ function Checkout() {
   const switchTabs = () => {
     switch (activeTab) {
       case "information":
-        return <Information />;
+        return <Information setDone={setActiveTab} />;
         break;
 
       case "payment":
@@ -91,6 +99,19 @@ function Checkout() {
     );
   };
 
+  useEffect(() => {
+    const active = document.getElementById(activeTab);
+    const other = document.querySelectorAll(".check-out-info .tab");
+
+    other.forEach((n) => {
+      n.style.color = "white";
+    });
+
+    if (active !== null) {
+      active.style.color = "cornflowerblue";
+    }
+  }, [activeTab]);
+
   if (submit) {
     setTimeout(() => {
       formRef.current && formRef.current.submit();
@@ -111,16 +132,42 @@ function Checkout() {
             </Link>
 
             <div className="tabs">
-              <div className="tab">Cart&nbsp;&nbsp;{">"}</div>
-              <div className="tab">Information&nbsp;&nbsp;{">"}</div>
-              <div className="tab">Payment</div>
+              <div className="tab" onClick={() => navigate("/cart")}>
+                Cart
+              </div>
+              <div>{">"}</div>
+              <div
+                className="tab"
+                id="information"
+                onClick={() => {
+                  if (activeTab === "payment") {
+                    setActiveTab("information");
+                  }
+                }}
+              >
+                Information
+              </div>
+              <div>{">"}</div>
+              <div className="tab" id="payment">
+                Payment
+              </div>
             </div>
 
             {switchTabs()}
 
-            <button className="submitBtn" onClick={() => checkout()}>
-              Pay Up
-            </button>
+            {activeTab === "payment" && (
+              <div className="buttons">
+                <button
+                  className="returnBtn"
+                  onClick={() => setActiveTab("information")}
+                >
+                  Return to information
+                </button>
+                <button className="submitBtn" onClick={checkout}>
+                  Complete order
+                </button>
+              </div>
+            )}
           </div>
 
           <div className="check-out-cart">
