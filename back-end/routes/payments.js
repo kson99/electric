@@ -44,9 +44,6 @@ const getAmount = async (data) => {
 router.post("/", async (req, res) => {
   const payData = req.body;
 
-  console.log("amount: ", await getAmount(payData));
-  console.log(payData);
-
   const data = {
     PAYGATE_ID: "10011072130",
     REFERENCE: "pgtest_",
@@ -88,8 +85,6 @@ router.post("/", async (req, res) => {
         fields[key] = value;
       });
 
-      console.log(fields);
-
       res.send(fields);
     })
     .catch((err) => {
@@ -99,7 +94,6 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/status", async (req, res) => {
-  console.log(req.body);
   const data = req.body;
 
   const formdata = new FormData();
@@ -107,8 +101,6 @@ router.post("/status", async (req, res) => {
   Object.keys(data).forEach((key) => {
     formdata.append(`${key}`, `${data[key]}`);
   });
-
-  console.log(formdata);
 
   let config = {
     method: "post",
@@ -123,8 +115,6 @@ router.post("/status", async (req, res) => {
   axios
     .request(config)
     .then((response) => {
-      console.log("response data: ", response.data);
-
       res.send(response.data);
     })
     .catch((err) => {

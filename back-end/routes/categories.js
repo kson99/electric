@@ -37,12 +37,11 @@ router.put("/update", async (req, res) => {
   const query = { _id: new mongo.ObjectId(id) };
 
   try {
-    const result = await client
+    await client
       .db("Electric-E-commerse")
       .collection("categories")
       .updateOne(query, { $set: { name, parent, properties } });
 
-    console.log(result);
     res.sendStatus(200);
   } catch (error) {
     console.log(error);
@@ -54,12 +53,11 @@ router.delete("/delete", async (req, res) => {
   const query = { _id: new mongo.ObjectId(id) };
 
   try {
-    const result = await client
+    await client
       .db("Electric-E-commerse")
       .collection("categories")
       .deleteOne(query);
 
-    console.log(result);
     res.sendStatus(200);
   } catch (error) {
     console.log(error);

@@ -1,13 +1,19 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./settings.css";
 import { appContext, url } from "../../App";
 import axios from "axios";
+import Loader from "../products/loader/loader";
 
 function Settings() {
-  const { products } = useContext(appContext);
+  const { products, settings, refleshCtx } = useContext(appContext);
+  const [reflesh, setReflesh] = refleshCtx;
+
+  const [loading, setLoading] = useState(false);
 
   const onSave = async (ev) => {
     ev.preventDefault();
+
+    setLoading(true);
 
     let data = {
       featured1: ev.target.featured1.value,
@@ -17,9 +23,10 @@ function Settings() {
 
     await axios.post(url + "/settings/upload", data).then((res) => {
       console.log("successfull");
+      setReflesh(reflesh + 1);
     });
 
-    console.log(data);
+    setLoading(false);
   };
 
   return (
@@ -28,9 +35,10 @@ function Settings() {
         <h1>Settings</h1>
 
         <form onSubmit={onSave} className="settings-list">
+          <Loader trigger={loading} />
           <div className="featured">
             <p>Featured product 1</p>
-            <select name="featured1">
+            <select name="featured1" defaultValue={settings.featured1}>
               <option value="">--Select product--</option>
               {products.map((item) => (
                 <option value={item._id} key={item._id}>
@@ -42,7 +50,7 @@ function Settings() {
 
           <div className="featured">
             <p>Featured product 2</p>
-            <select name="featured2">
+            <select name="featured2" defaultValue={settings.featured2}>
               <option value="">--Select product--</option>
               {products.map((item) => (
                 <option value={item._id} key={item._id}>
@@ -58,7 +66,7 @@ function Settings() {
               type="number"
               name="shipping"
               placeholder="Shipping price..."
-              defaultValue={30}
+              defaultValue={settings.shipping}
             />
           </div>
 

@@ -66,7 +66,7 @@ function App() {
 
     await axios.get(url + "/settings").then((res) => {
       setSettings(res.data[0]);
-      console.log(res.data);
+      console.log(res.data[0]);
     });
 
     setDataLoading(false);
@@ -91,6 +91,7 @@ function App() {
         value={{
           products,
           categories,
+          settings,
           ordersCtx: [orders, setOrders],
           refleshCtx: [reflesh, setReflesh],
           dataLoading: dataLoading,

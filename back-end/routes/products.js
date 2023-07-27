@@ -2,9 +2,7 @@ const express = require("express");
 const productsModel = require("../models/products");
 const router = express.Router();
 const { MongoClient } = require("mongodb");
-// const { doc, setDoc } = require("firebase/firestore");
 const mongo = require("mongodb");
-// const db = require("../firebase.setup");
 
 const client = new MongoClient(process.env.ATLAS_URI);
 
@@ -35,11 +33,9 @@ router.post("/upload", async (req, res) => {
   });
 
   try {
-    const result = await products.save();
+    await products.save();
 
     res.sendStatus(200);
-
-    console.log(result);
   } catch (error) {
     console.log(error);
   }
@@ -51,7 +47,7 @@ router.put("/update", async (req, res) => {
   const query = { _id: new mongo.ObjectId(id) };
 
   try {
-    const result = await client
+    await client
       .db("Electric-E-commerse")
       .collection("products")
       .updateOne(query, {
@@ -67,8 +63,6 @@ router.put("/update", async (req, res) => {
       });
 
     res.sendStatus(200);
-
-    console.log(result);
   } catch (error) {
     console.log(error);
   }
@@ -79,7 +73,7 @@ router.put("/review", async (req, res) => {
   const query = { _id: new mongo.ObjectId(id) };
 
   try {
-    const result = await client
+    await client
       .db("Electric-E-commerse")
       .collection("products")
       .updateOne(query, {
@@ -89,8 +83,6 @@ router.put("/review", async (req, res) => {
       });
 
     res.sendStatus(200);
-
-    console.log(result);
   } catch (error) {
     console.log(error);
   }
@@ -101,12 +93,10 @@ router.delete("/delete", async (req, res) => {
   const query = { _id: new mongo.ObjectId(id) };
 
   try {
-    const result = await client
+    await client
       .db("Electric-E-commerse")
       .collection("products")
       .deleteOne(query);
-
-    console.log(result);
 
     res.sendStatus(200);
   } catch (error) {
