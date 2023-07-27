@@ -18,10 +18,6 @@ const OrdersSchema = new mongoose.Schema({
     },
   ],
 
-  paid: {
-    type: Boolean,
-  },
-
   amount: { type: Number, required: true },
 
   date: { type: String, required: true },

@@ -33,6 +33,7 @@ function App() {
   const [ischeckout, setIsCheckout] = useState(false);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [reflesh, setReflesh] = useState(0);
   const [cartProducts, setCartProducts] = useState([]);
   const [openCart, setOpenCart] = useState(false);
@@ -84,6 +85,7 @@ function App() {
         value={{
           products,
           categories,
+          ordersCtx: [orders, setOrders],
           refleshCtx: [reflesh, setReflesh],
           dataLoading: dataLoading,
           cartCtx: {

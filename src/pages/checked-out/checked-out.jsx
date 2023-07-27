@@ -10,6 +10,9 @@ function CheckedOut() {
 
   const getPaymentStatus = async () => {
     const fields = JSON.parse(localStorage.getItem("query"));
+    const order = JSON.parse(localStorage.getItem("information"));
+
+    console.log(order);
     const resData = {};
 
     await axios.post(url + "/payments/status", fields).then((res) => {
@@ -32,6 +35,7 @@ function CheckedOut() {
       case "1":
         // Transaction approved
         setStatus("Your payment has been approved!");
+        await axios.post(url + "/orders/upload", order);
         break;
 
       case "2":
