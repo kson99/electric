@@ -52,7 +52,8 @@ router.post("/", async (req, res) => {
     REFERENCE: "pgtest_",
     AMOUNT: `${await getAmount(payData)}`,
     CURRENCY: "ZAR",
-    RETURN_URL: "https://electric-nam.netlify.app/check-out-status/",
+    RETURN_URL:
+      "https://https://electric-nam.000webhostapp.com/check-out-status",
     TRANSACTION_DATE: `${new Date().toISOString()}`,
     LOCALE: "en-za",
     COUNTRY: "ZAF",
