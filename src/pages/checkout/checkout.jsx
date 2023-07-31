@@ -8,6 +8,7 @@ import Payment from "./payment/payment";
 import Information from "./information/information";
 import { appContext, url } from "../../App";
 import { toCurrency } from "../../utils";
+import { BeatLoader } from "react-spinners";
 
 function Checkout() {
   const { products, settings } = useContext(appContext);
@@ -20,13 +21,14 @@ function Checkout() {
   const [submit, setSubmit] = useState(false);
   const [checksum, setChecksum] = useState("");
   const [payId, setPayId] = useState("");
-  const [completeOrder, setCompleteOrder] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("information");
 
   const checkout = async () => {
     let info = JSON.parse(localStorage.getItem("information"));
     info["amount"] = getSubtotal() + 30;
     info["products"] = cartProducts();
+    setLoading(true);
 
     localStorage.setItem("information", JSON.stringify(info));
 
@@ -116,6 +118,7 @@ function Checkout() {
 
   if (submit) {
     setTimeout(() => {
+      setLoading(false);
       formRef.current && formRef.current.submit();
     }, 500);
   }
@@ -166,7 +169,7 @@ function Checkout() {
                   Return to information
                 </button>
                 <button className="submitBtn" onClick={checkout}>
-                  Complete order
+                  {loading ? <BeatLoader color="white" /> : "Complete order"}
                 </button>
               </div>
             )}

@@ -1,13 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./products-view.css";
 import { useLocation } from "react-router-dom";
 import { appContext } from "../../App";
 import { NewItemCard } from "../../components";
-import IonIcon from "@reacticons/ionicons";
+import { BeatLoader } from "react-spinners";
 
 function ProductsView() {
-  const { products, categories } = useContext(appContext);
+  const { products, categories, dataLoading } = useContext(appContext);
   const { state } = useLocation();
+  const [sortBy, setSortBy] = useState("new-old");
 
   const getProducts = () => {
     let array = [];
@@ -45,16 +46,42 @@ function ProductsView() {
     return array;
   };
 
-  const getCategoryProparties = () => {
+  const sortedProducts = () => {
     let array = [];
 
-    if (state.name !== "All") {
-      categories.map((c) => {
-        if (c._id === state._id) {
-          array.push(...c.properties);
-        }
-      });
+    switch (sortBy) {
+      case "new-old":
+        array = getProducts();
+        break;
+      case "low-high":
+        array = sortByPrice();
+        break;
+      case "high-low":
+        array = sortByPrice().reverse();
+        break;
+      case "old-new":
+        array = getProducts().reverse();
+        break;
+
+      default:
+        break;
     }
+
+    return array;
+  };
+
+  const sortByPrice = () => {
+    let array = [];
+    let obj = {};
+
+    getProducts().forEach((p) => {
+      obj[p.price * 1] = p;
+    });
+
+    Object.keys(obj).forEach((key) => {
+      array.push(obj[key]);
+    });
+
     return array;
   };
 
@@ -78,38 +105,33 @@ function ProductsView() {
             )}
 
             <div className="filters">
-              {/* {getCategoryProparties().map((prop, i) => (
-                <div className="proparty" key={i}>
-                  <p>{prop.name}:&nbsp;&nbsp;</p>
-                  <select id="">
-                    <option value="">All</option>
-                    {prop.values.split(",").map((val, _i) => (
-                      <option value={val} key={_i}>
-                        {val}
-                      </option>
-                    ))}
-                  </select>
-                  <IonIcon name="chevron-down" />
-                </div>
-              ))} */}
               <div className="proparty">
                 <div className="select">
-                  <select id="">
-                    <option value="newest">Price: Low to High</option>
-                    <option value="newest">Price: High to Low</option>
-                    <option value="newest">Date: New to Old</option>
-                    <option value="newest">Date: Old to New</option>
+                  <select id="" onChange={(e) => setSortBy(e.target.value)}>
+                    <option value="new-old">Date: New to Old</option>
+                    <option value="low-high">Price: Low to High</option>
+                    <option value="high-low">Price: High to Low</option>
+                    <option value="old-new">Date: Old to New</option>
                   </select>
                 </div>
-                {/* <IonIcon name="chevron-down" /> */}
               </div>
             </div>
           </div>
 
           <div className="pv-products">
-            {getProducts().map((product) => (
+            {sortedProducts().map((product) => (
               <NewItemCard item={product} key={product._id} />
             ))}
+
+            {sortedProducts().length === 0 && (
+              <p id="no-results">
+                {dataLoading ? (
+                  <BeatLoader color="#252525" />
+                ) : (
+                  "No Items Found"
+                )}
+              </p>
+            )}
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import "./home.css";
 import { Featured, ItemCardSkel, MiniNav, NewItemCard } from "../../components";
 import { Link } from "react-router-dom";
 import { appContext } from "../../App";
+import IonIcon from "@reacticons/ionicons";
 
 function Home() {
   const { products, dataLoading, settings } = useContext(appContext);
@@ -19,6 +20,20 @@ function Home() {
     return item;
   };
 
+  const shuffled = () => {
+    const items = products.slice(4, products.length - 1);
+    const array = [...items];
+
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+
+    return array.slice(0, 4);
+  };
+
   return (
     <div className="home">
       <MiniNav />
@@ -29,7 +44,9 @@ function Home() {
           <div className="ni-header">
             <h1 className="title">New Products</h1>
 
-            <Link>See More</Link>
+            <Link to="/products" state={{ name: "All" }}>
+              See More
+            </Link>
           </div>
 
           <div className="new-i">
@@ -47,12 +64,41 @@ function Home() {
         <div className="max-width">
           <div className="more-items">
             {dataLoading && <ItemCardSkel count={4} />}
-            {products.slice(4, 8).map((item, i) => (
+            {shuffled().map((item, i) => (
               <NewItemCard item={item} key={i} />
             ))}
           </div>
         </div>
       </section>
+
+      <div className="newsletter">
+        <p id="header">
+          Sign Up for the <b>NEWSLETTER</b>
+        </p>
+
+        <div className="input">
+          <input type="email" placeholder="Enter Your Email" />
+          <div className="subscribe">
+            <IonIcon name="mail" className="icon" />
+            <b>Subscribe</b>
+          </div>
+        </div>
+
+        <div className="social-buttons">
+          <div className="facebook">
+            <IonIcon name="logo-facebook" className="icon" />
+          </div>
+          <div className="twitter">
+            <IonIcon name="logo-twitter" className="icon" />
+          </div>
+          <div className="instagram">
+            <IonIcon name="logo-instagram" className="icon" />
+          </div>
+          <div className="email">
+            <IonIcon name="at-outline" className="icon" />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

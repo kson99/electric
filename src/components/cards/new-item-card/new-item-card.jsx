@@ -56,14 +56,20 @@ function NewItemCard({ item }) {
     <div
       className="new-item-card"
       onClick={() => {
-        navigate(`/${item.title.replaceAll(" ", "-").replaceAll(".", ",")}`, {
-          state: { item },
-        });
+        navigate(
+          `/${item.title
+            .replaceAll(" ", "-")
+            .replaceAll(".", ",")
+            .replaceAll("/", "OR")}`,
+          {
+            state: { item },
+          }
+        );
       }}
     >
       <img src={item?.images[0]} alt="camera" />
       <div className="item-details">
-        <p className="category">{getCategoryName(item.category)}</p>
+        <p className="category">{getCategoryName(item.category) || "-"}</p>
         <h3 className="title">{item.title}</h3>
 
         <h3 className="price">N$ {toCurrency(item.price)}</h3>

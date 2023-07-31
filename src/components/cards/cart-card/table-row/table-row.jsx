@@ -43,11 +43,9 @@ function CartTableRow({ item, setSubtotal, setProducts }) {
 
   const removeFromCart = () => {
     setCartProducts((prev) => {
-      localStorage.setItem(
-        "cart",
-        JSON.stringify([...prev].filter((id) => id !== item._id))
-      );
-      return [...prev].filter((id) => id !== item._id);
+      let newArray = [...prev].filter((id) => id !== item._id);
+      localStorage.setItem("cart", JSON.stringify(newArray));
+      return newArray;
     });
 
     setSubtotal((prev) => {

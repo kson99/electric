@@ -3,9 +3,11 @@ import "./featured.css";
 import { appContext } from "../../App";
 import Skeleton from "react-loading-skeleton";
 import { toCurrency } from "../../utils";
+import { useNavigate } from "react-router-dom";
 
 function Featured({ item }) {
   const { dataLoading } = useContext(appContext);
+  const navigate = useNavigate();
 
   return (
     <section className="promo-header">
@@ -19,7 +21,21 @@ function Featured({ item }) {
             )}
             <h1>{item?.title || <Skeleton />}</h1>
 
-            <button>NOW AVAILABLE</button>
+            <button
+              onClick={() => {
+                navigate(
+                  `/${item.title
+                    .replaceAll(" ", "-")
+                    .replaceAll(".", ",")
+                    .replaceAll("/", "OR")}`,
+                  {
+                    state: { item },
+                  }
+                );
+              }}
+            >
+              NOW AVAILABLE
+            </button>
           </div>
           <div className="promo-img">
             {dataLoading ? (

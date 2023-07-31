@@ -5,6 +5,22 @@
     row-gap: 50px;
 }
 
+.item-view .iv-cont .routes {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    align-items: center;
+    font-size: 12px;
+}
+
+.item-view .iv-cont .routes a {
+    color: #51b2f5;
+}
+
+.item-view .iv-cont .routes .icon {
+    margin-top: -3px;
+}
+
 .item-view .basic-details {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./information.css";
 import { useNavigate } from "react-router-dom";
+import { BeatLoader } from "react-spinners";
 
 function Information({ setDone }) {
   const info = JSON.parse(localStorage.getItem("information"));
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const saveInfo = (ev) => {
     ev.preventDefault();
+    setLoading(true);
 
     let data = {
       recipient: `${ev.target.first_name.value} ${ev.target.last_name.value}`,
@@ -26,6 +29,7 @@ function Information({ setDone }) {
 
     localStorage.setItem("information", JSON.stringify(data));
     setTimeout(() => {
+      setLoading(false);
       setDone("payment");
     }, 500);
   };
@@ -147,7 +151,7 @@ function Information({ setDone }) {
           Return to cart
         </button>
         <button type="submit" className="submitBtn">
-          Proceed to Payment
+          {loading ? <BeatLoader color="white" /> : "Proceed to Payment"}
         </button>
       </div>
     </form>

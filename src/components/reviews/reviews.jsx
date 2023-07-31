@@ -3,6 +3,8 @@ import "./reviews.css";
 import axios from "axios";
 import { Rating } from "react-simple-star-rating";
 import { appContext, url } from "../../App";
+import Loader from "../../admin/products/loader/loader";
+import { BeatLoader } from "react-spinners";
 
 function Reviews({ item }) {
   const { refleshCtx } = useContext(appContext);
@@ -10,6 +12,7 @@ function Reviews({ item }) {
 
   const [rating, setRating] = useState(0);
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const form = document.getElementById("reviewForm");
 
   const handleRating = (rate) => {
@@ -18,6 +21,7 @@ function Reviews({ item }) {
 
   const submitReview = async (ev) => {
     ev.preventDefault();
+    setLoading(true);
 
     await axios
       .put(url + "/products/review", {
@@ -44,6 +48,8 @@ function Reviews({ item }) {
           form.reset();
           setRating(0);
         }
+
+        setLoading(false);
         setMessage("Review submitted");
         setReflesh(reflesh + 1);
 
@@ -104,7 +110,7 @@ function Reviews({ item }) {
 
         <div className="buttons">
           <button className="submitBtn" type="submit">
-            Submit
+            {loading ? <BeatLoader color="white" /> : "Submit"}
           </button>
           <p>{message}</p>
         </div>

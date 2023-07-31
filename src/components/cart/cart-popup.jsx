@@ -3,7 +3,7 @@ import "./cart-popup.css";
 import { appContext } from "../../App";
 import IonIcon from "@reacticons/ionicons";
 import CartCard from "../cards/cart-card/cart-card";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toCurrency } from "../../utils";
 
 function CartPopup() {
@@ -54,6 +54,11 @@ function CartPopup() {
     });
   };
 
+  const goToCart = () => {
+    closeCart();
+    navigate("/cart");
+  };
+
   return (
     openCart && (
       <div className="cart-popup" onClick={closeCart}>
@@ -90,6 +95,10 @@ function CartPopup() {
                   <IonIcon name="lock-closed" />
                   <p>Checkout</p>
                 </button>
+
+                <p onClick={goToCart} id="to-cart">
+                  Go to Cart
+                </p>
               </div>
             ) : (
               <div className="cart-empty">

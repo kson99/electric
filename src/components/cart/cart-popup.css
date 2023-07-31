@@ -96,6 +96,12 @@
     font-size: 50px;
 }
 
+.cart-cont #to-cart {
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+}
+
 @keyframes slide-in {
     100% {
         transform: translateX(0);

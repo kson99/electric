@@ -36,6 +36,9 @@ function CheckedOut() {
         // Transaction approved
         setStatus("Your payment has been approved!");
         await axios.post(url + "/orders/upload", order);
+
+        localStorage.removeItem("cart");
+        localStorage.removeItem("query");
         break;
 
       case "2":

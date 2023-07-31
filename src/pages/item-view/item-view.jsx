@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./item-view.css";
 import { Rating } from "react-simple-star-rating";
 import IonIcon from "@reacticons/ionicons";
@@ -175,6 +175,16 @@ function ItemView() {
     <div className="item-view">
       <div className="max-width">
         <div className="iv-cont">
+          <div className="routes">
+            <Link to="/">Home</Link>
+            <IonIcon name="chevron-forward" className="icon" />
+            <Link to="/products" state={{ name: "All" }}>
+              Products
+            </Link>
+            <IonIcon name="chevron-forward" className="icon" />
+            <p>{item.title}</p>
+          </div>
+
           <div className="basic-details">
             <div className="images">
               <div className="img-nav">

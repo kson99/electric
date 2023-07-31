@@ -69,3 +69,14 @@
     padding-top: 30px;
     padding-bottom: 70px;
 }
+
+.products-view .pv-products #no-results {
+    grid-column: span 4;
+    align-items: center;
+    text-align: center;
+    padding: 100px;
+    color: #252525;
+    font-weight: 900;
+    font-size: 25px;
+    opacity: .2;
+}

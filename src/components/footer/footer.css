@@ -6,7 +6,12 @@
 
 .footer .f-tabs {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 50px;
+}
+
+.footer .f-tabs .electric {
+    grid-column: span 2;
 }
 
 .footer h3,
@@ -14,11 +19,73 @@
     margin-bottom: 20px;
 }
 
+.footer #message {
+    padding-top: 10px;
+}
+
+.footer .info-call {
+    margin-top: 20px;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+    align-items: center;
+}
+
+.footer .info-call span {
+    color: gold;
+}
+
+
+.footer .info-call .icon {
+    font-size: 30px;
+    margin-top: -10px;
+}
+
 .footer li {
     padding: 5px;
 }
 
-.footer a {
+.footer a,
+.footer p {
+    width: fit-content;
     padding: 5px;
     color: lightgrey;
+    text-align: justify;
+    border-bottom: 1px solid transparent;
+}
+
+.footer a:hover {
+    border-bottom: 1px solid lightgray;
+}
+
+.footer .links {
+    display: grid;
+    grid-template-columns: repeat(1, auto);
+}
+
+.footer #copyright {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-top: 1px solid grey;
+    padding-top: 20px;
+}
+
+.footer #copyright span {
+    color: gold;
+}
+
+.footer #pay-methods {
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+}
+
+.footer #pay-methods img {
+    width: auto;
+    height: 30px;
+    border-radius: 5px;
 }

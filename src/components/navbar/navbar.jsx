@@ -2,12 +2,13 @@ import React, { useContext } from "react";
 import "./navbar.css";
 import IonIcon from "@reacticons/ionicons";
 import { appContext } from "../../App";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function Navbar() {
   const { cartCtx } = useContext(appContext);
   const { cartProducts, setOpenCart } = cartCtx;
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const searchSubmit = (ev) => {
     ev.preventDefault();
@@ -57,13 +58,12 @@ function Navbar() {
           </form>
 
           <div className="menu">
-            <div>
-              <IonIcon name="heart-outline" className="icon" />
-              <p>Wishlist</p>
-              <div className="badge">
-                <b>{0}</b>
+            {pathname !== "/" && (
+              <div onClick={() => navigate("/")}>
+                <IonIcon name="home-outline" className="icon" />
+                <p>Home</p>
               </div>
-            </div>
+            )}
             <div onClick={() => setOpenCart(true)}>
               <IonIcon name="cart-outline" className="icon" />
               <p>Cart</p>

@@ -8,12 +8,11 @@ import { CartTableRow } from "../../components";
 
 function Cart() {
   const { cartCtx, products } = useContext(appContext);
-  const { cartProducts, openCart, setOpenCart } = cartCtx;
+  const { cartProducts } = cartCtx;
 
   const navigate = useNavigate();
   const [subtotal, setSubtotal] = useState({});
   const [checkoutProducts, setCheckoutProducts] = useState({});
-  const [closing, setClosing] = useState(false);
 
   const getCartProducts = () => {
     let _products = [];
@@ -37,7 +36,6 @@ function Cart() {
   };
 
   const checkout = () => {
-    closeCart();
     navigate("/checkout", {
       state: {
         total: getSubtotal(),
