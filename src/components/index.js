@@ -33,5 +33,5 @@ export {
   Reviews,
   ErrorToast,
   CartTableRow,
-  QuickView
+  QuickView,
 };

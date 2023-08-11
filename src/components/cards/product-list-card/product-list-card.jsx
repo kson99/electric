@@ -21,13 +21,14 @@ function ProductListCard({ item }) {
 
   const deleteProduct = async (id) => {
     try {
-      
-      await axios.delete(url + "/products/delete", { data: { id, userId } }).then(() => {
-        setReflesh(reflesh + 1);
-      });
+      await axios
+        .delete(url + "/products/delete", { data: { id, userId } })
+        .then(() => {
+          setReflesh(reflesh + 1);
+        });
     } catch (error) {
-        setIsError(true);
-        setError("Something went wrong!");
+      setIsError(true);
+      setError("Something went wrong!");
     }
   };
 

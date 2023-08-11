@@ -51,7 +51,10 @@ function RelatedCard({ item }) {
     <div
       className="related-card"
       onClick={() => {
-        navigate(`/${item.title.replaceAll(" ", "-").replaceAll(".", ",")}`, {
+        navigate(`/${item.title
+          .replaceAll(" ", "-")
+          .replaceAll(".", ",")
+          .replaceAll("/", "OR")}`, {
           state: { item },
         });
       }}
@@ -74,8 +77,7 @@ function RelatedCard({ item }) {
         </div>
 
         <div className="item-buttons">
-          <IconWithTooltip name="heart-outline" text="Add to Wishlist" />
-          {/* <IconWithTooltip name="heart-outline" /> */}
+          <IconWithTooltip name="heart-outline" text="Add to Wishlist" className='icon' item={item}/>
         </div>
       </div>
 
