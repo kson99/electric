@@ -48,6 +48,9 @@ router.post("/upload", async (req, res) => {
     } catch (error) {
       console.log(error);
     }
+  } else {
+    console.log("Invalid user");
+    res.sendStatus(401);
   }
 });
 
