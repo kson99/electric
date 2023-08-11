@@ -31,7 +31,7 @@ router.post("/upload", async (req, res) => {
     userId
   } = req.body;
 
-  if (userId === process.env.USER_UID) {
+  if (userId.toString() === process.env.USER_UID) {
     const products = new productsModel({
       title,
       description,
@@ -46,6 +46,8 @@ router.post("/upload", async (req, res) => {
 
       res.sendStatus(200);
     } catch (error) {
+      console.log("userId: ", userId);
+      console.log("userUID: ", process.env.USER_UID);
       console.log(error);
     }
   } else {
