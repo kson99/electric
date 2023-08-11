@@ -3,7 +3,7 @@ import "./product-list-card.css";
 import IonIcon from "@reacticons/ionicons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { appContext } from "../../../App";
+import { appContext, url } from "../../../App";
 import ErrorToast from "../../errorToast/errorToast";
 
 function ProductListCard({ item }) {
