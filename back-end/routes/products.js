@@ -40,7 +40,7 @@ router.post("/upload", async (req, res) => {
     images
   });
 
-  if (userId.toString() === process.env.USER_UID) {
+  if (userId === process.env.USER_UID) {
     try {
       await products.save();
 
