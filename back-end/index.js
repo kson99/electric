@@ -7,11 +7,20 @@ const bodyParser = require("body-parser");
 
 dotenv.config();
 
-mongoose.connect(process.env.ATLAS_URI, {
-  dbName: "Electric-E-commerse",
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.ATLAS_URI, {
+      dbName: "Electric-E-commerse",
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+};
 
 const productsRoute = require("./routes/products");
 const categoriesRoute = require("./routes/categories");
@@ -31,6 +40,8 @@ app.use("/payments", paymentsRoute);
 app.use("/orders", ordersRoute);
 app.use("/settings", settingsRoute);
 
-app.listen(PORT, () => {
-  console.log(`Express server listening on port: ${PORT}`);
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Express server listening on port: ${PORT}`);
+  });
 });
