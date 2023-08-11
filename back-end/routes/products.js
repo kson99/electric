@@ -31,27 +31,27 @@ router.post("/upload", async (req, res) => {
     userId
   } = req.body;
 
-  if (userId.toString() === process.env.USER_UID) {
-    const products = new productsModel({
-      title,
-      description,
-      price,
-      category,
-      properties,
-      images
-    });
+  const products = new productsModel({
+    title,
+    description,
+    price,
+    category,
+    properties,
+    images
+  });
 
+  if (userId.toString() === process.env.USER_UID) {
     try {
       await products.save();
 
       res.sendStatus(200);
     } catch (error) {
-      console.log("userId: ", userId);
-      console.log("userUID: ", process.env.USER_UID);
       console.log(error);
     }
   } else {
     console.log("Invalid user");
+    console.log("userId: ", userId);
+    console.log("userUID: ", process.env.USER_UID);
     res.sendStatus(401);
   }
 });
