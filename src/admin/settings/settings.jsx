@@ -5,12 +5,12 @@ import axios from "axios";
 import Loader from "../products/loader/loader";
 
 function Settings() {
-  const { products, settings, refleshCtx } = useContext(appContext);
+  const { products, settings, refleshCtx, userId } = useContext(appContext);
   const [reflesh, setReflesh] = refleshCtx;
 
   const [loading, setLoading] = useState(false);
 
-  const onSave = async (ev) => {
+  const onSave = async ev => {
     ev.preventDefault();
 
     setLoading(true);
@@ -20,9 +20,10 @@ function Settings() {
       featured2: ev.target.featured2.value,
       shipping: ev.target.shipping.value,
       id: settings._id,
+      userId
     };
 
-    await axios.put(url + "/settings/update", data).then((res) => {
+    await axios.put(url + "/settings/update", data).then(res => {
       setReflesh(reflesh + 1);
     });
 
@@ -40,11 +41,11 @@ function Settings() {
             <p>Featured product 1</p>
             <select name="featured1" defaultValue={settings.featured1}>
               <option value="">--Select product--</option>
-              {products.map((item) => (
+              {products.map(item =>
                 <option value={item._id} key={item._id}>
                   {item.title}
                 </option>
-              ))}
+              )}
             </select>
           </div>
 
@@ -52,11 +53,11 @@ function Settings() {
             <p>Featured product 2</p>
             <select name="featured2" defaultValue={settings.featured2}>
               <option value="">--Select product--</option>
-              {products.map((item) => (
+              {products.map(item =>
                 <option value={item._id} key={item._id}>
                   {item.title}
                 </option>
-              ))}
+              )}
             </select>
           </div>
 

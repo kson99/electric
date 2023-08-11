@@ -21,46 +21,52 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/upload", async (req, res) => {
-  const { name, parent, properties } = req.body;
+  const { name, parent, properties, userId } = req.body;
   const categories = new categoriesModel({ name, parent, properties });
 
-  try {
-    await categories.save();
-    res.send(200);
-  } catch (error) {
-    console.log(err);
+  if (userId === process.env.USER_UID) {
+    try {
+      await categories.save();
+      res.send(200);
+    } catch (error) {
+      console.log(err);
+    }
   }
 });
 
 router.put("/update", async (req, res) => {
-  const { name, parent, properties, id } = req.body;
+  const { name, parent, properties, id, userId } = req.body;
   const query = { _id: new mongo.ObjectId(id) };
 
-  try {
-    await client
-      .db("Electric-E-commerse")
-      .collection("categories")
-      .updateOne(query, { $set: { name, parent, properties } });
+  if (userId === process.env.USER_UID) {
+    try {
+      await client
+        .db("Electric-E-commerse")
+        .collection("categories")
+        .updateOne(query, { $set: { name, parent, properties } });
 
-    res.sendStatus(200);
-  } catch (error) {
-    console.log(error);
+      res.sendStatus(200);
+    } catch (error) {
+      console.log(error);
+    }
   }
 });
 
 router.delete("/delete", async (req, res) => {
-  const { id } = req.body;
+  const { id, userId } = req.body;
   const query = { _id: new mongo.ObjectId(id) };
 
-  try {
-    await client
-      .db("Electric-E-commerse")
-      .collection("categories")
-      .deleteOne(query);
+  if (userId === process.env.USER_UID) {
+    try {
+      await client
+        .db("Electric-E-commerse")
+        .collection("categories")
+        .deleteOne(query);
 
-    res.sendStatus(200);
-  } catch (error) {
-    console.log(error);
+      res.sendStatus(200);
+    } catch (error) {
+      console.log(error);
+    }
   }
 });
 

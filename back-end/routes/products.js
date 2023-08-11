@@ -21,50 +21,70 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/upload", async (req, res) => {
-  const { title, description, price, category, properties, images } = req.body;
-
-  const products = new productsModel({
+  const {
     title,
     description,
     price,
     category,
     properties,
     images,
-  });
+    userId
+  } = req.body;
 
-  try {
-    await products.save();
+  if (userId === process.env.USER_UID) {
+    const products = new productsModel({
+      title,
+      description,
+      price,
+      category,
+      properties,
+      images
+    });
 
-    res.sendStatus(200);
-  } catch (error) {
-    console.log(error);
+    try {
+      await products.save();
+
+      res.sendStatus(200);
+    } catch (error) {
+      console.log(error);
+    }
   }
 });
 
 router.put("/update", async (req, res) => {
-  const { id, title, description, price, category, properties, images } =
-    req.body;
+  const {
+    id,
+    title,
+    description,
+    price,
+    category,
+    properties,
+    images,
+    userId
+  } = req.body;
   const query = { _id: new mongo.ObjectId(id) };
 
-  try {
-    await client
-      .db("Electric-E-commerse")
-      .collection("products")
-      .updateOne(query, {
-        $set: {
-          title,
-          description,
-          price,
-          category,
-          images: images,
-          properties,
-          updatedAt: Date.now(),
-        },
-      });
+  if (userId === process.env.USER_UID) {
+    try {
+      await client
+        .db("Electric-E-commerse")
+        .collection("products")
+        .updateOne(query, {
+          $set: {
+            title,
+            description,
+            price,
+            category,
+            images: images,
+            properties,
+            updatedAt: Date.now()
+          }
+        });
 
-    res.sendStatus(200);
-  } catch (error) {
-    console.log(error);
+      res.sendStatus(200);
+    } catch (error) {
+      console.log(error);
+    }
   }
 });
 
@@ -78,8 +98,8 @@ router.put("/review", async (req, res) => {
       .collection("products")
       .updateOne(query, {
         $set: {
-          reviews: reviews,
-        },
+          reviews: reviews
+        }
       });
 
     res.sendStatus(200);
@@ -89,18 +109,20 @@ router.put("/review", async (req, res) => {
 });
 
 router.delete("/delete", async (req, res) => {
-  const { id } = req.body;
+  const { id, userId } = req.body;
   const query = { _id: new mongo.ObjectId(id) };
 
-  try {
-    await client
-      .db("Electric-E-commerse")
-      .collection("products")
-      .deleteOne(query);
+  if (userId === process.env.USER_UID) {
+    try {
+      await client
+        .db("Electric-E-commerse")
+        .collection("products")
+        .deleteOne(query);
 
-    res.sendStatus(200);
-  } catch (error) {
-    console.log(error);
+      res.sendStatus(200);
+    } catch (error) {
+      console.log(error);
+    }
   }
 });
 

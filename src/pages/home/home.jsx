@@ -1,6 +1,12 @@
 import React, { useContext } from "react";
 import "./home.css";
-import { Featured, ItemCardSkel, MiniNav, NewItemCard } from "../../components";
+import {
+  Featured,
+  ItemCardSkel,
+  MiniNav,
+  NewItemCard,
+  QuickView
+} from "../../components";
 import { Link } from "react-router-dom";
 import { appContext } from "../../App";
 import IonIcon from "@reacticons/ionicons";
@@ -8,7 +14,7 @@ import IonIcon from "@reacticons/ionicons";
 function Home() {
   const { products, dataLoading, settings } = useContext(appContext);
 
-  const getFeaturedItem = (pos) => {
+  const getFeaturedItem = pos => {
     let item = {};
 
     if (pos === "1") {
@@ -51,9 +57,9 @@ function Home() {
 
           <div className="new-i">
             {dataLoading && <ItemCardSkel count={4} />}
-            {products.slice(0, 4).map((item, i) => (
-              <NewItemCard item={item} key={i} />
-            ))}
+            {products
+              .slice(0, 4)
+              .map((item, i) => <NewItemCard item={item} key={i} />)}
           </div>
         </div>
       </section>
@@ -64,9 +70,7 @@ function Home() {
         <div className="max-width">
           <div className="more-items">
             {dataLoading && <ItemCardSkel count={4} />}
-            {shuffled().map((item, i) => (
-              <NewItemCard item={item} key={i} />
-            ))}
+            {shuffled().map((item, i) => <NewItemCard item={item} key={i} />)}
           </div>
         </div>
       </section>

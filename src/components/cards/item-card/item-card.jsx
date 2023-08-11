@@ -1,13 +1,14 @@
 import IonIcon from "@reacticons/ionicons";
 import React, { useContext } from "react";
 import { Rating } from "react-simple-star-rating";
-import "./new-item-card.css";
+import "./item-card.css";
 import { useNavigate } from "react-router-dom";
 import IconWithTooltip from "../../tooltip/tooltip";
 import { appContext } from "../../../App";
 import { toCurrency } from "../../../utils";
+import QuickView from "../../quick-views/quick-view";
 
-function NewItemCard({ item }) {
+function ItemCard({ item }) {
   const { categories, cartCtx } = useContext(appContext);
   const navigate = useNavigate();
   const { setCartProducts, setOpenCart } = cartCtx;
@@ -86,8 +87,12 @@ function NewItemCard({ item }) {
         </div>
 
         <div className="item-buttons">
-          <IconWithTooltip name="heart-outline" text="Add to Wishlist" />
-          <IconWithTooltip name="eye-outline" text="Quick View" />
+          <div id="add-to-wishlist">
+            <IconWithTooltip name="heart-outline" text="Add to Wishlist" className='icon' item={item}/>
+          </div>
+          <div id="quick-view">
+            <IconWithTooltip name="eye-outline" text="Quick View" className='icon' item={item} />
+          </div>
         </div>
       </div>
 
@@ -100,4 +105,4 @@ function NewItemCard({ item }) {
   );
 }
 
-export default NewItemCard;
+export default ItemCard;

@@ -1,24 +1,26 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./navbar.css";
 import IonIcon from "@reacticons/ionicons";
 import { appContext } from "../../App";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function Navbar() {
-  const { cartCtx } = useContext(appContext);
+  const { cartCtx, wishlistCtx } = useContext(appContext);
   const { cartProducts, setOpenCart } = cartCtx;
+  const [wishlist] = wishlistCtx;
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const [activeLink, setActiveLink] = useState("");
 
-  const searchSubmit = (ev) => {
+  const searchSubmit = ev => {
     ev.preventDefault();
 
     navigate("/products", {
-      state: { name: "search", searchTxt: ev.target.searchTxt.value },
+      state: { name: "search", searchTxt: ev.target.searchTxt.value }
     });
   };
 
-  const inputChange = (ev) => {
+  const inputChange = ev => {
     const clear = document.getElementById("clear");
     clear.style.opacity = 0;
 
@@ -33,10 +35,36 @@ function Navbar() {
     form.reset();
   };
 
+  const handlePathChange = () => {
+    switch (pathname) {
+      case "/":
+        setActiveLink("home");
+        break;
+      case "/wishlist":
+        setActiveLink("wishlist");
+        break;
+
+      case "/cart":
+        setActiveLink("cart");
+        break;
+
+      default:
+        setActiveLink("");
+        break;
+    }
+  };
+
+  useEffect(
+    () => {
+      handlePathChange();
+    },
+    [pathname]
+  );
+
   return (
     <div className="navbar">
       <div className="max-width">
-        <div className="top-contact"></div>
+        <div className="top-contact" />
 
         <div className="nav">
           <Link to="/" className="logo">
@@ -58,20 +86,40 @@ function Navbar() {
           </form>
 
           <div className="menu">
-            {pathname !== "/" && (
-              <div onClick={() => navigate("/")}>
-                <IonIcon name="home-outline" className="icon" />
-                <p>Home</p>
-              </div>
-            )}
-            <div onClick={() => setOpenCart(true)}>
-              <IonIcon name="cart-outline" className="icon" />
-              <p>Cart</p>
-              {cartProducts.length > 0 && (
+            <div onClick={() => navigate("/")}>
+              <IonIcon
+                name={activeLink === "home" ? "home" : "home-outline"}
+                className="icon"
+              />
+              <p>Home</p>
+            </div>
+
+            <div onClick={() => navigate("/wishlist")}>
+              <IonIcon
+                name={activeLink === "wishlist" ? "heart" : "heart-outline"}
+                className="icon"
+              />
+              <p>Wishlist</p>
+              {wishlist.length > 0 &&
                 <div className="badge">
-                  <b>{cartProducts.length}</b>
-                </div>
-              )}
+                  <b>
+                    {wishlist.length}
+                  </b>
+                </div>}
+            </div>
+
+            <div onClick={() => setOpenCart(true)}>
+              <IonIcon
+                name={activeLink === "cart" ? "cart" : "cart-outline"}
+                className="icon"
+              />
+              <p>Cart</p>
+              {cartProducts.length > 0 &&
+                <div className="badge">
+                  <b>
+                    {cartProducts.length}
+                  </b>
+                </div>}
             </div>
           </div>
         </div>

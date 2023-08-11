@@ -6,7 +6,7 @@ import axios from "axios";
 import { appContext } from "../../../App";
 
 function ProductListCard({ item }) {
-  const { refleshCtx } = useContext(appContext);
+  const { refleshCtx, userId } = useContext(appContext);
   const [reflesh, setReflesh] = refleshCtx;
 
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ function ProductListCard({ item }) {
   };
 
   const deleteProduct = async (id) => {
-    await axios.delete(url + "/products/delete", { data: { id } }).then(() => {
+    await axios.delete(url + "/products/delete", { data: { id, userId } }).then(() => {
       setReflesh(reflesh + 1);
     });
   };

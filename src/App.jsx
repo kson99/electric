@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import "./App.css";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/home/home";
-import { CartPopup, Footer, Navbar } from "./components";
+import { CartPopup, Footer, Navbar, QuickView } from "./components";
 import ItemView from "./pages/item-view/item-view";
 import Admin from "./admin/admin";
 import Sidebar from "./admin/sidebar/sidebar";
@@ -10,18 +10,21 @@ import Dashboard from "./admin/dashboard/dashboard";
 import Products from "./admin/products/products";
 import Categories from "./admin/categories/categories";
 import Settings from "./admin/settings/settings";
-import Admins from "./admin/admins/admins";
 import Orders from "./admin/orders/orders";
 import EditProduct from "./admin/products/edit/edit-product";
 import CreateProduct from "./admin/products/create/create-product";
 import axios from "axios";
 import ProductsView from "./pages/products-view/products-view";
-import Search from "./pages/search/search";
 import Checkout from "./pages/checkout/checkout";
 import CheckedOut from "./pages/checked-out/checked-out";
 import { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Cart from "./pages/cart/cart";
+import Wishlist from "./pages/wishlist/wishlist";
+import Login from "./admin/login/login";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase.setup";
+import NotFound from "./pages/not-found/not-found";
 
 export const appContext = createContext();
 export const url = "https://byzantium-scorpion-cap.cyclic.app";
@@ -30,15 +33,20 @@ function App() {
   const { pathname } = useLocation();
 
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [ischeckout, setIsCheckout] = useState(false);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [settings, setSettings] = useState({});
   const [orders, setOrders] = useState([]);
   const [reflesh, setReflesh] = useState(0);
+  const [userId, setUseId] = useState("");
   const [cartProducts, setCartProducts] = useState([]);
+  const [wishlist, setWishlist] = useState([]);
   const [openCart, setOpenCart] = useState(false);
+  const [quickView, setQuickView] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
+  const [quickViewProduct, setQuickViewProduct] = useState({});
 
   const onHrefChange = () => {
     if (pathname.includes("/admin")) {
@@ -56,34 +64,62 @@ function App() {
 
   const getData = async () => {
     setDataLoading(true);
-    await axios.get(url + "/products").then((res) => {
+    await axios.get(url + "/products").then(res => {
       setProducts(res.data.reverse());
     });
 
-    await axios.get(url + "/categories").then((res) => {
+    await axios.get(url + "/categories").then(res => {
       setCategories(res.data);
     });
 
-    await axios.get(url + "/settings").then((res) => {
+    await axios.get(url + "/settings").then(res => {
       setSettings(res.data[0]);
     });
 
     setDataLoading(false);
 
-    setCartProducts((prev) => {
+    setCartProducts(prev => {
       const array = JSON.parse(localStorage.getItem("cart")) || [];
+      return array;
+    });
+
+    setWishlist(prev => {
+      const array = JSON.parse(localStorage.getItem("wishlist")) || [];
       return array;
     });
   };
 
-  useEffect(() => {
-    onHrefChange();
-    window.scrollTo(0, 0);
-  }, [pathname]);
+  const isUserSignedIn = () => {
+    onAuthStateChanged(auth, user => {
+      if (user != null) {
+        // User is signed in
+        setIsLoggedIn(true);
+        setUseId(user.uid);
+      } else {
+        // User is signed out
+        setIsLoggedIn(false);
+      }
+    });
+  };
 
   useEffect(() => {
-    getData();
-  }, [reflesh]);
+    isUserSignedIn();
+  }, []);
+
+  useEffect(
+    () => {
+      onHrefChange();
+      window.scrollTo(0, 0);
+    },
+    [pathname]
+  );
+
+  useEffect(
+    () => {
+      getData();
+    },
+    [reflesh]
+  );
 
   return (
     <div className="app">
@@ -92,15 +128,25 @@ function App() {
           products,
           categories,
           settings,
+          userId,
+          dataLoading: dataLoading,
           ordersCtx: [orders, setOrders],
           refleshCtx: [reflesh, setReflesh],
-          dataLoading: dataLoading,
+          wishlistCtx: [wishlist, setWishlist],
+
+          quickViewCtx: {
+            quickView,
+            setQuickView,
+            setQuickViewProduct,
+            quickViewProduct
+          },
+
           cartCtx: {
             cartProducts,
             setCartProducts,
             openCart,
-            setOpenCart,
-          },
+            setOpenCart
+          }
         }}
       >
         <SkeletonTheme
@@ -114,23 +160,31 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/:id" element={<ItemView />} />
             <Route path="/products" element={<ProductsView />} />
-            <Route path="/search" element={<Search />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/check-out-status" element={<CheckedOut />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/wishlist" element={<Wishlist />} />
 
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/admin/dashboard" element={<Dashboard />} />
-            <Route path="/admin/products" element={<Products />} />
-            <Route path="/admin/products/edit" element={<EditProduct />} />
-            <Route path="/admin/products/create" element={<CreateProduct />} />
-            <Route path="/admin/categories" element={<Categories />} />
-            <Route path="/admin/settings" element={<Settings />} />
-            <Route path="/admin/admins" element={<Admins />} />
-            <Route path="/admin/orders" element={<Orders />} />
+            {!isLoggedIn && <Route path="/admin" element={<Login />} />}
+
+            {/*Dashbord paths  */}
+            {isLoggedIn &&
+              <Route path="/admin">
+                <Route index element={<Admin />} />
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="products" element={<Products />} />
+                <Route path="products/edit" element={<EditProduct />} />
+                <Route path="products/create" element={<CreateProduct />} />
+                <Route path="categories" element={<Categories />} />
+                <Route path="settings" element={<Settings />} />
+                <Route path="orders" element={<Orders />} />
+              </Route>}
+
+            <Route path="*" element={<NotFound />} />
           </Routes>
 
           {!isAdmin && !ischeckout && <Footer />}
+          {quickView && <QuickView />}
           <CartPopup />
         </SkeletonTheme>
       </appContext.Provider>

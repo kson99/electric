@@ -8,12 +8,12 @@ import { appContext } from "../../App";
 import { toCurrency } from "../../utils";
 
 function ItemView() {
-  const { categories, products, cartCtx } = useContext(appContext);
+  const { categories, products, cartCtx, wishlistCtx } = useContext(appContext);
   const { setCartProducts, setOpenCart } = cartCtx;
+  const [wishlist, setWishlist] = wishlistCtx;
 
   const { state, pathname } = useLocation();
-  const item = products.find(({ _id }) => _id === state.item._id) || state.item;
-  // state?.item;
+  const item = products.find(({ _id }) => _id === state?.item?._id) || state?.item;
 
   const [selectedTab, setselectedTab] = useState("description");
   const [quantity, setQuantity] = useState(1);
@@ -33,9 +33,7 @@ function ItemView() {
     return array.splice(0, 5);
   };
 
-  const addToCart = (ev) => {
-    ev.stopPropagation();
-
+  const addToCart = () => {
     setCartProducts((prev) => {
       let array = [...prev];
       array.indexOf(item._id) === -1 && array.push(item._id);
@@ -45,6 +43,26 @@ function ItemView() {
     });
 
     setOpenCart(true);
+  };
+
+  const addToWishList = () => {
+    setWishlist(prev => {
+      let array = [...prev];
+      array.indexOf(item._id) === -1 && array.push(item._id);
+
+      localStorage.setItem("wishlist", JSON.stringify(array));
+      return array;
+    });
+  }
+
+  const isInWishlist = () => {
+    let is = false;
+
+    if (wishlist.includes(item?._id.toString())) {
+      is = true;
+    }
+
+    return is;
   };
 
   const quantityClick = (sign) => {
@@ -203,6 +221,7 @@ function ItemView() {
               </div>
               <img src={image} id="disp-img" alt="" />
             </div>
+
             <div className="details">
               <h2>{item.title}</h2>
 
@@ -258,10 +277,13 @@ function ItemView() {
                   <p>Add to cart</p>
                 </button>
 
-                <button id="add-to-wishlist">
+                {!isInWishlist() && 
+
+                <button id="add-to-wishlist" onClick={addToWishList}>
                   <IonIcon name="heart-outline" />
                   <p>Add to Wishlist</p>
                 </button>
+                }
               </div>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import Navbar from "./navbar/navbar";
-import NewItemCard from "./cards/new-item-card/new-item-card";
+import ItemCard from "./cards/item-card/item-card";
 import Footer from "./footer/footer";
 import RelatedCard from "./cards/related-card/related-card";
 import IconWithTooltip from "./tooltip/tooltip";
@@ -14,10 +14,11 @@ import ProductListCardSkel from "./skeletons/product-list-card/product-list-card
 import Reviews from "./reviews/reviews";
 import ErrorToast from "./errorToast/errorToast";
 import CartTableRow from "./cards/cart-card/table-row/table-row";
+import QuickView from "./quick-views/quick-view";
 
 export {
   Navbar,
-  NewItemCard,
+  ItemCard as NewItemCard,
   Footer,
   RelatedCard,
   IconWithTooltip as Tooltip,
@@ -32,4 +33,5 @@ export {
   Reviews,
   ErrorToast,
   CartTableRow,
+  QuickView
 };

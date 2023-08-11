@@ -5,7 +5,7 @@ import axios from "axios";
 import { appContext, url } from "../../App";
 
 function Categories() {
-  const { categories, refleshCtx } = useContext(appContext);
+  const { categories, refleshCtx, userId } = useContext(appContext);
   const [reflesh, setReflesh] = refleshCtx;
 
   const [properties, setProperties] = useState([]);
@@ -67,9 +67,10 @@ function Categories() {
       await axios.put(url + "/categories/update", {
         ...data,
         id: catEditData._id,
+        userId
       });
     } else {
-      await axios.post(url + "/categories/upload", data);
+      await axios.post(url + "/categories/upload", {...data, userId});
     }
 
     setCatNameEditData("");
@@ -83,7 +84,7 @@ function Categories() {
   const deleteCategory = async () => {
     await axios
       .delete(url + "/categories/delete", {
-        data: { id: catDeleteData._id },
+        data: { id: catDeleteData._id, userId },
       })
       .then(() => {
         setReflesh(reflesh + 1);

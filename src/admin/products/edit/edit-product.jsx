@@ -9,7 +9,7 @@ import { ErrorToast } from "../../../components";
 import Loader from "../loader/loader";
 
 function EditProduct() {
-  const { refleshCtx, categories } = useContext(appContext);
+  const { refleshCtx, categories,userId } = useContext(appContext);
   const [reflesh, setReflesh] = refleshCtx;
 
   const { state } = useLocation();
@@ -35,6 +35,7 @@ function EditProduct() {
         category: ev.target.category.value,
         properties,
         images: [...images],
+        userId
       };
 
       try {

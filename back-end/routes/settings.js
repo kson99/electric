@@ -20,24 +20,26 @@ router.get("/", async (req, res) => {
 });
 
 router.put("/update", async (req, res) => {
-  const { featured1, featured2, shipping, id } = req.body;
+  const { featured1, featured2, shipping, id, userId } = req.body;
   const query = { _id: new mongo.ObjectId(id) };
 
-  try {
-    await client
-      .db("Electric-E-commerse")
-      .collection("settings")
-      .updateOne(query, {
-        $set: {
-          featured1,
-          featured2,
-          shipping,
-        },
-      });
+  if (userId === process.env.USER_UID) {
+    try {
+      await client
+        .db("Electric-E-commerse")
+        .collection("settings")
+        .updateOne(query, {
+          $set: {
+            featured1,
+            featured2,
+            shipping
+          }
+        });
 
-    res.sendStatus(200);
-  } catch (error) {
-    console.log(error);
+      res.sendStatus(200);
+    } catch (error) {
+      console.log(error);
+    }
   }
 });
 

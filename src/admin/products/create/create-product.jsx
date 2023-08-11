@@ -9,7 +9,7 @@ import { ErrorToast } from "../../../components";
 import Loader from "../loader/loader";
 
 function CreateProduct() {
-  const { refleshCtx, categories } = useContext(appContext);
+  const { refleshCtx, categories, userId } = useContext(appContext);
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const [reflesh, setReflesh] = refleshCtx;
@@ -59,6 +59,7 @@ function CreateProduct() {
         category: ev.target.category.value,
         properties: _properties,
         images: [...images],
+        userId
       };
 
       await axios.post(url + "/products/upload", data).then((res) => {

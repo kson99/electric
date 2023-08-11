@@ -1,0 +1,82 @@
+.wishlist .w-cont {
+  padding: 30px 20px;
+}
+
+.wishlist table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+.wishlist table th:first-child {
+  text-align: left;
+}
+
+.wishlist table th {
+  padding: 10px 0;
+  font-size: 20px;
+  font-weight: 600;
+  border-bottom: 1.5px solid lightgray;
+}
+
+.wishlist .item-row {
+  border-bottom: 1.5px solid lightgray;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.wishlist .item-row td {
+  padding: 10px 30px;
+}
+
+.wishlist .img-name {
+  display: flex;
+  flex-direction: row;
+  column-gap: 25px;
+  align-items: center;
+  font-size: 16px;
+}
+
+.wishlist .img-name img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.wishlist .img-name p {
+  cursor: pointer;
+  transition: 0.3s all;
+}
+
+.wishlist .img-name p:hover {
+  color: cornflowerblue;
+}
+
+.wishlist .close {
+  font-size: 25px;
+  color: darkgrey;
+  padding: 0;
+}
+
+.wishlist .close .icon {
+  cursor: pointer;
+  transition: .3s all;
+}
+
+.wishlist .close .icon:hover {
+  color: grey;
+}
+
+.wishlist .empty-wishlist {
+  width: 100%;
+  padding: 25px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 10px;
+}
+
+.wishlist .empty-wishlist .icon {
+  font-size: 50px;
+}

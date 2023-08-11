@@ -1,0 +1,173 @@
+.quick-view {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.quick-view .max-width {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.quick-view .qw-cont {
+  width: 98%;
+  background-color: white;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 20px 10px;
+  position: relative;
+}
+
+.quick-view .qw-img {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 15px;
+}
+
+.quick-view #main-img {
+  height: 400px;
+  width: 60%;
+  object-fit: contain;
+}
+
+.quick-view .img-nav {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+}
+
+.quick-view .img-nav img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.quick-view .close {
+  position: absolute;
+  right: -11px;
+  top: -11px;
+}
+
+.quick-view .close .icon {
+  font-size: 30px;
+  color: red;
+  transition: 0.3s all;
+}
+
+.quick-view .close .icon:hover {
+  color: crimson;
+}
+
+.quick-view .details {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.quick-view .rating-rev {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+}
+
+.quick-view .category {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+}
+
+.quick-view .price {
+  color: red;
+}
+
+.quick-view .property {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+  align-items: center;
+  text-transform: capitalize;
+}
+
+.quick-view .quantity {
+  display: flex;
+  flex-direction: row;
+  column-gap: 15px;
+}
+
+.quick-view .quantity-cont {
+  width: 120px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid grey;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.quick-view .quantity-cont .icon {
+  padding: 10px 5px;
+  cursor: pointer;
+  background-color: #252525;
+  color: white;
+  height: 100%;
+}
+
+.quick-view .buttons {
+  display: flex;
+  flex-direction: row;
+  column-gap: 60px;
+  margin-top: 10px;
+}
+
+.quick-view #add-to-cart {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 7px;
+  font-size: 18px;
+  padding: 15px 20px;
+  border: 1px solid red;
+  color: red;
+}
+
+.quick-view #add-to-cart:hover {
+  background-color: red;
+  color: white;
+}
+
+.quick-view #add-to-cart p,
+#add-to-wishlist p {
+  font-weight: 200;
+  text-transform: uppercase;
+}
+
+.quick-view #add-to-wishlist {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: none;
+  column-gap: 7px;
+  font-size: 18px;
+  padding: 10px 0;
+  color: red;
+}
+
+.quick-view #add-to-wishlist:hover {
+  border-bottom: 1px solid red;
+  color: red;
+}
+
+.quick-view .seperator {
+  width: 75%;
+  height: 1px;
+  background-color: #ddd;
+}
