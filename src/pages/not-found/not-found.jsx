@@ -6,8 +6,8 @@ function NotFound() {
     <div className="not-found">
       <div className="max-width">
         <div className="nf-cont">
-          <p>404!</p>
-          <p>Page Not Found</p>
+          <img src="../../../public/404.png" alt="" />
+          <h1>Page Not Found!</h1>
         </div>
       </div>
     </div>
