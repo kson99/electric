@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import "./App.css";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/home/home";
-import { CartPopup, Footer, Navbar, QuickView } from "./components";
+import { CartPopup, ErrorToast, Footer, Navbar, QuickView } from "./components";
 import ItemView from "./pages/item-view/item-view";
 import Admin from "./admin/admin";
 import Sidebar from "./admin/sidebar/sidebar";
@@ -41,6 +41,8 @@ function App() {
   const [orders, setOrders] = useState([]);
   const [reflesh, setReflesh] = useState(0);
   const [userId, setUseId] = useState("");
+  const [error, setError] = useState("");
+  const [isError, setIsError] = useState(false);
   const [cartProducts, setCartProducts] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [openCart, setOpenCart] = useState(false);
@@ -64,17 +66,22 @@ function App() {
 
   const getData = async () => {
     setDataLoading(true);
-    await axios.get(url + "/products").then(res => {
-      setProducts(res.data.reverse());
-    });
+    try {
+      await axios.get(url + "/products").then(res => {
+        setProducts(res.data.reverse());
+      });
 
-    await axios.get(url + "/categories").then(res => {
-      setCategories(res.data);
-    });
+      await axios.get(url + "/categories").then(res => {
+        setCategories(res.data);
+      });
 
-    await axios.get(url + "/settings").then(res => {
-      setSettings(res.data[0]);
-    });
+      await axios.get(url + "/settings").then(res => {
+        setSettings(res.data[0]);
+      });
+    } catch (error) {
+      setIsError(true);
+      setError("Something went wrong!");
+    }
 
     setDataLoading(false);
 
@@ -185,6 +192,12 @@ function App() {
 
           {!isAdmin && !ischeckout && <Footer />}
           {quickView && <QuickView />}
+          {isError &&
+            <ErrorToast
+              trigger={isError}
+              setTrigger={setIsError}
+              error={error}
+            />}
           <CartPopup />
         </SkeletonTheme>
       </appContext.Provider>

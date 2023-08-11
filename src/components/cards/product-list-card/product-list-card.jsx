@@ -4,6 +4,7 @@ import IonIcon from "@reacticons/ionicons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { appContext } from "../../../App";
+import ErrorToast from "../../errorToast/errorToast";
 
 function ProductListCard({ item }) {
   const { refleshCtx, userId } = useContext(appContext);
@@ -11,19 +12,28 @@ function ProductListCard({ item }) {
 
   const navigate = useNavigate();
   const [isDeleting, setIsDeleting] = useState(false);
+  const [error, setError] = useState("");
+  const [isError, setIsError] = useState(false);
 
   const editProducts = () => {
     navigate("/admin/products/edit", { state: item });
   };
 
   const deleteProduct = async (id) => {
-    await axios.delete(url + "/products/delete", { data: { id, userId } }).then(() => {
-      setReflesh(reflesh + 1);
-    });
+    try {
+      
+      await axios.delete(url + "/products/delete", { data: { id, userId } }).then(() => {
+        setReflesh(reflesh + 1);
+      });
+    } catch (error) {
+        setIsError(true);
+        setError("Something went wrong!");
+    }
   };
 
   return (
     <div className="product-list-card">
+      <ErrorToast trigger={isError} setTrigger={setIsError} error={error} />
       {!isDeleting ? (
         <>
           <div className="prod-details p-col">

@@ -3,12 +3,15 @@ import "./settings.css";
 import { appContext, url } from "../../App";
 import axios from "axios";
 import Loader from "../products/loader/loader";
+import { ErrorToast } from "../../components";
 
 function Settings() {
   const { products, settings, refleshCtx, userId } = useContext(appContext);
   const [reflesh, setReflesh] = refleshCtx;
 
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [isError, setIsError] = useState(false);
 
   const onSave = async ev => {
     ev.preventDefault();
@@ -23,9 +26,14 @@ function Settings() {
       userId
     };
 
-    await axios.put(url + "/settings/update", data).then(res => {
-      setReflesh(reflesh + 1);
-    });
+    try {
+      await axios.put(url + "/settings/update", data).then(res => {
+        setReflesh(reflesh + 1);
+      });
+    } catch (error) {
+      setIsError(true);
+      setError("Something went wrong!");
+    }
 
     setLoading(false);
   };
@@ -33,6 +41,7 @@ function Settings() {
   return (
     <div className="settings a-page">
       <div className="set-cont cont">
+        <ErrorToast trigger={isError} setTrigger={setIsError} error={error} />
         <h1>Settings</h1>
 
         <form onSubmit={onSave} className="settings-list">

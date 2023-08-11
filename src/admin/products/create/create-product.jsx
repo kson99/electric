@@ -62,10 +62,18 @@ function CreateProduct() {
         userId
       };
 
-      await axios.post(url + "/products/upload", data).then((res) => {
-        setReflesh(reflesh + 1);
-        navigate("/admin/products");
-      });
+      try {
+        await axios.post(url + "/products/upload", data).then((res) => {
+          setReflesh(reflesh + 1);
+          navigate("/admin/products");
+        });
+        
+      } catch (error) {
+        setIsLoading(false);
+        setIsError(true);
+        setError("Something went wrong!");
+      }
+
 
       setIsLoading(false);
     } else {

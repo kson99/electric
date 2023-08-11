@@ -3,26 +3,34 @@ import "./dashboard.css";
 import { appContext, url } from "../../App";
 import axios from "axios";
 import { toCurrency } from "../../utils";
+import { ErrorToast } from "../../components";
 
 function Dashboard() {
   const { products } = useContext(appContext);
   const [orders, setOrders] = useState([]);
+  const [error, setError] = useState("");
+  const [isError, setIsError] = useState(false);
 
   const getOrders = async () => {
-    await axios.get(url + "/orders").then((res) => {
-      //
-      setOrders(res.data.reverse());
-    });
+    try {
+      await axios.get(url + "/orders").then(res => {
+        //
+        setOrders(res.data.reverse());
+      });
+    } catch (error) {
+      setIsError(true);
+      setError("Something went wrong!");
+    }
   };
 
   useEffect(() => {
     getOrders();
   }, []);
 
-  const getTimedOrders = (period) => {
+  const getTimedOrders = period => {
     let count = 0;
 
-    orders.forEach((order) => {
+    orders.forEach(order => {
       switch (period) {
         case "day":
           let date = order.date.split("T")[0];
@@ -51,10 +59,10 @@ function Dashboard() {
     return count;
   };
 
-  const getRevenue = (period) => {
+  const getRevenue = period => {
     let revenue = 0;
 
-    orders.forEach((order) => {
+    orders.forEach(order => {
       switch (period) {
         case "day":
           let date = order.date.split("T")[0];
@@ -90,6 +98,7 @@ function Dashboard() {
   return (
     <div className="dashboard a-page">
       <div className="dash-cont cont">
+        <ErrorToast trigger={isError} setTrigger={setIsError} error={error} />
         <h1>Dashboard</h1>
 
         <div className="fields">
@@ -98,27 +107,35 @@ function Dashboard() {
             <div className="cat">
               <div className="today">
                 <h5 className="time">Today</h5>
-                <p className="count">{getTimedOrders("day")}</p>
+                <p className="count">
+                  {getTimedOrders("day")}
+                </p>
               </div>
 
               <div className="month">
                 <h5 className="time">This Month</h5>
-                <p className="count">{getTimedOrders("month")}</p>
+                <p className="count">
+                  {getTimedOrders("month")}
+                </p>
               </div>
 
               <div className="overall">
                 <h5 className="time">Overall</h5>
-                <p className="count">{orders.length}</p>
+                <p className="count">
+                  {orders.length}
+                </p>
               </div>
             </div>
           </div>
 
           <div className="field">
             <div className="cat">
-              <div className="graph"></div>
+              <div className="graph" />
               <div className="products-count">
                 <h5 className="title">Products</h5>
-                <p className="count">{products.length}</p>
+                <p className="count">
+                  {products.length}
+                </p>
                 <p className="count-info">Items</p>
               </div>
             </div>
@@ -129,7 +146,9 @@ function Dashboard() {
             <div className="cat">
               <div className="today">
                 <h5 className="time">Today</h5>
-                <p className="balance">N$ {toCurrency(getRevenue("day"))}</p>
+                <p className="balance">
+                  N$ {toCurrency(getRevenue("day"))}
+                </p>
                 <p className="count-info">
                   {getTimedOrders("day")} orders Today
                 </p>
@@ -137,7 +156,9 @@ function Dashboard() {
 
               <div className="month">
                 <h5 className="time">This Month</h5>
-                <p className="balance">N$ {toCurrency(getRevenue("month"))}</p>
+                <p className="balance">
+                  N$ {toCurrency(getRevenue("month"))}
+                </p>
                 <p className="count-info">
                   {getTimedOrders("month")} orders this month
                 </p>
@@ -145,8 +166,12 @@ function Dashboard() {
 
               <div className="overall">
                 <h5 className="time">Overall</h5>
-                <p className="balance">N$ {toCurrency(getRevenue("all"))}</p>
-                <p className="count-info">{orders.length} orders overall</p>
+                <p className="balance">
+                  N$ {toCurrency(getRevenue("all"))}
+                </p>
+                <p className="count-info">
+                  {orders.length} orders overall
+                </p>
               </div>
             </div>
           </div>

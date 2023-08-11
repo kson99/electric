@@ -9,6 +9,7 @@ import Information from "./information/information";
 import { appContext, url } from "../../App";
 import { toCurrency } from "../../utils";
 import { BeatLoader } from "react-spinners";
+import { ErrorToast } from "../../components";
 
 function Checkout() {
   const { products, settings } = useContext(appContext);
@@ -23,6 +24,8 @@ function Checkout() {
   const [payId, setPayId] = useState("");
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("information");
+  const [error, setError] = useState("");
+  const [isError, setIsError] = useState(false);
 
   const checkout = async () => {
     let info = JSON.parse(localStorage.getItem("information"));
@@ -32,30 +35,35 @@ function Checkout() {
 
     localStorage.setItem("information", JSON.stringify(info));
 
-    await axios
-      .post(url + "/payments", {
-        ...cartData,
-        email: info.contact.email,
-      })
-      .then((res) => {
-        let fields = res.data;
+    try {
+      await axios
+        .post(url + "/payments", {
+          ...cartData,
+          email: info.contact.email
+        })
+        .then(res => {
+          let fields = res.data;
 
-        console.log(res.data);
+          console.log(res.data);
 
-        localStorage.setItem("query", JSON.stringify(fields));
+          localStorage.setItem("query", JSON.stringify(fields));
 
-        setChecksum(fields.CHECKSUM);
-        setPayId(fields.PAY_REQUEST_ID);
+          setChecksum(fields.CHECKSUM);
+          setPayId(fields.PAY_REQUEST_ID);
 
-        setSubmit(true);
-      });
+          setSubmit(true);
+        });
+    } catch (error) {
+      setIsError(true);
+      setError("Something went wrong!");
+    }
   };
 
   const cartProducts = () => {
     let array = [];
 
-    Object.keys(cartData).forEach((key) => {
-      products.map((p) => {
+    Object.keys(cartData).forEach(key => {
+      products.map(p => {
         if (p._id === key) {
           array.push({ ...p, qty: cartData[key].quantity });
         }
@@ -68,7 +76,7 @@ function Checkout() {
   const getSubtotal = () => {
     let _subTotal = 0;
 
-    cartProducts().map((p) => {
+    cartProducts().map(p => {
       _subTotal += p.qty * 1 * (p.price * 1);
     });
 
@@ -103,18 +111,21 @@ function Checkout() {
     );
   };
 
-  useEffect(() => {
-    const active = document.getElementById(activeTab);
-    const other = document.querySelectorAll(".check-out-info .tab");
+  useEffect(
+    () => {
+      const active = document.getElementById(activeTab);
+      const other = document.querySelectorAll(".check-out-info .tab");
 
-    other.forEach((n) => {
-      n.style.color = "white";
-    });
+      other.forEach(n => {
+        n.style.color = "white";
+      });
 
-    if (active !== null) {
-      active.style.color = "cornflowerblue";
-    }
-  }, [activeTab]);
+      if (active !== null) {
+        active.style.color = "cornflowerblue";
+      }
+    },
+    [activeTab]
+  );
 
   if (submit) {
     setTimeout(() => {
@@ -125,8 +136,9 @@ function Checkout() {
 
   return (
     <div className="check-out">
-      <div className="c-left"></div>
-      <div className="c-right"></div>
+      <ErrorToast trigger={isError} setTrigger={setIsError} error={error} />
+      <div className="c-left" />
+      <div className="c-right" />
 
       <div className="check-out-cont">
         <div className="max-width c-o-c">
@@ -140,7 +152,9 @@ function Checkout() {
               <div className="tab" onClick={() => navigate("/cart")}>
                 Cart
               </div>
-              <div>{">"}</div>
+              <div>
+                {">"}
+              </div>
               <div
                 className="tab"
                 id="information"
@@ -152,7 +166,9 @@ function Checkout() {
               >
                 Information
               </div>
-              <div>{">"}</div>
+              <div>
+                {">"}
+              </div>
               <div className="tab" id="payment">
                 Payment
               </div>
@@ -160,7 +176,7 @@ function Checkout() {
 
             {switchTabs()}
 
-            {activeTab === "payment" && (
+            {activeTab === "payment" &&
               <div className="buttons">
                 <button
                   className="returnBtn"
@@ -171,27 +187,30 @@ function Checkout() {
                 <button className="submitBtn" onClick={checkout}>
                   {loading ? <BeatLoader color="white" /> : "Complete order"}
                 </button>
-              </div>
-            )}
+              </div>}
           </div>
 
           <div className="check-out-cart">
             <div className="items">
-              {cartProducts().map((product) => (
+              {cartProducts().map(product =>
                 <div className="item" key={product._id}>
                   <div className="col">
                     <div className="image">
                       <img src={product.images[0]} alt="" />
-                      <p>{product.qty}</p>
+                      <p>
+                        {product.qty}
+                      </p>
                     </div>
-                    <p className="bold">{product.title}</p>
+                    <p className="bold">
+                      {product.title}
+                    </p>
                   </div>
                   <p className="bold">
                     N$
                     {toCurrency(product.price)}
                   </p>
                 </div>
-              ))}
+              )}
             </div>
 
             <div className="pricing">
@@ -205,12 +224,16 @@ function Checkout() {
 
               <div className="price-cat">
                 <p>Shipping</p>
-                <p className="bold">N${toCurrency(shipping)}</p>
+                <p className="bold">
+                  N${toCurrency(shipping)}
+                </p>
               </div>
 
               <div className="total">
                 <p>Total</p>
-                <p id="total">N$ {toCurrency(getSubtotal() + shipping)}</p>
+                <p id="total">
+                  N$ {toCurrency(getSubtotal() + shipping)}
+                </p>
               </div>
             </div>
           </div>

@@ -2,15 +2,23 @@ import React, { useEffect, useState } from "react";
 import "./orders.css";
 import axios from "axios";
 import { url } from "../../App";
+import { ErrorToast } from "../../components";
 
 function Orders() {
   const [orders, setOrders] = useState([]);
+  const [error, setError] = useState("");
+  const [isError, setIsError] = useState(false);
 
   const getOrders = async () => {
-    await axios.get(url + "/orders").then((res) => {
-      //
-      setOrders(res.data.reverse());
-    });
+    try {
+      await axios.get(url + "/orders").then((res) => {
+        //
+        setOrders(res.data.reverse());
+      });
+    } catch (error) {
+        setIsError(true);
+        setError("Something went wrong!");
+    }
   };
 
   const getFormatedDate = (date) => {
@@ -28,6 +36,7 @@ function Orders() {
   return (
     <div className="orders a-page">
       <div className="orders-cont cont">
+      <ErrorToast trigger={isError} setTrigger={setIsError} error={error} />
         <h1>Orders</h1>
 
         <table id="main-t">

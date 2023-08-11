@@ -5,6 +5,7 @@ import { Rating } from "react-simple-star-rating";
 import { appContext, url } from "../../App";
 import Loader from "../../admin/products/loader/loader";
 import { BeatLoader } from "react-spinners";
+import ErrorToast from "../errorToast/errorToast";
 
 function Reviews({ item }) {
   const { refleshCtx } = useContext(appContext);
@@ -14,6 +15,8 @@ function Reviews({ item }) {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const form = document.getElementById("reviewForm");
+  const [error, setError] = useState("");
+  const [isError, setIsError] = useState(false);
 
   const handleRating = (rate) => {
     setRating(rate);
@@ -23,45 +26,53 @@ function Reviews({ item }) {
     ev.preventDefault();
     setLoading(true);
 
-    await axios
-      .put(url + "/products/review", {
-        id: item._id,
-        reviews: item.reviews
-          ? [
-              ...item.reviews,
-              {
-                rating: rating,
-                name: ev.target.name.value,
-                review: ev.target.review.value,
-              },
-            ]
-          : [
-              {
-                rating: rating,
-                name: ev.target.name.value,
-                review: ev.target.review.value,
-              },
-            ],
-      })
-      .then((res) => {
-        if (form !== null) {
-          form.reset();
-          setRating(0);
-        }
+    try {
+      await axios
+        .put(url + "/products/review", {
+          id: item._id,
+          reviews: item.reviews
+            ? [
+                ...item.reviews,
+                {
+                  rating: rating,
+                  name: ev.target.name.value,
+                  review: ev.target.review.value,
+                },
+              ]
+            : [
+                {
+                  rating: rating,
+                  name: ev.target.name.value,
+                  review: ev.target.review.value,
+                },
+              ],
+        })
+        .then((res) => {
+          if (form !== null) {
+            form.reset();
+            setRating(0);
+          }
+  
+          setLoading(false);
+          setMessage("Review submitted");
+          setReflesh(reflesh + 1);
+  
+          setTimeout(() => {
+            setMessage("");
+          }, 1500);
+        });
+    } catch (error) {
+      setLoading(false);
+        setIsError(true);
+        setError("Something went wrong!");
+    }
 
-        setLoading(false);
-        setMessage("Review submitted");
-        setReflesh(reflesh + 1);
-
-        setTimeout(() => {
-          setMessage("");
-        }, 1500);
-      });
   };
 
   return (
     <div className="reviews">
       <div className="reviews-list">
+      <ErrorToast trigger={isError} setTrigger={setIsError} error={error} />
         <h3>Reviews ({item.reviews ? item?.reviews.length : 0})</h3>
         <div className="revws">
           {item.reviews &&

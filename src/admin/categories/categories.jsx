@@ -3,6 +3,7 @@ import "./categories.css";
 import IonIcon from "@reacticons/ionicons";
 import axios from "axios";
 import { appContext, url } from "../../App";
+import { ErrorToast } from "../../components";
 
 function Categories() {
   const { categories, refleshCtx, userId } = useContext(appContext);
@@ -11,6 +12,8 @@ function Categories() {
   const [properties, setProperties] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
+  const [error, setError] = useState("");
+  const [isError, setIsError] = useState(false);
 
   const [catNameEditData, setCatNameEditData] = useState("");
   const [catParentEditData, setCatParentEditData] = useState("");
@@ -64,13 +67,23 @@ function Categories() {
     };
 
     if (isEdit) {
-      await axios.put(url + "/categories/update", {
-        ...data,
-        id: catEditData._id,
-        userId
-      });
+      try {
+        await axios.put(url + "/categories/update", {
+          ...data,
+          id: catEditData._id,
+          userId
+        });
+      } catch (error) {
+        setIsError(true);
+        setError("Something went wrong!");
+      }
     } else {
-      await axios.post(url + "/categories/upload", {...data, userId});
+      try {
+        await axios.post(url + "/categories/upload", {...data, userId});
+      } catch (error) {
+        setIsError(true);
+        setError("Something went wrong!");
+      }
     }
 
     setCatNameEditData("");
@@ -82,14 +95,19 @@ function Categories() {
   };
 
   const deleteCategory = async () => {
-    await axios
-      .delete(url + "/categories/delete", {
-        data: { id: catDeleteData._id, userId },
-      })
-      .then(() => {
-        setReflesh(reflesh + 1);
-        setIsDelete(false);
-      });
+    try {
+      await axios
+        .delete(url + "/categories/delete", {
+          data: { id: catDeleteData._id, userId },
+        })
+        .then(() => {
+          setReflesh(reflesh + 1);
+          setIsDelete(false);
+        });
+    } catch (error) {
+      setIsError(true);
+      setError("Something went wrong!");
+    }
   };
 
   const getParentName = (id) => {
@@ -121,6 +139,7 @@ function Categories() {
   return (
     <div className="categories a-page">
       <div className="cat-cont cont">
+      <ErrorToast trigger={isError} setTrigger={setIsError} error={error} />
         <h1>Categories</h1>
 
         <div className="cat-fields">

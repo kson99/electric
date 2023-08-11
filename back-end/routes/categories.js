@@ -31,6 +31,8 @@ router.post("/upload", async (req, res) => {
     } catch (error) {
       console.log(err);
     }
+  } else {
+    res.sendStatus(401);
   }
 });
 
@@ -49,6 +51,8 @@ router.put("/update", async (req, res) => {
     } catch (error) {
       console.log(error);
     }
+  } else {
+    res.sendStatus(401);
   }
 });
 
@@ -67,6 +71,8 @@ router.delete("/delete", async (req, res) => {
     } catch (error) {
       console.log(error);
     }
+  } else {
+    res.sendStatus(401);
   }
 });
 

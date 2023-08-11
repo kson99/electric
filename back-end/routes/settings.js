@@ -40,6 +40,8 @@ router.put("/update", async (req, res) => {
     } catch (error) {
       console.log(error);
     }
+  } else {
+    res.sendStatus(401);
   }
 });
 

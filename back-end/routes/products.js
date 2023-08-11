@@ -49,9 +49,6 @@ router.post("/upload", async (req, res) => {
       console.log(error);
     }
   } else {
-    console.log("Invalid user");
-    console.log("userId: ", userId);
-    console.log("userUID: ", process.env.USER_UID);
     res.sendStatus(401);
   }
 });
@@ -90,6 +87,8 @@ router.put("/update", async (req, res) => {
     } catch (error) {
       console.log(error);
     }
+  } else {
+    res.sendStatus(401);
   }
 });
 
@@ -128,6 +127,8 @@ router.delete("/delete", async (req, res) => {
     } catch (error) {
       console.log(error);
     }
+  } else {
+    res.sendStatus(401);
   }
 });
 

@@ -3,10 +3,13 @@ import "./checked-out.css";
 import axios from "axios";
 import { url } from "../../App";
 import BeatLoader from "react-spinners/BeatLoader";
+import { ErrorToast } from "../../components";
 
 function CheckedOut() {
   const [isLoading, setIsLoading] = useState(true);
   const [status, setStatus] = useState("");
+  const [error, setError] = useState("");
+  const [isError, setIsError] = useState(false);
 
   const getPaymentStatus = async () => {
     const fields = JSON.parse(localStorage.getItem("query"));
@@ -15,16 +18,25 @@ function CheckedOut() {
     console.log(order);
     const resData = {};
 
-    await axios.post(url + "/payments/status", fields).then((res) => {
-      let resArray = res.data.split("&");
-
-      resArray.forEach((field) => {
-        let [key, value] = field.split("=");
-        resData[key] = value;
+    try {
+      
+      await axios.post(url + "/payments/status", fields).then((res) => {
+        let resArray = res.data.split("&");
+  
+        resArray.forEach((field) => {
+          let [key, value] = field.split("=");
+          resData[key] = value;
+        });
+  
+        setIsLoading(false);
       });
-
+    } catch (error) {
       setIsLoading(false);
-    });
+        setIsError(true);
+        setError("Something went wrong!");
+      
+    }
+
 
     switch (resData?.TRANSACTION_STATUS) {
       case "0":
@@ -35,7 +47,12 @@ function CheckedOut() {
       case "1":
         // Transaction approved
         setStatus("Your payment has been approved!");
-        await axios.post(url + "/orders/upload", order);
+        try {
+          await axios.post(url + "/orders/upload", order);
+        } catch (error) {
+        setIsError(true);
+        setError("Something went wrong!");
+        }
 
         localStorage.removeItem("cart");
         localStorage.removeItem("query");
@@ -76,6 +93,7 @@ function CheckedOut() {
   }, []);
   return (
     <div className="checked-out">
+      <ErrorToast trigger={isError} setTrigger={setIsError} error={error} />
       <div className="max-width">
         <div className="checked-out-cont">
           <p id="header">Payment Status:</p>
