@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import IonIcon from "@reacticons/ionicons";
 import { ReactSortable } from "react-sortablejs";
 import axios from "axios";
-import { appContext, url } from "../../../App";
+import { appContext, url } from "../../../grobal/context";
 import { ErrorToast } from "../../../components";
 import Loader from "../loader/loader";
 
@@ -35,6 +35,7 @@ function EditProduct() {
         category: ev.target.category.value,
         properties,
         images: [...images],
+        imagesId: state.imagesId,
         userId
       };
 

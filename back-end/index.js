@@ -31,8 +31,7 @@ const settingsRoute = require("./routes/settings");
 const app = express();
 
 app.use(cors());
-// app.use(express.json());
-app.use(bodyParser.json({ limit: "500kb" }));
+app.use(bodyParser.json({ limit: "10000kb" }));
 
 app.use("/products", productsRoute);
 app.use("/categories", categoriesRoute);

@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./cart-card.css";
 import IonIcon from "@reacticons/ionicons";
-import { appContext } from "../../../App";
 import { toCurrency } from "../../../utils";
+import { appContext } from "../../../grobal/context";
 
 function CartCard({ item, setSubtotal, setProducts }) {
   const { cartCtx } = useContext(appContext);

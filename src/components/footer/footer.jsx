@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import "./footer.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import IonIcon from "@reacticons/ionicons";
-import { appContext } from "../../App";
+import { appContext } from "../../grobal/context";
 
 function Footer() {
   const { categories, dataLoading } = useContext(appContext);

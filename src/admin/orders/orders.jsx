@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./orders.css";
 import axios from "axios";
-import { url } from "../../App";
 import { ErrorToast } from "../../components";
+import { url } from "../../grobal/context";
 
 function Orders() {
   const [orders, setOrders] = useState([]);

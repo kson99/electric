@@ -6,7 +6,7 @@ import { useRef } from "react";
 import IonIcon from "@reacticons/ionicons";
 import Payment from "./payment/payment";
 import Information from "./information/information";
-import { appContext, url } from "../../App";
+import { appContext, url } from "../../grobal/context";
 import { toCurrency } from "../../utils";
 import { BeatLoader } from "react-spinners";
 import { ErrorToast } from "../../components";

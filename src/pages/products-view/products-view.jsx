@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import "./products-view.css";
 import { useLocation } from "react-router-dom";
-import { appContext } from "../../App";
+import { appContext } from "../../grobal/context";
 import { NewItemCard } from "../../components";
 import { BeatLoader } from "react-spinners";
 

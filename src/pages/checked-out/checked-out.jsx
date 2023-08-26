@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./checked-out.css";
 import axios from "axios";
-import { url } from "../../App";
 import BeatLoader from "react-spinners/BeatLoader";
 import { ErrorToast } from "../../components";
+import { url } from "../../grobal/context";
 
 function CheckedOut() {
   const [isLoading, setIsLoading] = useState(true);

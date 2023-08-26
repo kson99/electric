@@ -1,24 +1,27 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import "./item-view.css";
 import { Rating } from "react-simple-star-rating";
 import IonIcon from "@reacticons/ionicons";
 import { RelatedCard, Reviews, Shipping } from "../../components";
-import { appContext } from "../../App";
 import { toCurrency } from "../../utils";
+import { appContext } from "../../grobal/context";
 
 function ItemView() {
   const { categories, products, cartCtx, wishlistCtx } = useContext(appContext);
   const { setCartProducts, setOpenCart } = cartCtx;
   const [wishlist, setWishlist] = wishlistCtx;
 
-  const { state, pathname } = useLocation();
-  const item = products.find(({ _id }) => _id === state?.item?._id) || state?.item;
+  const { pathname } = useLocation();
+  const { id } = useParams();
+
+  const item = products.find(({ _id }) => _id === id);
+  const images = item ? item.images : [];
 
   const [selectedTab, setselectedTab] = useState("description");
   const [quantity, setQuantity] = useState(1);
   const tabs = ["description", "shipping & returns", "reviews"];
-  const [image, setImage] = useState(item?.images[0] || "");
+  const [image, setImage] = useState(images[0]);
   const [activeImage, setActiveImage] = useState("img0");
 
   const getRelatedItems = () => {
@@ -46,14 +49,14 @@ function ItemView() {
   };
 
   const addToWishList = () => {
-    setWishlist(prev => {
+    setWishlist((prev) => {
       let array = [...prev];
       array.indexOf(item._id) === -1 && array.push(item._id);
 
       localStorage.setItem("wishlist", JSON.stringify(array));
       return array;
     });
-  }
+  };
 
   const isInWishlist = () => {
     let is = false;
@@ -93,7 +96,7 @@ function ItemView() {
   const tabSwitch = () => {
     switch (selectedTab) {
       case "description":
-        return <p>{item.description}</p>;
+        return <p>{item?.description}</p>;
         break;
 
       case "shipping & returns":
@@ -125,7 +128,7 @@ function ItemView() {
   };
 
   const resetStates = () => {
-    setImage(item.images[0]);
+    setImage(images[0]);
     setActiveImage("img0");
     setQuantity(1);
     setselectedTab("description");
@@ -141,7 +144,7 @@ function ItemView() {
     let total = 0;
     let rating = 0;
 
-    if (item.reviews) {
+    if (item?.reviews) {
       item?.reviews.forEach((review) => {
         array.push(review.rating);
         total += review.rating * 1;
@@ -177,8 +180,12 @@ function ItemView() {
     resetStates();
   }, [pathname]);
 
+  useEffect(() => {
+    setImage(images[0]);
+  }, [item]);
+
   let catProperties = [];
-  if (item.category !== "" && categories?.length > 0) {
+  if (item?.category !== "" && categories?.length > 0) {
     const cat = categories.find(({ _id }) => _id === item.category);
     catProperties.push(...cat?.properties);
 
@@ -200,13 +207,13 @@ function ItemView() {
               Products
             </Link>
             <IonIcon name="chevron-forward" className="icon" />
-            <p>{item.title}</p>
+            <p>{item?.title}</p>
           </div>
 
           <div className="basic-details">
             <div className="images">
               <div className="img-nav">
-                {item.images.map((_image, i) => (
+                {images.map((_image, i) => (
                   <img
                     src={_image}
                     key={i}
@@ -223,7 +230,7 @@ function ItemView() {
             </div>
 
             <div className="details">
-              <h2>{item.title}</h2>
+              <h2>{item?.title}</h2>
 
               <div className="rating-rev">
                 <Rating
@@ -234,22 +241,22 @@ function ItemView() {
                   initialValue={getRating()}
                   className="stars"
                 />
-                <p>({item.reviews ? item.reviews.length : 0} reviews)</p>
+                <p>({item?.reviews.length} reviews)</p>
               </div>
 
-              <h1 className="price">N$ {toCurrency(item.price)}</h1>
+              <h1 className="price">N$ {toCurrency(item?.price)}</h1>
 
               {catProperties.length > 0 && (
                 <div className="category">
                   <p>Category: </p>
-                  <b>{getCategoryName(item.category)}</b>
+                  <b>{getCategoryName(item?.category)}</b>
                 </div>
               )}
 
               {catProperties?.map((prop, i) => (
                 <div className="property" key={i}>
                   <p>{prop?.name}:</p>
-                  <b>{item.properties[prop.name]}</b>
+                  <b>{item?.properties[prop.name]}</b>
                 </div>
               ))}
 
@@ -277,13 +284,12 @@ function ItemView() {
                   <p>Add to cart</p>
                 </button>
 
-                {!isInWishlist() && 
-
-                <button id="add-to-wishlist" onClick={addToWishList}>
-                  <IonIcon name="heart-outline" />
-                  <p>Add to Wishlist</p>
-                </button>
-                }
+                {!isInWishlist() && (
+                  <button id="add-to-wishlist" onClick={addToWishList}>
+                    <IonIcon name="heart-outline" />
+                    <p>Add to Wishlist</p>
+                  </button>
+                )}
               </div>
             </div>
           </div>

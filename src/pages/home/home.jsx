@@ -8,8 +8,8 @@ import {
   QuickView
 } from "../../components";
 import { Link } from "react-router-dom";
-import { appContext } from "../../App";
 import IonIcon from "@reacticons/ionicons";
+import { appContext } from "../../grobal/context";
 
 function Home() {
   const { products, dataLoading, settings } = useContext(appContext);

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "./payment.css";
-import { appContext } from "../../../App";
 import { toCurrency } from "../../../utils";
+import { appContext } from "../../../grobal/context";
 
 function Payment() {
   const { settings } = useContext(appContext);

@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./navbar.css";
 import IonIcon from "@reacticons/ionicons";
-import { appContext } from "../../App";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { appContext } from "../../grobal/context";
 
 function Navbar() {
   const { cartCtx, wishlistCtx } = useContext(appContext);

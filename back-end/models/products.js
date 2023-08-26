@@ -31,6 +31,11 @@ const ProductsSchema = new mongoose.Schema({
     },
   ],
 
+  imagesId: {
+    type: String,
+    required: true
+  },
+
   updatedAt: {
     type: Number,
   },

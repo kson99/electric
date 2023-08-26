@@ -58,8 +58,9 @@
 }
 
 .products-view .pv-products {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
   column-gap: 30px;
   row-gap: 90px;
   padding-top: 30px;

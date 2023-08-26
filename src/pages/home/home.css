@@ -15,10 +15,11 @@
 }
 
 .home .new-i {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
 	padding: 30px 0;
-	column-gap: 20px;
+	column-gap: 40px;
 	row-gap: 80px;
 }
 
@@ -47,10 +48,11 @@
 }
 
 .home .all-items .more-items {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
 	padding: 30px 0;
-	column-gap: 20px;
+	column-gap: 40px;
 	row-gap: 100px;
 }
 

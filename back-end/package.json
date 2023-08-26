@@ -20,6 +20,7 @@
     "firebase-admin": "^11.10.1",
     "mongodb": "^5.7.0",
     "mongoose": "^7.3.2",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "uuid-v4": "^0.1.0"
   }
 }

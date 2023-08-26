@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import "./wishlist.css";
-import { appContext } from "../../App";
 import { toCurrency } from "../../utils";
 import IonIcon from "@reacticons/ionicons";
 import { Link } from "react-router-dom";
+import { appContext } from "../../grobal/context";
 
 function Wishlist() {
 	const { products, wishlistCtx, cartCtx } = useContext(appContext);

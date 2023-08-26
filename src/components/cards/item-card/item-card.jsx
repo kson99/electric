@@ -4,9 +4,8 @@ import { Rating } from "react-simple-star-rating";
 import "./item-card.css";
 import { useNavigate } from "react-router-dom";
 import IconWithTooltip from "../../tooltip/tooltip";
-import { appContext } from "../../../App";
 import { toCurrency } from "../../../utils";
-import QuickView from "../../quick-views/quick-view";
+import { appContext } from "../../../grobal/context";
 
 function ItemCard({ item }) {
   const { categories, cartCtx } = useContext(appContext);
@@ -57,15 +56,7 @@ function ItemCard({ item }) {
     <div
       className="new-item-card"
       onClick={() => {
-        navigate(
-          `/${item.title
-            .replaceAll(" ", "-")
-            .replaceAll(".", ",")
-            .replaceAll("/", "OR")}`,
-          {
-            state: { item },
-          }
-        );
+        navigate(`/products/${item._id}`);
       }}
     >
       <img src={item?.images[0]} alt="camera" />
@@ -88,10 +79,20 @@ function ItemCard({ item }) {
 
         <div className="item-buttons">
           <div id="add-to-wishlist">
-            <IconWithTooltip name="heart-outline" text="Add to Wishlist" className='icon' item={item}/>
+            <IconWithTooltip
+              name="heart-outline"
+              text="Add to Wishlist"
+              className="icon"
+              item={item}
+            />
           </div>
           <div id="quick-view">
-            <IconWithTooltip name="eye-outline" text="Quick View" className='icon' item={item} />
+            <IconWithTooltip
+              name="eye-outline"
+              text="Quick View"
+              className="icon"
+              item={item}
+            />
           </div>
         </div>
       </div>

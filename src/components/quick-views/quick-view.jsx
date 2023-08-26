@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./quick-view.css";
 import IonIcon from "@reacticons/ionicons";
-import { appContext } from "../../App";
 import { Rating } from "react-simple-star-rating";
 import { toCurrency } from "../../utils";
+import { appContext } from "../../grobal/context";
 
 function QuickView() {
   const { categories, quickViewCtx, cartCtx, wishlistCtx} = useContext(appContext);

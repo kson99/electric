@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./table-row.css";
 import { toCurrency } from "../../../../utils";
 import IonIcon from "@reacticons/ionicons";
-import { appContext } from "../../../../App";
+import { appContext } from "../../../../grobal/context";
 
 function CartTableRow({ item, setSubtotal, setProducts }) {
   const { cartCtx } = useContext(appContext);

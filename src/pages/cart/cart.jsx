@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import "./cart.css";
 import { useNavigate } from "react-router-dom";
-import { appContext } from "../../App";
+import { appContext } from "../../grobal/context";
 import { toCurrency } from "../../utils";
 import IonIcon from "@reacticons/ionicons";
 import { CartTableRow } from "../../components";

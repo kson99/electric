@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import "./settings.css";
-import { appContext, url } from "../../App";
+import { appContext, url } from "../../grobal/context";
 import axios from "axios";
 import Loader from "../products/loader/loader";
 import { ErrorToast } from "../../components";

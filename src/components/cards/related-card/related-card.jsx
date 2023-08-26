@@ -4,8 +4,8 @@ import { Rating } from "react-simple-star-rating";
 import "./related-card.css";
 import { useNavigate } from "react-router-dom";
 import IconWithTooltip from "../../tooltip/tooltip";
-import { appContext } from "../../../App";
 import { toCurrency } from "../../../utils";
+import { appContext } from "../../../grobal/context";
 
 function RelatedCard({ item }) {
   const { cartCtx } = useContext(appContext);
@@ -51,12 +51,7 @@ function RelatedCard({ item }) {
     <div
       className="related-card"
       onClick={() => {
-        navigate(`/${item.title
-          .replaceAll(" ", "-")
-          .replaceAll(".", ",")
-          .replaceAll("/", "OR")}`, {
-          state: { item },
-        });
+        navigate(`/products/${item._id}`);
       }}
     >
       <img src={item.images[0]} alt="camera" />
@@ -77,7 +72,12 @@ function RelatedCard({ item }) {
         </div>
 
         <div className="item-buttons">
-          <IconWithTooltip name="heart-outline" text="Add to Wishlist" className='icon' item={item}/>
+          <IconWithTooltip
+            name="heart-outline"
+            text="Add to Wishlist"
+            className="icon"
+            item={item}
+          />
         </div>
       </div>
 

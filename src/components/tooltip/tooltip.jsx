@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "./tooltip.css";
 import IonIcon from "@reacticons/ionicons";
-import { appContext } from "../../App";
+import { appContext } from "../../grobal/context";
 
 function IconWithTooltip({ name, text, item }) {
   const { wishlistCtx, quickViewCtx } = useContext(appContext);

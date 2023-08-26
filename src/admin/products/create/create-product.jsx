@@ -4,7 +4,7 @@ import IonIcon from "@reacticons/ionicons";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ReactSortable } from "react-sortablejs";
-import { appContext, url } from "../../../App";
+import { appContext, url } from "../../../grobal/context";
 import { ErrorToast } from "../../../components";
 import Loader from "../loader/loader";
 

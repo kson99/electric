@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import "./mini-nav.css";
 import IonIcon from "@reacticons/ionicons";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { appContext } from "../../../App";
 import Skeleton from "react-loading-skeleton";
+import { appContext } from "../../../grobal/context";
 
 function MiniNav() {
   const { categories, dataLoading } = useContext(appContext);

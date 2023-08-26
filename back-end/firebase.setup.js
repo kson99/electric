@@ -1,22 +1,12 @@
-const {
-  initializeApp,
-  applicationDefault,
-  cert,
-} = require("firebase-admin/app");
-const {
-  getFirestore,
-  Timestamp,
-  FieldValue,
-  Filter,
-} = require("firebase-admin/firestore");
+const admin = require('firebase-admin')
 
-const serviceAccount = require("./elecetric-e-commerse-firebase-adminsdk-4k1sn-fa4f6422bc.json");
+const serviceAccount = require("./elecetric-e-commerse-firebase-adminsdk-4k1sn-33ab47a20c.json");
 
-initializeApp({
-  credential: cert(serviceAccount),
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  storageBucket: 'elecetric-e-commerse.appspot.com'
 });
 
-const db = getFirestore();
-const auth = getAuth;
+const storage = admin.storage().bucket();
 
-module.exports = db;
+module.exports = storage;

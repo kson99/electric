@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import "./featured.css";
-import { appContext } from "../../App";
 import Skeleton from "react-loading-skeleton";
 import { toCurrency } from "../../utils";
 import { useNavigate } from "react-router-dom";
+import { appContext } from "../../grobal/context";
 
 function Featured({ item }) {
   const { dataLoading } = useContext(appContext);
@@ -23,15 +23,7 @@ function Featured({ item }) {
 
             <button
               onClick={() => {
-                navigate(
-                  `/${item.title
-                    .replaceAll(" ", "-")
-                    .replaceAll(".", ",")
-                    .replaceAll("/", "OR")}`,
-                  {
-                    state: { item },
-                  }
-                );
+                navigate(`/products/${item._id}`);
               }}
             >
               NOW AVAILABLE

@@ -3,8 +3,8 @@ import "./product-list-card.css";
 import IonIcon from "@reacticons/ionicons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { appContext, url } from "../../../App";
 import ErrorToast from "../../errorToast/errorToast";
+import { appContext, url } from "../../../grobal/context";
 
 function ProductListCard({ item }) {
   const { refleshCtx, userId } = useContext(appContext);
@@ -22,7 +22,9 @@ function ProductListCard({ item }) {
   const deleteProduct = async (id) => {
     try {
       await axios
-        .delete(url + "/products/delete", { data: { id, userId } })
+        .delete(url + "/products/delete", {
+          data: { id, userId, imagesId: item.imagesId },
+        })
         .then(() => {
           setReflesh(reflesh + 1);
         });

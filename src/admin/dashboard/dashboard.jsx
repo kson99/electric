@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./dashboard.css";
-import { appContext, url } from "../../App";
+import { appContext, url } from "../../grobal/context";
 import axios from "axios";
 import { toCurrency } from "../../utils";
 import { ErrorToast } from "../../components";

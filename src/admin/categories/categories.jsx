@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./categories.css";
 import IonIcon from "@reacticons/ionicons";
 import axios from "axios";
-import { appContext, url } from "../../App";
+import { appContext, url } from "../../grobal/context";
 import { ErrorToast } from "../../components";
 
 function Categories() {

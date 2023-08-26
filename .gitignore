@@ -14,10 +14,8 @@ dist-ssr
 .env
 /back-end/.env
 /back-end/node_modules
-/back-end/elecetric-e-commerse-firebase-adminsdk-4k1sn-fa4f6422bc.json
 back-end/.env
 back-end/node_modules
-back-end/elecetric-e-commerse-firebase-adminsdk-4k1sn-fa4f6422bc.json
 
 # Editor directories and files
 .vscode/*

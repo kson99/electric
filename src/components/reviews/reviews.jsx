@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import "./reviews.css";
 import axios from "axios";
 import { Rating } from "react-simple-star-rating";
-import { appContext, url } from "../../App";
+import { appContext, url } from "../../grobal/context";
 import Loader from "../../admin/products/loader/loader";
 import { BeatLoader } from "react-spinners";
 import ErrorToast from "../errorToast/errorToast";

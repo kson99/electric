@@ -1,5 +1,7 @@
 .item-card-skel {
   height: 392px;
+  min-width: 250px;
+  max-width: 300px;
   border: 1px solid lightgray;
 }
 

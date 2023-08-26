@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import "./cart-popup.css";
-import { appContext } from "../../App";
 import IonIcon from "@reacticons/ionicons";
 import CartCard from "../cards/cart-card/cart-card";
 import { Link, useNavigate } from "react-router-dom";
 import { toCurrency } from "../../utils";
+import { appContext } from "../../grobal/context";
 
 function CartPopup() {
 	const { cartCtx, products } = useContext(appContext);
