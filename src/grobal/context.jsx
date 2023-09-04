@@ -3,8 +3,8 @@ import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 
 export const appContext = createContext();
-// export const url = "https://byzantium-scorpion-cap.cyclic.app";
-export const url = "http://localhost:3001";
+export const url = "https://byzantium-scorpion-cap.cyclic.app";
+// export const url = "http://localhost:3001";
 
 const Context = ({ children, isAdmin, isCheckout, userId }) => {
   const [products, setProducts] = useState([]);
