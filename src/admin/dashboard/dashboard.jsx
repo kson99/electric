@@ -13,7 +13,7 @@ function Dashboard() {
 
   const getOrders = async () => {
     try {
-      await axios.get(url + "/orders").then(res => {
+      await axios.get(url + "/orders").then((res) => {
         //
         setOrders(res.data.reverse());
       });
@@ -27,17 +27,24 @@ function Dashboard() {
     getOrders();
   }, []);
 
-  const getTimedOrders = period => {
+  // getting timed values
+  const getTimedOrders = (period) => {
     let count = 0;
 
-    orders.forEach(order => {
+    orders.forEach((order) => {
       switch (period) {
         case "day":
           let date = order.date.split("T")[0];
           const [year, month, day] = date.split("-");
           const thisDay = new Date().getDate();
+          const thisMonth = new Date().getMonth() + 1;
+          const thisYear = new Date().getFullYear();
 
-          if (day * 1 === thisDay) {
+          if (
+            day * 1 === thisDay &&
+            month * 1 === thisMonth &&
+            year * 1 === thisYear
+          ) {
             count += 1;
           }
 
@@ -45,9 +52,10 @@ function Dashboard() {
         case "month":
           let _date = order.date.split("T")[0];
           const [_year, _month, _day] = _date.split("-");
-          const thisMonth = new Date().getMonth();
+          const _thisMonth = new Date().getMonth();
+          const _thisYear = new Date().getFullYear();
 
-          if (_month * 1 === thisMonth + 1) {
+          if (_month * 1 === _thisMonth + 1 && _year * 1 === _thisYear) {
             count += 1;
           }
           break;
@@ -59,26 +67,34 @@ function Dashboard() {
     return count;
   };
 
-  const getRevenue = period => {
+  // Getting values for each category
+  const getRevenue = (period) => {
     let revenue = 0;
 
-    orders.forEach(order => {
+    orders.forEach((order) => {
       switch (period) {
         case "day":
           let date = order.date.split("T")[0];
           const [year, month, day] = date.split("-");
           const thisDay = new Date().getDate();
+          const thisMonth = new Date().getMonth() + 1;
+          const thisYear = new Date().getFullYear();
 
-          if (day * 1 === thisDay) {
+          if (
+            day * 1 === thisDay &&
+            month * 1 === thisMonth &&
+            year * 1 === thisYear
+          ) {
             revenue += order.amount * 1;
           }
           break;
         case "month":
           let _date = order.date.split("T")[0];
           const [_year, _month, _day] = _date.split("-");
-          const thisMonth = new Date().getMonth();
+          const _thisMonth = new Date().getMonth();
+          const _thisYear = new Date().getFullYear();
 
-          if (_month * 1 === thisMonth + 1) {
+          if (_month * 1 === _thisMonth + 1 && _year * 1 === _thisYear) {
             revenue += order.amount * 1;
           }
           break;
@@ -107,23 +123,17 @@ function Dashboard() {
             <div className="cat">
               <div className="today">
                 <h5 className="time">Today</h5>
-                <p className="count">
-                  {getTimedOrders("day")}
-                </p>
+                <p className="count">{getTimedOrders("day")}</p>
               </div>
 
               <div className="month">
                 <h5 className="time">This Month</h5>
-                <p className="count">
-                  {getTimedOrders("month")}
-                </p>
+                <p className="count">{getTimedOrders("month")}</p>
               </div>
 
               <div className="overall">
                 <h5 className="time">Overall</h5>
-                <p className="count">
-                  {orders.length}
-                </p>
+                <p className="count">{orders.length}</p>
               </div>
             </div>
           </div>
@@ -133,9 +143,7 @@ function Dashboard() {
               <div className="graph" />
               <div className="products-count">
                 <h5 className="title">Products</h5>
-                <p className="count">
-                  {products.length}
-                </p>
+                <p className="count">{products.length}</p>
                 <p className="count-info">Items</p>
               </div>
             </div>
@@ -146,9 +154,7 @@ function Dashboard() {
             <div className="cat">
               <div className="today">
                 <h5 className="time">Today</h5>
-                <p className="balance">
-                  N$ {toCurrency(getRevenue("day"))}
-                </p>
+                <p className="balance">N$ {toCurrency(getRevenue("day"))}</p>
                 <p className="count-info">
                   {getTimedOrders("day")} orders Today
                 </p>
@@ -156,9 +162,7 @@ function Dashboard() {
 
               <div className="month">
                 <h5 className="time">This Month</h5>
-                <p className="balance">
-                  N$ {toCurrency(getRevenue("month"))}
-                </p>
+                <p className="balance">N$ {toCurrency(getRevenue("month"))}</p>
                 <p className="count-info">
                   {getTimedOrders("month")} orders this month
                 </p>
@@ -166,12 +170,8 @@ function Dashboard() {
 
               <div className="overall">
                 <h5 className="time">Overall</h5>
-                <p className="balance">
-                  N$ {toCurrency(getRevenue("all"))}
-                </p>
-                <p className="count-info">
-                  {orders.length} orders overall
-                </p>
+                <p className="balance">N$ {toCurrency(getRevenue("all"))}</p>
+                <p className="count-info">{orders.length} orders overall</p>
               </div>
             </div>
           </div>

@@ -12,15 +12,15 @@ function Navbar() {
   const { pathname } = useLocation();
   const [activeLink, setActiveLink] = useState("");
 
-  const searchSubmit = ev => {
+  const searchSubmit = (ev) => {
     ev.preventDefault();
 
     navigate("/products", {
-      state: { name: "search", searchTxt: ev.target.searchTxt.value }
+      state: { name: "search", searchTxt: ev.target.searchTxt.value },
     });
   };
 
-  const inputChange = ev => {
+  const inputChange = (ev) => {
     const clear = document.getElementById("clear");
     clear.style.opacity = 0;
 
@@ -54,12 +54,9 @@ function Navbar() {
     }
   };
 
-  useEffect(
-    () => {
-      handlePathChange();
-    },
-    [pathname]
-  );
+  useEffect(() => {
+    handlePathChange();
+  }, [pathname]);
 
   return (
     <div className="navbar">
@@ -72,18 +69,20 @@ function Navbar() {
             <IonIcon name="flash" className="icon" />
           </Link>
 
-          <form onSubmit={searchSubmit} className="search">
-            <IonIcon name="search" className="icon" />
-            <input
-              type="text"
-              placeholder="search here..."
-              name="searchTxt"
-              required
-              onChange={inputChange}
-            />
+          <div id="search-container">
+            <form onSubmit={searchSubmit} className="search">
+              <IonIcon name="search" className="icon" />
+              <input
+                type="text"
+                placeholder="search here..."
+                name="searchTxt"
+                required
+                onChange={inputChange}
+              />
 
-            <IonIcon name="close" id="clear" onClick={cleaInput} />
-          </form>
+              <IonIcon name="close" id="clear" onClick={cleaInput} />
+            </form>
+          </div>
 
           <div className="menu">
             <div onClick={() => navigate("/")}>
@@ -100,12 +99,11 @@ function Navbar() {
                 className="icon"
               />
               <p>Wishlist</p>
-              {wishlist.length > 0 &&
+              {wishlist.length > 0 && (
                 <div className="badge">
-                  <b>
-                    {wishlist.length}
-                  </b>
-                </div>}
+                  <b>{wishlist.length}</b>
+                </div>
+              )}
             </div>
 
             <div onClick={() => setOpenCart(true)}>
@@ -114,12 +112,11 @@ function Navbar() {
                 className="icon"
               />
               <p>Cart</p>
-              {cartProducts.length > 0 &&
+              {cartProducts.length > 0 && (
                 <div className="badge">
-                  <b>
-                    {cartProducts.length}
-                  </b>
-                </div>}
+                  <b>{cartProducts.length}</b>
+                </div>
+              )}
             </div>
           </div>
         </div>

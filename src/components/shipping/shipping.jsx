@@ -8,9 +8,15 @@ function Shipping() {
       <br />
       <h2 className="p2">When will you get your order:</h2>
       <br />
-      <div>
-        <p> </p>
-        <table style={{ width: "100%" }}>
+      <div style={{ overflow: "auto" }}>
+        <table
+          style={{
+            width: "100%",
+            minWidth: 806,
+            overflow: "scroll",
+            paddingBottom: 10,
+          }}
+        >
           <tbody>
             <tr>
               <td>
