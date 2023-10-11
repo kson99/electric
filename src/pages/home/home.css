@@ -141,6 +141,11 @@
 @media (max-width: 605px) {
   .home .new-i {
     column-gap: 20px;
-    row-gap: 40px;
+    row-gap: 30px;
+  }
+
+  .home .all-items .more-items {
+    column-gap: 20px;
+    row-gap: 30px;
   }
 }

@@ -13,6 +13,14 @@
   color: grey;
 }
 
+.payment table {
+  border-collapse: collapse;
+}
+
+.payment table tr {
+  border-bottom: 1px dotted lightgray;
+}
+
 .payment .fields h3 {
   color: white;
   margin-bottom: 10px;

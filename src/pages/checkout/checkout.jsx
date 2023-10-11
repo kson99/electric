@@ -178,16 +178,18 @@ function Checkout() {
             {switchTabs()}
 
             {activeTab === "payment" && (
-              <div className="buttons">
-                <button
-                  className="returnBtn"
-                  onClick={() => setActiveTab("information")}
-                >
-                  Return to information
-                </button>
-                <button className="submitBtn" onClick={checkout}>
-                  {loading ? <BeatLoader color="white" /> : "Complete order"}
-                </button>
+              <div id="btns-container">
+                <div className="buttons">
+                  <button
+                    className="returnBtn"
+                    onClick={() => setActiveTab("information")}
+                  >
+                    Return to information
+                  </button>
+                  <button className="submitBtn" onClick={checkout}>
+                    {loading ? <BeatLoader color="white" /> : "Complete order"}
+                  </button>
+                </div>
               </div>
             )}
           </div>

@@ -7,8 +7,6 @@ function Payment({ cartProducts, getSubtotal, shipping }) {
   const { settings } = useContext(appContext);
   const info = JSON.parse(localStorage.getItem("information"));
 
-  console.log(cartProducts);
-
   return (
     <div className="payment">
       <div className="fields">
