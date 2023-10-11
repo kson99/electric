@@ -39,9 +39,9 @@ function Checkout() {
       await axios
         .post(url + "/payments", {
           ...cartData,
-          email: info.contact.email
+          email: info.contact.email,
         })
-        .then(res => {
+        .then((res) => {
           let fields = res.data;
 
           console.log(res.data);
@@ -62,8 +62,8 @@ function Checkout() {
   const cartProducts = () => {
     let array = [];
 
-    Object.keys(cartData).forEach(key => {
-      products.map(p => {
+    Object.keys(cartData).forEach((key) => {
+      products.map((p) => {
         if (p._id === key) {
           array.push({ ...p, qty: cartData[key].quantity });
         }
@@ -76,11 +76,25 @@ function Checkout() {
   const getSubtotal = () => {
     let _subTotal = 0;
 
-    cartProducts().map(p => {
+    cartProducts().map((p) => {
       _subTotal += p.qty * 1 * (p.price * 1);
     });
 
     return _subTotal;
+  };
+
+  const submitForm = () => {
+    return (
+      <form
+        ref={formRef}
+        action="https://secure.paygate.co.za/payweb3/process.trans"
+        method="POST"
+        style={{ display: "none" }}
+      >
+        <input type="hidden" name="PAY_REQUEST_ID" value={payId} />
+        <input type="hidden" name="CHECKSUM" value={checksum} />
+      </form>
+    );
   };
 
   const switchTabs = () => {
@@ -90,7 +104,13 @@ function Checkout() {
         break;
 
       case "payment":
-        return <Payment />;
+        return (
+          <Payment
+            cartProducts={cartProducts()}
+            getSubtotal={getSubtotal()}
+            shipping={shipping}
+          />
+        );
         break;
 
       default:
@@ -98,34 +118,18 @@ function Checkout() {
     }
   };
 
-  const submitForm = () => {
-    return (
-      <form
-        ref={formRef}
-        action="https://secure.paygate.co.za/payweb3/process.trans"
-        method="POST"
-      >
-        <input type="hidden" name="PAY_REQUEST_ID" value={payId} />
-        <input type="hidden" name="CHECKSUM" value={checksum} />
-      </form>
-    );
-  };
+  useEffect(() => {
+    const active = document.getElementById(activeTab);
+    const other = document.querySelectorAll(".check-out-info .tab");
 
-  useEffect(
-    () => {
-      const active = document.getElementById(activeTab);
-      const other = document.querySelectorAll(".check-out-info .tab");
+    other.forEach((n) => {
+      n.style.color = "inherit";
+    });
 
-      other.forEach(n => {
-        n.style.color = "white";
-      });
-
-      if (active !== null) {
-        active.style.color = "cornflowerblue";
-      }
-    },
-    [activeTab]
-  );
+    if (active !== null) {
+      active.style.color = "cornflowerblue";
+    }
+  }, [activeTab]);
 
   if (submit) {
     setTimeout(() => {
@@ -139,6 +143,7 @@ function Checkout() {
       <ErrorToast trigger={isError} setTrigger={setIsError} error={error} />
       <div className="c-left" />
       <div className="c-right" />
+      <div className="header-shadow" />
 
       <div className="check-out-cont">
         <div className="max-width c-o-c">
@@ -152,9 +157,7 @@ function Checkout() {
               <div className="tab" onClick={() => navigate("/cart")}>
                 Cart
               </div>
-              <div>
-                {">"}
-              </div>
+              <div>{">"}</div>
               <div
                 className="tab"
                 id="information"
@@ -166,9 +169,7 @@ function Checkout() {
               >
                 Information
               </div>
-              <div>
-                {">"}
-              </div>
+              <div>{">"}</div>
               <div className="tab" id="payment">
                 Payment
               </div>
@@ -176,7 +177,7 @@ function Checkout() {
 
             {switchTabs()}
 
-            {activeTab === "payment" &&
+            {activeTab === "payment" && (
               <div className="buttons">
                 <button
                   className="returnBtn"
@@ -187,30 +188,27 @@ function Checkout() {
                 <button className="submitBtn" onClick={checkout}>
                   {loading ? <BeatLoader color="white" /> : "Complete order"}
                 </button>
-              </div>}
+              </div>
+            )}
           </div>
 
           <div className="check-out-cart">
             <div className="items">
-              {cartProducts().map(product =>
+              {cartProducts().map((product) => (
                 <div className="item" key={product._id}>
                   <div className="col">
                     <div className="image">
                       <img src={product.images[0]} alt="" />
-                      <p>
-                        {product.qty}
-                      </p>
+                      <p>{product.qty}</p>
                     </div>
-                    <p className="bold">
-                      {product.title}
-                    </p>
+                    <p className="bold">{product.title}</p>
                   </div>
                   <p className="bold">
                     N$
                     {toCurrency(product.price)}
                   </p>
                 </div>
-              )}
+              ))}
             </div>
 
             <div className="pricing">
@@ -224,16 +222,12 @@ function Checkout() {
 
               <div className="price-cat">
                 <p>Shipping</p>
-                <p className="bold">
-                  N${toCurrency(shipping)}
-                </p>
+                <p className="bold">N${toCurrency(shipping)}</p>
               </div>
 
               <div className="total">
                 <p>Total</p>
-                <p id="total">
-                  N$ {toCurrency(getSubtotal() + shipping)}
-                </p>
+                <p id="total">N$ {toCurrency(getSubtotal() + shipping)}</p>
               </div>
             </div>
           </div>

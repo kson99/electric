@@ -3,9 +3,11 @@ import "./payment.css";
 import { toCurrency } from "../../../utils";
 import { appContext } from "../../../grobal/context";
 
-function Payment() {
+function Payment({ cartProducts, getSubtotal, shipping }) {
   const { settings } = useContext(appContext);
   const info = JSON.parse(localStorage.getItem("information"));
+
+  console.log(cartProducts);
 
   return (
     <div className="payment">
@@ -38,6 +40,46 @@ function Payment() {
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <div className="check-out-items">
+        <div className="items">
+          {cartProducts.map((product) => (
+            <div className="item" key={product._id}>
+              <div className="col">
+                <div className="image">
+                  <img src={product.images[0]} alt="" />
+                  <p>{product.qty}</p>
+                </div>
+                <p className="bold">{product.title}</p>
+              </div>
+              <p className="bold">
+                N$
+                {toCurrency(product.price)}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div className="pricing">
+          <div className="price-cat">
+            <p>Subtotal</p>
+            <p className="bold">
+              N$
+              {toCurrency(getSubtotal)}
+            </p>
+          </div>
+
+          <div className="price-cat">
+            <p>Shipping</p>
+            <p className="bold">N${toCurrency(shipping)}</p>
+          </div>
+
+          <div className="total">
+            <p>Total</p>
+            <p id="total">N$ {toCurrency(getSubtotal + shipping)}</p>
+          </div>
+        </div>
       </div>
 
       <div className="payment-type">

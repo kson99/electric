@@ -19,6 +19,13 @@
 
 .item-view .iv-cont .routes .icon {
   margin-top: -3px;
+  flex: none;
+}
+
+.item-view .iv-cont .routes p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .item-view .basic-details {
@@ -153,7 +160,6 @@
   flex-direction: row;
   align-items: center;
   column-gap: 7px;
-  font-size: 18px;
   padding: 15px 20px;
   border: 1px solid red;
   color: red;
@@ -173,6 +179,10 @@
 .item-view #add-to-wishlist {
   width: fit-content;
   padding: 10px 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 7px;
   background-color: transparent;
   color: red;
   border: 1px solid red;
@@ -248,5 +258,16 @@
 @media (max-width: 768px) {
   .item-view .basic-details {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 500px) {
+  .item-view .other-details .tabs {
+    column-gap: 10px;
+  }
+
+  .item-view .tabs .tab {
+    padding: 10px;
+    font-size: 14px;
   }
 }

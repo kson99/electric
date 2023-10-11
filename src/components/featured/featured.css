@@ -1,9 +1,11 @@
 .promo-header {
   width: 100%;
   background: rgba(241, 241, 241, 1);
-  background: conic-gradient(from 180deg,
-      rgba(241, 241, 241, 1),
-      rgba(221, 221, 221, 1));
+  background: conic-gradient(
+    from 180deg,
+    rgba(241, 241, 241, 1),
+    rgba(221, 221, 221, 1)
+  );
 }
 
 .promo-cont {
@@ -33,7 +35,6 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  /* align-items: center; */
   justify-content: center;
   row-gap: 30px;
 }
@@ -45,4 +46,35 @@
 .promo-cont .price {
   /* width: 100%; */
   color: red;
+}
+
+/* ************************************************************************************** */
+
+@media (max-width: 605px) {
+  .promo-header {
+    background: rgba(241, 241, 241, 1);
+  }
+
+  .promo-cont {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .promo-cont .promo-text {
+    row-gap: 20px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .promo-header .promo-img {
+    width: 100%;
+    height: auto;
+    text-align: center;
+  }
+
+  .promo-cont h1 {
+    font-size: 20px;
+  }
 }

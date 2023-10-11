@@ -75,5 +75,17 @@
   color: #252525;
   font-weight: 900;
   font-size: 25px;
-  opacity: .2;
+  opacity: 0.2;
+}
+
+/* ************************************************************************************** */
+
+@media (max-width: 605px) {
+  .products-view .header {
+    font-size: 18px;
+  }
+
+  .products-view .pv-products {
+    row-gap: 30px;
+  }
 }

@@ -2,8 +2,6 @@
   height: 500px;
   display: flex;
   flex-wrap: wrap;
-  /* display: grid; */
-  /* grid-template-columns: .65fr .35fr; */
   column-gap: 20px;
 }
 
@@ -13,7 +11,6 @@
   border-right: 1px solid lightgrey;
   padding-right: 25px;
   overflow: auto;
-  /* background-color: #f1f1f1; */
 }
 
 .reviews .leave-review {
@@ -97,4 +94,33 @@
 .reviews .revws .details p:first-child {
   font-weight: 600;
   text-transform: capitalize;
+}
+
+/* ************************************************************************************** */
+
+@media (max-width: 623px) {
+  .reviews {
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    row-gap: 20px;
+  }
+
+  .reviews .reviews-list {
+    border-right: none;
+    border-bottom: 1px solid lightgrey;
+    padding-bottom: 25px;
+    padding-right: 0;
+    overflow: auto;
+    max-height: 500px;
+  }
+
+  .reviews .buttons button {
+    position: relative;
+  }
+
+  .reviews .buttons p {
+    position: relative;
+  }
 }

@@ -85,7 +85,7 @@ function Navbar() {
           </div>
 
           <div className="menu">
-            <div onClick={() => navigate("/")}>
+            <div onClick={() => navigate("/")} id="home-icon">
               <IonIcon
                 name={activeLink === "home" ? "home" : "home-outline"}
                 className="icon"

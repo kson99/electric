@@ -64,41 +64,53 @@ function MiniNav() {
     <div className="mini-nav">
       <div className="max-width">
         <div className="nav-tabs">
-          <div className="cat-tab" onClick={() => setIsCatBrowse(!isCatBrowse)}>
-            <IonIcon name="menu" className="icon" />
-            <p>Browse Categories</p>
-            <IonIcon name="chevron-down-outline" />
+          <div className="m-n-left">
+            <div
+              className="cat-tab"
+              onClick={() => setIsCatBrowse(!isCatBrowse)}
+            >
+              <IonIcon name="menu" className="icon" />
+              <p>Browse Categories</p>
+              <IonIcon name="chevron-down-outline" />
 
-            {isCatBrowse && (
-              <div className="categories">
-                {dataLoading &&
-                  Array(8)
-                    .fill(0)
-                    .map((_, i) => (
-                      <div className="cat" key={i}>
-                        <Skeleton />
-                      </div>
-                    ))}
+              {isCatBrowse && (
+                <div className="categories">
+                  {dataLoading &&
+                    Array(8)
+                      .fill(0)
+                      .map((_, i) => (
+                        <div className="cat" key={i}>
+                          <Skeleton />
+                        </div>
+                      ))}
+                  {Object.values(getSortCategories()).map((cat) => (
+                    <div
+                      className="cat"
+                      key={cat._id}
+                      onClick={(e) => onDropDownClick(e, cat)}
+                    >
+                      {cat.name}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="nav-links">
+              <Link to="/" id="home">
+                Home
+              </Link>
+              <Link to="/products" state={{ name: "All" }}>
+                All products
+              </Link>
+              <div className="s-d-nav-links">
                 {Object.values(getSortCategories()).map((cat) => (
-                  <div
-                    className="cat"
-                    key={cat._id}
-                    onClick={(e) => onDropDownClick(e, cat)}
-                  >
+                  <div key={cat._id} onClick={(e) => onDropDownClick(e, cat)}>
                     {cat.name}
                   </div>
                 ))}
               </div>
-            )}
-          </div>
-
-          <div className="nav-links">
-            <Link to="/" id="home">
-              Home
-            </Link>
-            <Link to="/products" state={{ name: "All" }}>
-              All products
-            </Link>
+            </div>
           </div>
 
           <Link id="call-us">

@@ -105,6 +105,10 @@
     display: none;
   }
 
+  #home-icon {
+    display: none;
+  }
+
   .navbar .menu div .icon:hover {
     color: white;
   }

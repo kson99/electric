@@ -42,6 +42,7 @@ function App() {
     }
 
     if (pathname.includes("/checkout")) {
+      console.log("ischeckout: ", pathname);
       setIsCheckout(true);
     } else {
       setIsCheckout(false);
@@ -72,7 +73,7 @@ function App() {
 
   return (
     <div className="app">
-      <Context userId={userId} isAdmin={isAdmin} ischeckout={isCheckout}>
+      <Context userId={userId} isAdmin={isAdmin} isCheckout={isCheckout}>
         <SkeletonTheme
           baseColor="#f1f1f1"
           highlightColor="white"

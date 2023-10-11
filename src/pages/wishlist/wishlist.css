@@ -1,5 +1,10 @@
 .wishlist .w-cont {
   padding: 30px 20px;
+  overflow: auto;
+}
+
+.wishlist .w-cont::-webkit-scrollbar {
+  height: 5px;
 }
 
 .wishlist table {
@@ -61,7 +66,7 @@
 
 .wishlist .close .icon {
   cursor: pointer;
-  transition: .3s all;
+  transition: 0.3s all;
 }
 
 .wishlist .close .icon:hover {

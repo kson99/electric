@@ -7,7 +7,13 @@
 
 @font-face {
   font-family: "flex-icon";
-  src: url(//cdn.shopify.com/s/files/1/0402/6885/7505/t/11/assets/flex-icon.ttf?v=141001306366886470981645704911) format("truetype"), url(//cdn.shopify.com/s/files/1/0402/6885/7505/t/11/assets/flex-icon.woff?v=65562972783189949211645704911) format("woff"), url(//cdn.shopify.com/s/files/1/0402/6885/7505/t/11/assets/flex-icon.svg?v=122155750794120575381645704910) format("svg");
+  src:
+    url(//cdn.shopify.com/s/files/1/0402/6885/7505/t/11/assets/flex-icon.ttf?v=141001306366886470981645704911)
+      format("truetype"),
+    url(//cdn.shopify.com/s/files/1/0402/6885/7505/t/11/assets/flex-icon.woff?v=65562972783189949211645704911)
+      format("woff"),
+    url(//cdn.shopify.com/s/files/1/0402/6885/7505/t/11/assets/flex-icon.svg?v=122155750794120575381645704910)
+      format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -49,7 +55,7 @@ a {
 }
 
 section {
-  padding: 20px 10px;
+  padding: 20px 0;
 }
 
 button {
@@ -61,7 +67,7 @@ button {
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
-  transition: .4s all;
+  transition: 0.4s all;
 }
 
 .submitBtn {

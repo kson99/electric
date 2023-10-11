@@ -1,4 +1,5 @@
 import React from "react";
+import "./shipping.css";
 import { shippingPolicy } from "../../assets";
 
 function Shipping() {
@@ -8,15 +9,8 @@ function Shipping() {
       <br />
       <h2 className="p2">When will you get your order:</h2>
       <br />
-      <div style={{ overflow: "auto" }}>
-        <table
-          style={{
-            width: "100%",
-            minWidth: 806,
-            overflow: "scroll",
-            paddingBottom: 10,
-          }}
-        >
+      <div className="container">
+        <table>
           <tbody>
             <tr>
               <td>

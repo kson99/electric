@@ -18,6 +18,98 @@
   margin-bottom: 10px;
 }
 
+.check-out-items {
+  background-color: white;
+  color: #252525;
+  display: none;
+}
+
+.check-out-items .items {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  border-bottom: 1px solid lightgrey;
+  padding-bottom: 20px;
+}
+
+.check-out-items .bold {
+  font-weight: 600;
+}
+
+.check-out-items .item {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 20px;
+}
+
+.check-out-items .item .col {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 20px;
+}
+
+.check-out-items .image {
+  width: 64px;
+  min-width: 64px;
+  height: 64px;
+  position: relative;
+  border-radius: 10px;
+  border: 1px solid lightgrey;
+}
+
+.check-out-items .image img {
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.check-out-items .image p {
+  width: 25px;
+  height: 25px;
+  background-color: grey;
+  color: white;
+  position: absolute;
+  top: -10px;
+  right: -15px;
+  font-size: 11px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.check-out-items .pricing {
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+
+.check-out-items .pricing .price-cat,
+.check-out-items .pricing .total {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.check-out-items .price-cat:nth-child(2) {
+  padding-bottom: 20px;
+  border-bottom: 1px solid lightgray;
+}
+
+.check-out-items #total {
+  font-weight: 500;
+  font-size: 22px;
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 15px;
+}
+
 .payment .payment-type {
   display: flex;
   flex-direction: column;
@@ -77,6 +169,34 @@
   margin-top: 10px;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
-  /* padding: 0 10px; */
+  column-gap: 10px;
+  row-gap: 20px;
+}
+
+/* ******************************************************************************************************** */
+
+@media (max-width: 850px) {
+  .check-out-items {
+    display: block;
+  }
+
+  .payment .fields {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    color: #252525;
+  }
+
+  .payment .fields h3,
+  .payment .payment-type {
+    color: #252525;
+  }
+
+  .payment .fields .field td:last-child {
+    color: #252525;
+  }
 }

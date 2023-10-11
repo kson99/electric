@@ -1,0 +1,14 @@
+.shipping-returns .container {
+  overflow: auto;
+}
+
+.shipping-returns .container::-webkit-scrollbar {
+  height: 5px;
+}
+
+.shipping-returns table {
+  width: 100%;
+  min-width: 806px;
+  overflow: scroll;
+  padding-bottom: 10px;
+}
