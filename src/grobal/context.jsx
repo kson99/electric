@@ -3,7 +3,7 @@ import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 
 export const appContext = createContext();
-export const url = "https://projectsmegaserver.onrender.com/electric";
+export const url = "https://serve-data.online/electric";
 // export const url = "https://perfect-cuff-links-lamb.cyclic.cloud/electric";
 // export const url = "http://localhost:3001/electric";
 
